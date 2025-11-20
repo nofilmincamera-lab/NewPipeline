@@ -1,0 +1,45 @@
+# Tier 1 Basic Scraper Configuration
+
+# General Settings
+log_level: INFO
+output_dir: /app/data
+
+# Scraping Strategy
+proxy_strategy: intelligent  # never, always, intelligent
+rate_limit: 5  # requests per second per domain
+max_retries: 3
+retry_delays: [5, 15, 45]  # seconds
+
+# Timeouts
+timeout: 30
+connect_timeout: 10
+read_timeout: 30
+
+# Content Limits
+max_content_size: 10485760  # 10MB
+max_redirects: 5
+
+# Apify Configuration
+apify_proxy_host: proxy.apify.com
+apify_proxy_port: 8000
+apify_proxy_groups: RESIDENTIAL
+apify_proxy_countries: ['US']
+apify_residential_cost_per_gb: 0.50
+
+# Database Configuration
+storage:
+  db_host: postgres
+  db_name: bpo_intelligence
+  db_user: bpo_user
+
+# Redis Configuration
+redis:
+  host: redis-scraper
+  port: 6379
+  max_connections: 100
+
+# Respect robots.txt
+respect_robots_txt: true
+
+# Monitoring
+enable_metrics: true

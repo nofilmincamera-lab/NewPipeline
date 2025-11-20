@@ -1,0 +1,233 @@
+version: '3.8'
+
+services:
+  # ============================================================================
+  # PostgreSQL Database
+  # ============================================================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: bpo-postgres
+    hostname: postgres
+    environment:
+      POSTGRES_DB: bpo_intelligence
+      POSTGRES_USER: bpo_user
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    volumes:
+      - ../data/postgres:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
+    networks:
+      - bpo-network
+    secrets:
+      - postgres_password
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bpo_user -d bpo_intelligence"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 2G
+
+  # ============================================================================
+  # Redis Cache
+  # ============================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: bpo-redis
+    hostname: redis-scraper
+    command: >
+      redis-server
+      --appendonly yes
+      --maxmemory 4gb
+      --maxmemory-policy allkeys-lru
+      --save 300 10
+      --tcp-backlog 511
+      --timeout 0
+      --tcp-keepalive 300
+      --maxclients 10000
+    volumes:
+      - ../data/redis:/data
+    networks:
+      - bpo-network
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 8G
+        reservations:
+          cpus: '0.5'
+          memory: 4G
+
+  # ============================================================================
+  # Prefect Server (Workflow Orchestration)
+  # ============================================================================
+  prefect-server:
+    image: prefecthq/prefect:3.1.9-python3.11
+    container_name: bpo-prefect-server
+    hostname: prefect-server
+    command: prefect server start --host 0.0.0.0
+    environment:
+      PREFECT_SERVER_API_HOST: 0.0.0.0
+      PREFECT_API_DATABASE_CONNECTION_URL: postgresql+asyncpg://bpo_user:${POSTGRES_PASSWORD}@postgres:5432/bpo_intelligence
+      PREFECT_API_URL: http://0.0.0.0:4200/api
+    volumes:
+      - ../data/prefect:/root/.prefect
+    networks:
+      - bpo-network
+    ports:
+      - "4200:4200"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+
+  # ============================================================================
+  # Scraper Core Application
+  # ============================================================================
+  scraper-core:
+    build:
+      context: .
+      dockerfile: docker/scraper-core/Dockerfile
+    container_name: bpo-scraper-core
+    hostname: scraper-core
+    environment:
+      # Database
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: bpo_intelligence
+      POSTGRES_USER: bpo_user
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+
+      # Redis
+      REDIS_HOST: redis-scraper
+      REDIS_PORT: 6379
+
+      # Prefect
+      PREFECT_API_URL: http://prefect-server:4200/api
+
+      # Apify
+      APIFY_PROXY_PASSWORD_FILE: /run/secrets/apify_proxy_password
+
+      # Scraper settings
+      LOG_LEVEL: INFO
+      RATE_LIMIT: 5
+      MAX_CONCURRENT: 10
+      OUTPUT_DIR: /app/data
+    volumes:
+      # Source code (read-only)
+      - ./src:/app/src:ro
+      - ./config:/app/config:ro
+
+      # Data output (read-write)
+      - ../data/scraped:/app/data:rw
+
+      # Logs
+      - ../data/logs:/app/logs:rw
+    networks:
+      - bpo-network
+    secrets:
+      - postgres_password
+      - apify_proxy_password
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      prefect-server:
+        condition: service_started
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 16G
+        reservations:
+          cpus: '2'
+          memory: 8G
+
+  # ============================================================================
+  # Playwright Browser Pool
+  # ============================================================================
+  playwright-pool:
+    build:
+      context: .
+      dockerfile: docker/playwright/Dockerfile
+    hostname: playwright-pool
+    environment:
+      PLAYWRIGHT_BROWSERS_PATH: /ms-playwright
+    volumes:
+      - playwright-browsers:/ms-playwright:rw
+    networks:
+      - bpo-network
+    shm_size: 4gb
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      # Start with 2 replicas, can scale later
+      replicas: 2
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 6G
+        reservations:
+          cpus: '1'
+          memory: 4G
+
+# ==============================================================================
+# Networks
+# ==============================================================================
+networks:
+  bpo-network:
+    driver: bridge
+    name: bpo-network
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+# ==============================================================================
+# Volumes
+# ==============================================================================
+volumes:
+  playwright-browsers:
+    name: playwright-browsers
+
+# ==============================================================================
+# Secrets
+# ==============================================================================
+secrets:
+  postgres_password:
+    file: ../ops/secrets/postgres_password.txt
+  apify_proxy_password:
+    file: ../ops/secrets/apify_proxy_password.txt
