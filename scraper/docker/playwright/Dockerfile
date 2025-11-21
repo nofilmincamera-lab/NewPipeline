@@ -40,4 +40,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
     CMD curl -f http://localhost:3000/health || exit 1
 
 # Start FastAPI service
-CMD ["uvicorn", "service:app", "--host", "0.0.0.0", "--port", "3000", "--workers", "2"]
+CMD ["uvicorn", "service:app", "--host", "0.0.0.0", "--port", "3000", "--workers", "4"]

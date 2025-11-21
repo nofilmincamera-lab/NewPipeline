@@ -13,12 +13,14 @@ import asyncpg
 from curl_cffi import requests
 from loguru import logger
 from bs4 import BeautifulSoup
+import html2text
 
 from .base import BaseScraper
 from .file_scraper import FileScraper
 from ..parsers.link_extractor import LinkExtractor
 from ..parsers.boilerplate_detector import BoilerplateDetector
 from ..notifications.domain_notifier import DomainNotifier
+from ..utils.auto_create_organization import auto_create_organization_from_domain
 
 
 class DomainCrawler(BaseScraper):
@@ -238,14 +240,21 @@ class DomainCrawler(BaseScraper):
             # Log content info
             logger.debug(f"Fetched {url}: {len(html_content)} bytes, status {fetch_result.get('status_code')}")
             
-            # Extract main content
+            # Extract main content (both HTML and text versions)
+            main_content_html = None
+            main_content = None
+            
             # If browser was used, we may have text_content already extracted
             if fetch_result.get('browser_used') and fetch_result.get('text_content'):
                 # Use the text content from browser (already includes shadow DOM and iframes)
                 main_content = fetch_result['text_content']
+                # For markdown, we can use the full HTML and clean it
+                main_content_html = self.boilerplate_detector.remove_boilerplate(html_content)
                 logger.debug(f"Using browser-extracted text content ({len(main_content)} chars)")
             else:
-                # Use standard extraction
+                # Use standard extraction - get cleaned HTML first
+                main_content_html = self.boilerplate_detector.remove_boilerplate(html_content)
+                # Then extract text
                 main_content = self.boilerplate_detector.extract_main_content(html_content)
             
             # Check for boilerplate (log but don't skip)
@@ -256,7 +265,7 @@ class DomainCrawler(BaseScraper):
                     logger.info(f"Low content ratio ({content_ratio:.2%}): {url} - may need browser rendering")
             
             # Save to database
-            await self._save_page(url, fetch_result, main_content, html_content)
+            await self._save_page(url, fetch_result, main_content, html_content, main_content_html)
             
             # Extract and process file links
             if self.file_scraper:
@@ -304,9 +313,10 @@ class DomainCrawler(BaseScraper):
         url: str,
         fetch_result: Dict[str, Any],
         main_content: str,
-        html_content: str
+        html_content: str,
+        main_content_html: Optional[str] = None
     ):
-        """Save page to database."""
+        """Save page to database with markdown content and organization link."""
         try:
             domain = self._get_domain(url)
             content_hash = self.calculate_content_hash(html_content)
@@ -319,14 +329,65 @@ class DomainCrawler(BaseScraper):
             except Exception:
                 title = None
             
+            # Convert cleaned HTML content to markdown
+            markdown_content = None
+            if fetch_result['success']:
+                try:
+                    # Use html2text to convert cleaned HTML to markdown
+                    h = html2text.HTML2Text()
+                    h.ignore_links = False
+                    h.ignore_images = False
+                    h.ignore_emphasis = False
+                    h.body_width = 0  # Don't wrap lines
+                    h.unicode_snob = True  # Use unicode
+                    h.escape_snob = False  # Don't escape special chars
+                    
+                    # Use cleaned HTML if available, otherwise use full HTML
+                    html_to_convert = main_content_html if main_content_html else html_content
+                    
+                    if html_to_convert:
+                        markdown_content = h.handle(html_to_convert)
+                        markdown_content = markdown_content.strip()
+                    elif main_content:
+                        # Fallback to plain text if no HTML
+                        markdown_content = main_content.strip()
+                except Exception as md_error:
+                    logger.warning(f"Error converting to markdown for {url}: {md_error}")
+                    # Fallback to plain text
+                    markdown_content = main_content.strip() if main_content else None
+            
+            # Get or create organization and get its UUID
+            organization_uuid = None
+            try:
+                # Get organization UUID by domain
+                org_query = "SELECT uuid FROM organizations WHERE domain = $1"
+                organization_uuid = await self.db.fetchval(org_query, domain)
+                
+                # If no organization exists, create one
+                if not organization_uuid:
+                    logger.info(f"No organization found for domain {domain}, auto-creating...")
+                    org_id = await auto_create_organization_from_domain(self.db, domain)
+                    # Get the UUID of the newly created organization
+                    organization_uuid = await self.db.fetchval(org_query, domain)
+            except Exception as org_error:
+                logger.warning(f"Error getting organization UUID for {domain}: {org_error}")
+            
+            # Prepare metadata as JSON string for JSONB column
+            metadata_dict = {
+                'main_content_length': len(main_content) if main_content else 0,
+                'html_length': len(html_content) if html_content else 0,
+                'markdown_length': len(markdown_content) if markdown_content else 0
+            }
+            
             # Insert or update in database
             query = """
                 INSERT INTO scraped_sites (
                     url, domain, title, content_hash, scraped_at,
                     strategy, status_code, response_time, success,
-                    error_message, proxy_used, cost, metadata
+                    error_message, proxy_used, cost, metadata,
+                    markdown_content, organization_uuid
                 ) VALUES (
-                    $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13
+                    $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15
                 )
                 ON CONFLICT (url) DO UPDATE SET
                     title = EXCLUDED.title,
@@ -336,14 +397,11 @@ class DomainCrawler(BaseScraper):
                     response_time = EXCLUDED.response_time,
                     success = EXCLUDED.success,
                     error_message = EXCLUDED.error_message,
+                    markdown_content = EXCLUDED.markdown_content,
+                    organization_uuid = EXCLUDED.organization_uuid,
+                    metadata = EXCLUDED.metadata,
                     updated_at = CURRENT_TIMESTAMP
             """
-            
-            # Prepare metadata as JSON string for JSONB column
-            metadata_dict = {
-                'main_content_length': len(main_content),
-                'html_length': len(html_content)
-            }
             
             result = await self.db.execute(
                 query,
@@ -359,7 +417,9 @@ class DomainCrawler(BaseScraper):
                 fetch_result.get('error'),
                 fetch_result.get('proxy_used', False),  # proxy_used
                 0.0,  # cost
-                json.dumps(metadata_dict)  # Convert dict to JSON string for JSONB
+                json.dumps(metadata_dict),  # Convert dict to JSON string for JSONB
+                markdown_content,  # markdown_content
+                organization_uuid  # organization_uuid
             )
             
             # Get scraped_site_id for evidence tracking
