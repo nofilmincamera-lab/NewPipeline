@@ -1,0 +1,754 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2025-10-25T04:08:31.009283Z",
+  "count": 67,
+  "industries": [
+    {
+      "id": "accounting_audit",
+      "name": "Accounting & Audit",
+      "description": "Finance reporting and assurance.",
+      "level": 2,
+      "parent_id": "bps",
+      "path": [
+        "bps",
+        "accounting_audit"
+      ]
+    },
+    {
+      "id": "agri_esg",
+      "name": "Agriculture, Environment & ESG",
+      "description": "Agritech, environmental services, and ESG reporting.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "agri_esg"
+      ]
+    },
+    {
+      "id": "agritech",
+      "name": "Agritech",
+      "description": "Farming tech and inputs.",
+      "level": 2,
+      "parent_id": "agri_esg",
+      "path": [
+        "agri_esg",
+        "agritech"
+      ]
+    },
+    {
+      "id": "ai_data",
+      "name": "AI / Data Services",
+      "description": "Model development and data ops.",
+      "level": 2,
+      "parent_id": "emerging",
+      "path": [
+        "emerging",
+        "ai_data"
+      ]
+    },
+    {
+      "id": "auto_consumer_finance",
+      "name": "Consumer & Auto Finance",
+      "description": "Installment and auto loans.",
+      "level": 3,
+      "parent_id": "banking_lending",
+      "path": [
+        "fsi",
+        "banking_lending",
+        "auto_consumer_finance"
+      ]
+    },
+    {
+      "id": "automotive",
+      "name": "Automotive & Mobility",
+      "description": "OEMs and smart mobility.",
+      "level": 2,
+      "parent_id": "industrial",
+      "path": [
+        "industrial",
+        "automotive"
+      ]
+    },
+    {
+      "id": "banking_lending",
+      "name": "Banking & Lending",
+      "description": "Retail, commercial, cards, auto, and mortgage banking.",
+      "level": 2,
+      "parent_id": "fsi",
+      "path": [
+        "fsi",
+        "banking_lending"
+      ]
+    },
+    {
+      "id": "biotech",
+      "name": "Biotechnology",
+      "description": "Advanced therapeutics and R&D.",
+      "level": 2,
+      "parent_id": "hls",
+      "path": [
+        "hls",
+        "biotech"
+      ]
+    },
+    {
+      "id": "bnpl",
+      "name": "BNPL / Alt Lending",
+      "description": "Installment payment products.",
+      "level": 3,
+      "parent_id": "payments_fintech",
+      "path": [
+        "fsi",
+        "payments_fintech",
+        "bnpl"
+      ]
+    },
+    {
+      "id": "bpo",
+      "name": "BPO & Shared Services",
+      "description": "CX and back-office delivery centers.",
+      "level": 2,
+      "parent_id": "bps",
+      "path": [
+        "bps",
+        "bpo"
+      ]
+    },
+    {
+      "id": "bps",
+      "name": "Business & Professional Services",
+      "description": "BPO, consulting, legal, HR, and facilities.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "bps"
+      ]
+    },
+    {
+      "id": "brokerage_trading",
+      "name": "Brokerage & Trading",
+      "description": "Order management and post-trade ops.",
+      "level": 3,
+      "parent_id": "capital_markets",
+      "path": [
+        "fsi",
+        "capital_markets",
+        "brokerage_trading"
+      ]
+    },
+    {
+      "id": "capital_markets",
+      "name": "Capital Markets",
+      "description": "Wealth, asset management, and trading operations.",
+      "level": 2,
+      "parent_id": "fsi",
+      "path": [
+        "fsi",
+        "capital_markets"
+      ]
+    },
+    {
+      "id": "commercial_sme",
+      "name": "Commercial / SME Banking",
+      "description": "Business banking services for SMEs and corporates.",
+      "level": 3,
+      "parent_id": "banking_lending",
+      "path": [
+        "fsi",
+        "banking_lending",
+        "commercial_sme"
+      ]
+    },
+    {
+      "id": "construction_eng",
+      "name": "Construction & Engineering",
+      "description": "Built environment delivery.",
+      "level": 2,
+      "parent_id": "industrial",
+      "path": [
+        "industrial",
+        "construction_eng"
+      ]
+    },
+    {
+      "id": "consulting",
+      "name": "Consulting / Advisory",
+      "description": "Strategy and transformation services.",
+      "level": 2,
+      "parent_id": "bps",
+      "path": [
+        "bps",
+        "consulting"
+      ]
+    },
+    {
+      "id": "cpg_fmcg",
+      "name": "Consumer Goods / FMCG",
+      "description": "Packaged goods and lifestyle brands.",
+      "level": 2,
+      "parent_id": "retail",
+      "path": [
+        "retail",
+        "cpg_fmcg"
+      ]
+    },
+    {
+      "id": "credit_cards",
+      "name": "Credit Cards",
+      "description": "Card issuance, servicing, and collections.",
+      "level": 3,
+      "parent_id": "banking_lending",
+      "path": [
+        "fsi",
+        "banking_lending",
+        "credit_cards"
+      ]
+    },
+    {
+      "id": "cxaas",
+      "name": "CXaaS / Experience Platforms",
+      "description": "Outcome-based CX delivery.",
+      "level": 2,
+      "parent_id": "emerging",
+      "path": [
+        "emerging",
+        "cxaas"
+      ]
+    },
+    {
+      "id": "devices",
+      "name": "Medical Devices",
+      "description": "Devices, diagnostics, and support.",
+      "level": 2,
+      "parent_id": "hls",
+      "path": [
+        "hls",
+        "devices"
+      ]
+    },
+    {
+      "id": "digital_wallets",
+      "name": "Digital Wallets",
+      "description": "Stored value and tokenized payments.",
+      "level": 3,
+      "parent_id": "payments_fintech",
+      "path": [
+        "fsi",
+        "payments_fintech",
+        "digital_wallets"
+      ]
+    },
+    {
+      "id": "ecommerce",
+      "name": "E-Commerce",
+      "description": "Marketplaces and D2C.",
+      "level": 2,
+      "parent_id": "retail",
+      "path": [
+        "retail",
+        "ecommerce"
+      ]
+    },
+    {
+      "id": "education",
+      "name": "Education",
+      "description": "K–12, higher ed, and EdTech.",
+      "level": 2,
+      "parent_id": "public_edu",
+      "path": [
+        "public_edu",
+        "education"
+      ]
+    },
+    {
+      "id": "emerging",
+      "name": "Cross-Sector Emerging Industries",
+      "description": "New or converging verticals with fluid scope.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "emerging"
+      ]
+    },
+    {
+      "id": "energy_resources",
+      "name": "Energy & Natural Resources",
+      "description": "Oil, gas, mining, and renewables.",
+      "level": 2,
+      "parent_id": "industrial",
+      "path": [
+        "industrial",
+        "energy_resources"
+      ]
+    },
+    {
+      "id": "environmental",
+      "name": "Environmental Services",
+      "description": "Remediation and monitoring.",
+      "level": 2,
+      "parent_id": "agri_esg",
+      "path": [
+        "agri_esg",
+        "environmental"
+      ]
+    },
+    {
+      "id": "esg_reporting",
+      "name": "ESG Reporting & Compliance",
+      "description": "Sustainability data management.",
+      "level": 2,
+      "parent_id": "agri_esg",
+      "path": [
+        "agri_esg",
+        "esg_reporting"
+      ]
+    },
+    {
+      "id": "federal_national",
+      "name": "Federal / National",
+      "description": "Central government functions.",
+      "level": 2,
+      "parent_id": "public_edu",
+      "path": [
+        "public_edu",
+        "federal_national"
+      ]
+    },
+    {
+      "id": "fsi",
+      "name": "Financial Services & Insurance",
+      "description": "Banks, lenders, insurers, payments, and capital markets.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "fsi"
+      ]
+    },
+    {
+      "id": "health_benefits",
+      "name": "Health & Benefits",
+      "description": "Medical and supplemental health plans.",
+      "level": 3,
+      "parent_id": "insurance",
+      "path": [
+        "fsi",
+        "insurance",
+        "health_benefits"
+      ]
+    },
+    {
+      "id": "hls",
+      "name": "Healthcare & Life Sciences",
+      "description": "Providers, payers, pharma, biotech, and med devices.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "hls"
+      ]
+    },
+    {
+      "id": "hr_staffing",
+      "name": "HR / Payroll / Staffing",
+      "description": "Talent and payroll services.",
+      "level": 2,
+      "parent_id": "bps",
+      "path": [
+        "bps",
+        "hr_staffing"
+      ]
+    },
+    {
+      "id": "industrial",
+      "name": "Industrial, Energy & Manufacturing",
+      "description": "Manufacturing, automotive, energy, and utilities.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "industrial"
+      ]
+    },
+    {
+      "id": "insurance",
+      "name": "Insurance",
+      "description": "P&C, life, and health insurance carriers and MGAs.",
+      "level": 2,
+      "parent_id": "fsi",
+      "path": [
+        "fsi",
+        "insurance"
+      ]
+    },
+    {
+      "id": "legal_lpo",
+      "name": "Legal & LPO",
+      "description": "Legal process outsourcing.",
+      "level": 2,
+      "parent_id": "bps",
+      "path": [
+        "bps",
+        "legal_lpo"
+      ]
+    },
+    {
+      "id": "life_annuity",
+      "name": "Life & Annuities",
+      "description": "Life insurance and annuity products.",
+      "level": 3,
+      "parent_id": "insurance",
+      "path": [
+        "fsi",
+        "insurance",
+        "life_annuity"
+      ]
+    },
+    {
+      "id": "loss_mitigation",
+      "name": "Default & Loss Mitigation",
+      "description": "Workout and foreclosure prevention.",
+      "level": 4,
+      "parent_id": "mortgage_real_estate",
+      "path": [
+        "fsi",
+        "banking_lending",
+        "mortgage_real_estate",
+        "loss_mitigation"
+      ]
+    },
+    {
+      "id": "manufacturing",
+      "name": "Manufacturing",
+      "description": "Discrete and process manufacturing.",
+      "level": 2,
+      "parent_id": "industrial",
+      "path": [
+        "industrial",
+        "manufacturing"
+      ]
+    },
+    {
+      "id": "media_ent",
+      "name": "Media & Entertainment",
+      "description": "Streaming, gaming, and adtech.",
+      "level": 2,
+      "parent_id": "tmt",
+      "path": [
+        "tmt",
+        "media_ent"
+      ]
+    },
+    {
+      "id": "merchant_acquiring",
+      "name": "Merchant Acquiring / POS",
+      "description": "Onboarding and settlement for merchants.",
+      "level": 3,
+      "parent_id": "payments_fintech",
+      "path": [
+        "fsi",
+        "payments_fintech",
+        "merchant_acquiring"
+      ]
+    },
+    {
+      "id": "mortgage_origination",
+      "name": "Origination",
+      "description": "Application through closing.",
+      "level": 4,
+      "parent_id": "mortgage_real_estate",
+      "path": [
+        "fsi",
+        "banking_lending",
+        "mortgage_real_estate",
+        "mortgage_origination"
+      ]
+    },
+    {
+      "id": "mortgage_real_estate",
+      "name": "Mortgage & Real Estate Finance",
+      "description": "Home lending across origination, servicing, and default.",
+      "level": 3,
+      "parent_id": "banking_lending",
+      "path": [
+        "fsi",
+        "banking_lending",
+        "mortgage_real_estate"
+      ]
+    },
+    {
+      "id": "mortgage_servicing",
+      "name": "Servicing",
+      "description": "Payment, escrow, and customer care.",
+      "level": 4,
+      "parent_id": "mortgage_real_estate",
+      "path": [
+        "fsi",
+        "banking_lending",
+        "mortgage_real_estate",
+        "mortgage_servicing"
+      ]
+    },
+    {
+      "id": "ngo",
+      "name": "Non-Profit & NGOs",
+      "description": "Mission-driven organizations.",
+      "level": 2,
+      "parent_id": "public_edu",
+      "path": [
+        "public_edu",
+        "ngo"
+      ]
+    },
+    {
+      "id": "payers",
+      "name": "Payers & Health Plans",
+      "description": "Commercial and government plans.",
+      "level": 2,
+      "parent_id": "hls",
+      "path": [
+        "hls",
+        "payers"
+      ]
+    },
+    {
+      "id": "payments_fintech",
+      "name": "Payments & Fintech",
+      "description": "Merchant acquiring, wallets, BNPL, and embedded finance.",
+      "level": 2,
+      "parent_id": "fsi",
+      "path": [
+        "fsi",
+        "payments_fintech"
+      ]
+    },
+    {
+      "id": "pharma",
+      "name": "Pharmaceuticals",
+      "description": "Drug development and safety.",
+      "level": 2,
+      "parent_id": "hls",
+      "path": [
+        "hls",
+        "pharma"
+      ]
+    },
+    {
+      "id": "pnc",
+      "name": "Property & Casualty",
+      "description": "Auto, home, and specialty lines.",
+      "level": 3,
+      "parent_id": "insurance",
+      "path": [
+        "fsi",
+        "insurance",
+        "pnc"
+      ]
+    },
+    {
+      "id": "providers",
+      "name": "Providers & Health Systems",
+      "description": "Hospitals and clinics.",
+      "level": 2,
+      "parent_id": "hls",
+      "path": [
+        "hls",
+        "providers"
+      ]
+    },
+    {
+      "id": "public_edu",
+      "name": "Public Sector & Education",
+      "description": "Government agencies, education institutions, and NGOs.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "public_edu"
+      ]
+    },
+    {
+      "id": "real_estate",
+      "name": "Real Estate & Facilities",
+      "description": "Property and workplace ops.",
+      "level": 2,
+      "parent_id": "bps",
+      "path": [
+        "bps",
+        "real_estate"
+      ]
+    },
+    {
+      "id": "restaurants_foodservice",
+      "name": "Restaurants & Foodservice",
+      "description": "Dine-in, quick-service, and chain restaurant operations.",
+      "level": 3,
+      "parent_id": "travel_hosp",
+      "path": [
+        "travel_logistics",
+        "travel_hosp",
+        "restaurants_foodservice"
+      ]
+    },
+    {
+      "id": "retail",
+      "name": "Retail, Consumer & E-Commerce",
+      "description": "Retailers, marketplaces, and consumer brands.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "retail"
+      ]
+    },
+    {
+      "id": "retail_banking",
+      "name": "Retail Banking",
+      "description": "Consumer accounts and everyday banking.",
+      "level": 3,
+      "parent_id": "banking_lending",
+      "path": [
+        "fsi",
+        "banking_lending",
+        "retail_banking"
+      ]
+    },
+    {
+      "id": "retail_ops",
+      "name": "Retail",
+      "description": "Store and omnichannel operations.",
+      "level": 2,
+      "parent_id": "retail",
+      "path": [
+        "retail",
+        "retail_ops"
+      ]
+    },
+    {
+      "id": "spacetech",
+      "name": "SpaceTech / DefenseTech",
+      "description": "Aerospace and dual-use tech.",
+      "level": 2,
+      "parent_id": "emerging",
+      "path": [
+        "emerging",
+        "spacetech"
+      ]
+    },
+    {
+      "id": "state_local",
+      "name": "State / Local / Municipal",
+      "description": "Regional and city agencies.",
+      "level": 2,
+      "parent_id": "public_edu",
+      "path": [
+        "public_edu",
+        "state_local"
+      ]
+    },
+    {
+      "id": "sustainability",
+      "name": "Sustainability / GreenTech",
+      "description": "Climate tech and circular ops.",
+      "level": 2,
+      "parent_id": "emerging",
+      "path": [
+        "emerging",
+        "sustainability"
+      ]
+    },
+    {
+      "id": "technology",
+      "name": "Technology",
+      "description": "SaaS, devices, cloud, and cyber.",
+      "level": 2,
+      "parent_id": "tmt",
+      "path": [
+        "tmt",
+        "technology"
+      ]
+    },
+    {
+      "id": "telecom",
+      "name": "Telecommunications",
+      "description": "Wireless, cable, and network infra.",
+      "level": 2,
+      "parent_id": "tmt",
+      "path": [
+        "tmt",
+        "telecom"
+      ]
+    },
+    {
+      "id": "tmt",
+      "name": "Technology, Media & Communications",
+      "description": "Software, hardware, media, and telecom.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "tmt"
+      ]
+    },
+    {
+      "id": "transport_logistics",
+      "name": "Transportation & Logistics",
+      "description": "Freight, 3PL, and warehousing.",
+      "level": 2,
+      "parent_id": "travel_logistics",
+      "path": [
+        "travel_logistics",
+        "transport_logistics"
+      ]
+    },
+    {
+      "id": "travel_hosp",
+      "name": "Travel & Hospitality",
+      "description": "Airlines, hotels, cruises, and OTAs.",
+      "level": 2,
+      "parent_id": "travel_logistics",
+      "path": [
+        "travel_logistics",
+        "travel_hosp"
+      ]
+    },
+    {
+      "id": "travel_logistics",
+      "name": "Travel, Transportation & Logistics",
+      "description": "Travel, hospitality, shipping, and supply chain.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "travel_logistics"
+      ]
+    },
+    {
+      "id": "utilities",
+      "name": "Utilities",
+      "description": "Power, water, and waste services.",
+      "level": 2,
+      "parent_id": "industrial",
+      "path": [
+        "industrial",
+        "utilities"
+      ]
+    },
+    {
+      "id": "wealth_asset",
+      "name": "Wealth & Asset Management",
+      "description": "Advisory and portfolio administration.",
+      "level": 3,
+      "parent_id": "capital_markets",
+      "path": [
+        "fsi",
+        "capital_markets",
+        "wealth_asset"
+      ]
+    },
+    {
+      "id": "web3",
+      "name": "Crypto, Blockchain & Web3",
+      "description": "Distributed apps and tokens.",
+      "level": 2,
+      "parent_id": "tmt",
+      "path": [
+        "tmt",
+        "web3"
+      ]
+    }
+  ]
+}

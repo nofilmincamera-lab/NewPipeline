@@ -1,0 +1,3999 @@
+{
+    "version": "3.0",
+    "description": "Expanded technology terms (industry‑relevant), quadruple size, technology names not products.",
+    "matching_config": {
+        "enable_fuzzy_matching": true,
+        "max_edit_distance": 2,
+        "min_confidence_threshold": 0.7,
+        "context_window_words": 5,
+        "partial_match_min_length": 4
+    },
+    "tech_terms": [
+        {
+            "term": "AI",
+            "canonical": "Artificial Intelligence",
+            "confidence_base": 0.95,
+            "edit_distance_tolerance": 1,
+            "synonyms": [
+                "artificial intelligence",
+                "machine intelligence",
+                "cognitive computing",
+                "AI systems",
+                "AI technology"
+            ],
+            "common_misspellings": [
+                "artifical intelligence",
+                "artficial intelligence",
+                "AI tech",
+                "A.I.",
+                "A I"
+            ],
+            "partial_patterns": [
+                "artificial",
+                "intelligence",
+                "AI-powered",
+                "AI-driven",
+                "AI-based"
+            ],
+            "context_boosters": [
+                "advanced",
+                "intelligent",
+                "smart",
+                "automated",
+                "algorithmic",
+                "predictive",
+                "adaptive",
+                "cognitive",
+                "learning"
+            ],
+            "context_detractors": [
+                "fake",
+                "pretend",
+                "mock",
+                "simulated",
+                "artificial (negative)"
+            ]
+        },
+        {
+            "term": "RPA",
+            "canonical": "Robotic Process Automation",
+            "confidence_base": 0.95,
+            "edit_distance_tolerance": 1,
+            "synonyms": [
+                "robotic process automation",
+                "software robots",
+                "bots",
+                "automation bots",
+                "RPA bots",
+                "digital workers"
+            ],
+            "common_misspellings": [
+                "robotic proccess automation",
+                "robtic process automation",
+                "RPA tech",
+                "R.P.A.",
+                "rpa"
+            ],
+            "partial_patterns": [
+                "robotic",
+                "process automation",
+                "bot automation",
+                "RPA platform",
+                "RPA tool"
+            ],
+            "context_boosters": [
+                "UiPath",
+                "Automation Anywhere",
+                "Blue Prism",
+                "bot",
+                "workflow",
+                "process",
+                "automated",
+                "unattended",
+                "attended",
+                "orchestration"
+            ],
+            "context_detractors": [
+                "manual",
+                "human",
+                "traditional",
+                "non-automated"
+            ]
+        },
+        {
+            "term": "IPA",
+            "canonical": "Intelligent Process Automation",
+            "confidence_base": 0.92,
+            "edit_distance_tolerance": 1,
+            "synonyms": [
+                "intelligent process automation",
+                "intelligent automation",
+                "cognitive automation",
+                "smart automation"
+            ],
+            "common_misspellings": [
+                "inteligent process automation",
+                "intellgent automation",
+                "I.P.A.",
+                "ipa"
+            ],
+            "partial_patterns": [
+                "intelligent automation",
+                "cognitive process",
+                "smart process automation"
+            ],
+            "context_boosters": [
+                "AI",
+                "machine learning",
+                "cognitive",
+                "intelligent",
+                "advanced automation",
+                "decision-making",
+                "adaptive"
+            ],
+            "context_detractors": [
+                "simple",
+                "basic",
+                "traditional RPA",
+                "rule-based only"
+            ]
+        },
+        {
+            "term": "machine learning",
+            "canonical": "Machine Learning",
+            "confidence_base": 0.95,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "ML",
+                "automated learning",
+                "statistical learning",
+                "predictive modeling",
+                "machine learning models"
+            ],
+            "common_misspellings": [
+                "machien learning",
+                "machine lerning",
+                "machin learning",
+                "M.L.",
+                "ml"
+            ],
+            "partial_patterns": [
+                "ML model",
+                "learning algorithm",
+                "trained model",
+                "ML pipeline"
+            ],
+            "context_boosters": [
+                "algorithm",
+                "model",
+                "training",
+                "prediction",
+                "classification",
+                "regression",
+                "neural",
+                "supervised",
+                "unsupervised",
+                "reinforcement"
+            ],
+            "context_detractors": [
+                "manual",
+                "human",
+                "traditional",
+                "rule-based",
+                "deterministic",
+                "hardcoded"
+            ]
+        },
+        {
+            "term": "NLP",
+            "canonical": "Natural Language Processing",
+            "confidence_base": 0.95,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "natural language processing",
+                "NLP",
+                "text processing",
+                "language understanding",
+                "computational linguistics",
+                "text analytics"
+            ],
+            "common_misspellings": [
+                "natural languag processing",
+                "natrual language processing",
+                "N.L.P.",
+                "nlp"
+            ],
+            "partial_patterns": [
+                "language processing",
+                "text analysis",
+                "NLP model",
+                "language understanding"
+            ],
+            "context_boosters": [
+                "text",
+                "language",
+                "sentiment",
+                "parsing",
+                "tokenization",
+                "semantic",
+                "linguistic",
+                "entity extraction",
+                "NER",
+                "chatbot"
+            ],
+            "context_detractors": [
+                "image",
+                "video",
+                "audio",
+                "visual",
+                "graphical",
+                "non-textual"
+            ]
+        },
+        {
+            "term": "OCR",
+            "canonical": "Optical Character Recognition",
+            "confidence_base": 0.93,
+            "edit_distance_tolerance": 1,
+            "synonyms": [
+                "optical character recognition",
+                "text recognition",
+                "document scanning",
+                "character recognition",
+                "OCR technology"
+            ],
+            "common_misspellings": [
+                "optical charactor recognition",
+                "optical charcter recognition",
+                "O.C.R.",
+                "ocr"
+            ],
+            "partial_patterns": [
+                "character recognition",
+                "document extraction",
+                "OCR engine",
+                "text extraction"
+            ],
+            "context_boosters": [
+                "document",
+                "scanning",
+                "recognition",
+                "extraction",
+                "digitization",
+                "image to text",
+                "PDF processing",
+                "handwriting"
+            ],
+            "context_detractors": [
+                "manual entry",
+                "typing",
+                "keyboard input"
+            ]
+        },
+        {
+            "term": "document processing",
+            "canonical": "Document Processing",
+            "confidence_base": 0.88,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "document automation",
+                "document extraction",
+                "document understanding",
+                "intelligent document processing",
+                "IDP"
+            ],
+            "common_misspellings": [
+                "documnet processing",
+                "document proccessing",
+                "doc processing",
+                "document procesing"
+            ],
+            "partial_patterns": [
+                "document extraction",
+                "doc processing",
+                "IDP",
+                "document AI"
+            ],
+            "context_boosters": [
+                "extraction",
+                "classification",
+                "OCR",
+                "data capture",
+                "forms",
+                "invoices",
+                "contracts",
+                "unstructured data"
+            ],
+            "context_detractors": [
+                "manual",
+                "paper-based",
+                "non-digital"
+            ]
+        },
+        {
+            "term": "process mining",
+            "canonical": "Process Mining",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "process discovery",
+                "process analytics",
+                "workflow mining",
+                "event log analysis"
+            ],
+            "common_misspellings": [
+                "proccess mining",
+                "proces mining",
+                "process minning"
+            ],
+            "partial_patterns": [
+                "process discovery",
+                "workflow analysis",
+                "process analytics"
+            ],
+            "context_boosters": [
+                "Celonis",
+                "UiPath Process Mining",
+                "discovery",
+                "bottleneck",
+                "optimization",
+                "conformance",
+                "event log",
+                "workflow"
+            ],
+            "context_detractors": [
+                "manual analysis",
+                "guessing",
+                "assumption-based"
+            ]
+        },
+        {
+            "term": "BPO",
+            "canonical": "Business Process Outsourcing",
+            "confidence_base": 0.92,
+            "edit_distance_tolerance": 0,
+            "synonyms": [
+                "business process outsourcing",
+                "outsourcing",
+                "offshore services",
+                "BPO services"
+            ],
+            "common_misspellings": [
+                "B.P.O.",
+                "bpo",
+                "buisness process outsourcing"
+            ],
+            "partial_patterns": [
+                "process outsourcing",
+                "outsourced services"
+            ],
+            "context_boosters": [
+                "offshore",
+                "nearshore",
+                "outsourcing",
+                "service provider",
+                "contact center",
+                "back office",
+                "front office",
+                "KPO"
+            ],
+            "context_detractors": [
+                "in-house",
+                "internal",
+                "insourced"
+            ]
+        },
+        {
+            "term": "KYC",
+            "canonical": "Know Your Customer",
+            "confidence_base": 0.93,
+            "edit_distance_tolerance": 0,
+            "synonyms": [
+                "know your customer",
+                "customer verification",
+                "identity verification",
+                "customer due diligence",
+                "CDD"
+            ],
+            "common_misspellings": [
+                "K.Y.C.",
+                "kyc",
+                "know your costumer"
+            ],
+            "partial_patterns": [
+                "customer verification",
+                "identity check",
+                "KYC process"
+            ],
+            "context_boosters": [
+                "compliance",
+                "verification",
+                "identity",
+                "onboarding",
+                "AML",
+                "due diligence",
+                "customer screening",
+                "financial services"
+            ],
+            "context_detractors": [
+                "non-compliant",
+                "unverified",
+                "anonymous"
+            ]
+        },
+        {
+            "term": "deep learning",
+            "canonical": "Deep Learning",
+            "confidence_base": 0.95,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "neural networks",
+                "deep neural networks",
+                "deep neural nets",
+                "DNN",
+                "deep learning models"
+            ],
+            "common_misspellings": [
+                "deep lerning",
+                "deap learning",
+                "deep learnign",
+                "D.N.N."
+            ],
+            "partial_patterns": [
+                "neural network",
+                "deep net",
+                "DNN",
+                "neural architecture"
+            ],
+            "context_boosters": [
+                "neural",
+                "layers",
+                "backpropagation",
+                "gradient",
+                "convolutional",
+                "recurrent",
+                "transformer",
+                "CNN",
+                "RNN",
+                "LSTM"
+            ],
+            "context_detractors": [
+                "shallow",
+                "simple",
+                "linear",
+                "traditional",
+                "classical",
+                "single-layer"
+            ]
+        },
+        {
+            "term": "blockchain",
+            "canonical": "Blockchain",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "distributed ledger",
+                "cryptocurrency",
+                "crypto",
+                "decentralized ledger",
+                "DLT"
+            ],
+            "common_misspellings": [
+                "block chain",
+                "blockchian",
+                "blockchain tech",
+                "blokchain"
+            ],
+            "partial_patterns": [
+                "distributed ledger",
+                "crypto technology",
+                "blockchain network"
+            ],
+            "context_boosters": [
+                "crypto",
+                "decentralized",
+                "immutable",
+                "consensus",
+                "mining",
+                "hash",
+                "smart contract",
+                "Bitcoin",
+                "Ethereum",
+                "web3"
+            ],
+            "context_detractors": [
+                "centralized",
+                "traditional",
+                "legacy",
+                "conventional",
+                "single authority"
+            ]
+        },
+        {
+            "term": "cloud computing",
+            "canonical": "Cloud Computing",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "cloud",
+                "SaaS",
+                "PaaS",
+                "IaaS",
+                "cloud services",
+                "cloud platform",
+                "cloud infrastructure"
+            ],
+            "common_misspellings": [
+                "claud computing",
+                "cloud compuing",
+                "cloud tech",
+                "coud computing"
+            ],
+            "partial_patterns": [
+                "cloud service",
+                "cloud platform",
+                "cloud-based",
+                "cloud infrastructure"
+            ],
+            "context_boosters": [
+                "AWS",
+                "Azure",
+                "GCP",
+                "scalable",
+                "elastic",
+                "on-demand",
+                "virtual",
+                "distributed",
+                "hybrid",
+                "multi-cloud"
+            ],
+            "context_detractors": [
+                "on-premise",
+                "on-prem",
+                "local",
+                "physical",
+                "traditional",
+                "legacy"
+            ]
+        },
+        {
+            "term": "big data",
+            "canonical": "Big Data",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "large-scale data",
+                "massive data",
+                "data analytics",
+                "data science",
+                "big data analytics"
+            ],
+            "common_misspellings": [
+                "big dta",
+                "bigdata",
+                "big data tech"
+            ],
+            "partial_patterns": [
+                "large data",
+                "massive dataset",
+                "big data platform"
+            ],
+            "context_boosters": [
+                "analytics",
+                "processing",
+                "volume",
+                "velocity",
+                "variety",
+                "veracity",
+                "hadoop",
+                "spark",
+                "data lake",
+                "petabyte"
+            ],
+            "context_detractors": [
+                "small",
+                "limited",
+                "traditional",
+                "conventional",
+                "minimal data"
+            ]
+        },
+        {
+            "term": "computer vision",
+            "canonical": "Computer Vision",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "CV",
+                "image recognition",
+                "visual recognition",
+                "image processing",
+                "vision AI"
+            ],
+            "common_misspellings": [
+                "computer vison",
+                "compter vision",
+                "C.V.",
+                "computer visoin"
+            ],
+            "partial_patterns": [
+                "image recognition",
+                "visual analysis",
+                "CV model",
+                "vision system"
+            ],
+            "context_boosters": [
+                "image",
+                "visual",
+                "recognition",
+                "detection",
+                "classification",
+                "object",
+                "face",
+                "OpenCV",
+                "YOLO",
+                "CNN"
+            ],
+            "context_detractors": [
+                "text",
+                "audio",
+                "language",
+                "non-visual",
+                "textual"
+            ]
+        },
+        {
+            "term": "robotics",
+            "canonical": "Robotics",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "robots",
+                "automated systems",
+                "autonomous systems",
+                "robotic systems"
+            ],
+            "common_misspellings": [
+                "robotics tech",
+                "robtics",
+                "robotic systems"
+            ],
+            "partial_patterns": [
+                "robotic system",
+                "autonomous robot",
+                "robot technology"
+            ],
+            "context_boosters": [
+                "autonomous",
+                "mechanical",
+                "sensors",
+                "actuators",
+                "industrial",
+                "service",
+                "manipulation",
+                "navigation"
+            ],
+            "context_detractors": [
+                "human",
+                "manual",
+                "traditional",
+                "static",
+                "non-automated"
+            ]
+        },
+        {
+            "term": "analytics",
+            "canonical": "Analytics",
+            "confidence_base": 0.85,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "data analytics",
+                "business intelligence",
+                "BI",
+                "insights",
+                "reporting",
+                "data analysis"
+            ],
+            "common_misspellings": [
+                "analitics",
+                "analytcs",
+                "analytics platform"
+            ],
+            "partial_patterns": [
+                "data analysis",
+                "business analytics",
+                "analytics platform"
+            ],
+            "context_boosters": [
+                "data",
+                "insights",
+                "metrics",
+                "KPI",
+                "dashboard",
+                "visualization",
+                "trend",
+                "Tableau",
+                "Power BI"
+            ],
+            "context_detractors": [
+                "intuition",
+                "guess",
+                "assumption",
+                "uninformed",
+                "anecdotal"
+            ]
+        },
+        {
+            "term": "workflow automation",
+            "canonical": "Workflow Automation",
+            "confidence_base": 0.88,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "workflow orchestration",
+                "process automation",
+                "business process automation",
+                "BPA"
+            ],
+            "common_misspellings": [
+                "workflow automtion",
+                "workfow automation",
+                "work flow automation"
+            ],
+            "partial_patterns": [
+                "workflow management",
+                "process orchestration",
+                "automated workflow"
+            ],
+            "context_boosters": [
+                "orchestration",
+                "process",
+                "automated",
+                "streamlined",
+                "efficiency",
+                "optimization",
+                "integration"
+            ],
+            "context_detractors": [
+                "manual",
+                "ad-hoc",
+                "unstructured",
+                "disorganized"
+            ]
+        },
+        {
+            "term": "API",
+            "canonical": "Application Programming Interface",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 1,
+            "synonyms": [
+                "application programming interface",
+                "web API",
+                "REST API",
+                "GraphQL",
+                "API endpoint"
+            ],
+            "common_misspellings": [
+                "A.P.I.",
+                "api",
+                "web api"
+            ],
+            "partial_patterns": [
+                "API integration",
+                "API endpoint",
+                "REST service"
+            ],
+            "context_boosters": [
+                "integration",
+                "connect",
+                "endpoint",
+                "service",
+                "microservice",
+                "REST",
+                "JSON",
+                "HTTP",
+                "webhook"
+            ],
+            "context_detractors": [
+                "monolithic",
+                "standalone",
+                "isolated",
+                "disconnected"
+            ]
+        },
+        {
+            "term": "microservices",
+            "canonical": "Microservices",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "microservice architecture",
+                "service-oriented architecture",
+                "SOA",
+                "distributed services"
+            ],
+            "common_misspellings": [
+                "micro services",
+                "microservices architecture",
+                "micro-services"
+            ],
+            "partial_patterns": [
+                "service architecture",
+                "distributed architecture",
+                "microservice pattern"
+            ],
+            "context_boosters": [
+                "distributed",
+                "scalable",
+                "container",
+                "docker",
+                "kubernetes",
+                "service mesh",
+                "decomposed"
+            ],
+            "context_detractors": [
+                "monolithic",
+                "centralized",
+                "single",
+                "unified",
+                "tightly coupled"
+            ]
+        },
+        {
+            "term": "DevOps",
+            "canonical": "DevOps",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 1,
+            "synonyms": [
+                "development operations",
+                "CI/CD",
+                "continuous integration",
+                "continuous deployment",
+                "DevOps practices"
+            ],
+            "common_misspellings": [
+                "dev ops",
+                "devops",
+                "dev-ops"
+            ],
+            "partial_patterns": [
+                "CI/CD",
+                "continuous integration",
+                "deployment pipeline"
+            ],
+            "context_boosters": [
+                "automation",
+                "pipeline",
+                "deployment",
+                "integration",
+                "testing",
+                "monitoring",
+                "Jenkins",
+                "GitLab"
+            ],
+            "context_detractors": [
+                "manual",
+                "traditional",
+                "waterfall",
+                "disconnected",
+                "siloed"
+            ]
+        },
+        {
+            "term": "agile",
+            "canonical": "Agile",
+            "confidence_base": 0.8,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "agile methodology",
+                "scrum",
+                "kanban",
+                "iterative development",
+                "agile development"
+            ],
+            "common_misspellings": [
+                "agil",
+                "agile method",
+                "agiле"
+            ],
+            "partial_patterns": [
+                "agile methodology",
+                "scrum framework",
+                "sprint planning"
+            ],
+            "context_boosters": [
+                "iterative",
+                "sprint",
+                "scrum",
+                "kanban",
+                "collaborative",
+                "adaptive",
+                "backlog",
+                "standup"
+            ],
+            "context_detractors": [
+                "waterfall",
+                "sequential",
+                "rigid",
+                "traditional",
+                "fixed scope"
+            ]
+        },
+        {
+            "term": "hyperautomation",
+            "canonical": "Hyperautomation",
+            "confidence_base": 0.91,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "hyper automation",
+                "intelligent automation",
+                "end-to-end automation",
+                "automation at scale"
+            ],
+            "common_misspellings": [
+                "hyper-automation",
+                "hyperautomation tech",
+                "hyper automaton"
+            ],
+            "partial_patterns": [
+                "hyper automation",
+                "intelligent automation",
+                "automation fabric"
+            ],
+            "context_boosters": [
+                "RPA",
+                "AI",
+                "ML",
+                "process mining",
+                "integration",
+                "orchestration",
+                "comprehensive automation"
+            ],
+            "context_detractors": [
+                "isolated",
+                "single-process",
+                "limited",
+                "manual"
+            ]
+        },
+        {
+            "term": "chatbot",
+            "canonical": "Chatbot",
+            "confidence_base": 0.87,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "conversational AI",
+                "virtual assistant",
+                "bot",
+                "AI assistant",
+                "chat agent"
+            ],
+            "common_misspellings": [
+                "chat bot",
+                "chatbot tech",
+                "chat-bot",
+                "chatbots"
+            ],
+            "partial_patterns": [
+                "conversational agent",
+                "virtual assistant",
+                "chat interface"
+            ],
+            "context_boosters": [
+                "conversational",
+                "NLP",
+                "dialogue",
+                "intent",
+                "utterance",
+                "chatbot platform",
+                "messaging"
+            ],
+            "context_detractors": [
+                "human agent",
+                "live chat",
+                "manual response"
+            ]
+        },
+        {
+            "term": "edge computing",
+            "canonical": "Edge Computing",
+            "confidence_base": 0.88,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "edge AI",
+                "edge processing",
+                "distributed computing",
+                "fog computing"
+            ],
+            "common_misspellings": [
+                "edge compuing",
+                "edge tech",
+                "edgecomputing"
+            ],
+            "partial_patterns": [
+                "edge device",
+                "edge processing",
+                "edge network"
+            ],
+            "context_boosters": [
+                "latency",
+                "IoT",
+                "real-time",
+                "distributed",
+                "local processing",
+                "edge device"
+            ],
+            "context_detractors": [
+                "centralized",
+                "cloud-only",
+                "remote processing"
+            ]
+        },
+        {
+            "term": "data lake",
+            "canonical": "Data Lake",
+            "confidence_base": 0.87,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "data repository",
+                "raw data storage",
+                "unstructured data storage",
+                "data hub"
+            ],
+            "common_misspellings": [
+                "datalake",
+                "data lake storage",
+                "data lke"
+            ],
+            "partial_patterns": [
+                "data storage",
+                "data repository",
+                "lake house"
+            ],
+            "context_boosters": [
+                "raw data",
+                "unstructured",
+                "storage",
+                "big data",
+                "Hadoop",
+                "S3",
+                "Azure Data Lake"
+            ],
+            "context_detractors": [
+                "data warehouse",
+                "structured only",
+                "processed data"
+            ]
+        },
+        {
+            "term": "ETL",
+            "canonical": "Extract Transform Load",
+            "confidence_base": 0.89,
+            "edit_distance_tolerance": 1,
+            "synonyms": [
+                "extract transform load",
+                "data integration",
+                "data pipeline",
+                "ELT"
+            ],
+            "common_misspellings": [
+                "E.T.L.",
+                "etl",
+                "extract/transform/load"
+            ],
+            "partial_patterns": [
+                "data pipeline",
+                "data integration",
+                "ETL process"
+            ],
+            "context_boosters": [
+                "extract",
+                "transform",
+                "load",
+                "pipeline",
+                "data integration",
+                "data warehouse",
+                "Informatica"
+            ],
+            "context_detractors": [
+                "manual data entry",
+                "unstructured",
+                "ad-hoc"
+            ]
+        },
+        {
+            "term": "AML",
+            "canonical": "Anti-Money Laundering",
+            "confidence_base": 0.92,
+            "edit_distance_tolerance": 0,
+            "synonyms": [
+                "anti-money laundering",
+                "financial crime",
+                "AML compliance",
+                "money laundering prevention"
+            ],
+            "common_misspellings": [
+                "A.M.L.",
+                "aml",
+                "anti money laundering"
+            ],
+            "partial_patterns": [
+                "money laundering",
+                "financial crime",
+                "AML screening"
+            ],
+            "context_boosters": [
+                "compliance",
+                "KYC",
+                "suspicious activity",
+                "transaction monitoring",
+                "financial crime",
+                "screening"
+            ],
+            "context_detractors": [
+                "non-compliant",
+                "unmonitored"
+            ]
+        },
+        {
+            "term": "low-code",
+            "canonical": "Low-Code Development",
+            "confidence_base": 0.86,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "low-code platform",
+                "no-code",
+                "visual development",
+                "citizen developer"
+            ],
+            "common_misspellings": [
+                "low code",
+                "lowcode",
+                "low-code platform"
+            ],
+            "partial_patterns": [
+                "low-code platform",
+                "visual development",
+                "no-code"
+            ],
+            "context_boosters": [
+                "visual",
+                "drag-and-drop",
+                "citizen developer",
+                "rapid development",
+                "OutSystems",
+                "Mendix"
+            ],
+            "context_detractors": [
+                "traditional coding",
+                "complex development",
+                "expert-only"
+            ]
+        },
+        {
+            "term": "digital worker",
+            "canonical": "Digital Worker",
+            "confidence_base": 0.88,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "software robot",
+                "virtual worker",
+                "bot",
+                "automated agent",
+                "RPA bot"
+            ],
+            "common_misspellings": [
+                "digital workr",
+                "digital workers",
+                "digitl worker"
+            ],
+            "partial_patterns": [
+                "virtual worker",
+                "software robot",
+                "automated worker"
+            ],
+            "context_boosters": [
+                "RPA",
+                "automation",
+                "bot",
+                "virtual",
+                "automated",
+                "attended",
+                "unattended"
+            ],
+            "context_detractors": [
+                "human worker",
+                "manual",
+                "physical"
+            ]
+        },
+        {
+            "term": "predictive analytics",
+            "canonical": "Predictive Analytics",
+            "confidence_base": 0.89,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "forecasting",
+                "prediction model",
+                "predictive modeling",
+                "forecast analytics"
+            ],
+            "common_misspellings": [
+                "predictive analitics",
+                "predictve analytics",
+                "predicitve analytics"
+            ],
+            "partial_patterns": [
+                "predictive model",
+                "forecasting",
+                "prediction analytics"
+            ],
+            "context_boosters": [
+                "forecasting",
+                "prediction",
+                "model",
+                "machine learning",
+                "regression",
+                "time series"
+            ],
+            "context_detractors": [
+                "descriptive only",
+                "historical only",
+                "backward-looking"
+            ]
+        },
+        {
+            "term": "sentiment analysis",
+            "canonical": "Sentiment Analysis",
+            "confidence_base": 0.87,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "opinion mining",
+                "emotion detection",
+                "sentiment detection",
+                "text sentiment"
+            ],
+            "common_misspellings": [
+                "sentament analysis",
+                "sentiment analisys",
+                "sentiment analysys"
+            ],
+            "partial_patterns": [
+                "opinion mining",
+                "emotion detection",
+                "sentiment scoring"
+            ],
+            "context_boosters": [
+                "NLP",
+                "text analysis",
+                "opinion",
+                "emotion",
+                "positive",
+                "negative",
+                "neutral"
+            ],
+            "context_detractors": [
+                "non-textual",
+                "objective only"
+            ]
+        },
+        {
+            "term": "task mining",
+            "canonical": "Task Mining",
+            "confidence_base": 0.89,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "user interaction analysis",
+                "desktop analytics",
+                "activity mining",
+                "user activity tracking"
+            ],
+            "common_misspellings": [
+                "task minning",
+                "tsk mining",
+                "task-mining"
+            ],
+            "partial_patterns": [
+                "user activity",
+                "desktop mining",
+                "interaction analysis"
+            ],
+            "context_boosters": [
+                "process discovery",
+                "RPA",
+                "automation opportunity",
+                "user behavior",
+                "desktop analytics"
+            ],
+            "context_detractors": [
+                "system-level only",
+                "non-user focused"
+            ]
+        },
+        {
+            "term": "unstructured data",
+            "canonical": "Unstructured Data",
+            "confidence_base": 0.84,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "free-form data",
+                "non-tabular data",
+                "raw data",
+                "text data"
+            ],
+            "common_misspellings": [
+                "unstructred data",
+                "unstructured dta"
+            ],
+            "partial_patterns": [
+                "free-form",
+                "non-tabular",
+                "unstructured content"
+            ],
+            "context_boosters": [
+                "text",
+                "documents",
+                "images",
+                "video",
+                "audio",
+                "PDF",
+                "email",
+                "social media"
+            ],
+            "context_detractors": [
+                "structured",
+                "tabular",
+                "database",
+                "organized"
+            ]
+        },
+        {
+            "term": "GenAI",
+            "canonical": "Generative AI",
+            "confidence_base": 0.94,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "generative AI",
+                "generative artificial intelligence",
+                "gen AI",
+                "content generation",
+                "LLM"
+            ],
+            "common_misspellings": [
+                "generativ AI",
+                "generative ai",
+                "gen ai",
+                "Gen-AI"
+            ],
+            "partial_patterns": [
+                "generative model",
+                "content generation",
+                "AI generation"
+            ],
+            "context_boosters": [
+                "GPT",
+                "LLM",
+                "generation",
+                "creative",
+                "content creation",
+                "ChatGPT",
+                "Claude",
+                "synthetic"
+            ],
+            "context_detractors": [
+                "discriminative",
+                "classification only",
+                "non-generative"
+            ]
+        },
+        {
+            "term": "LLM",
+            "canonical": "Large Language Model",
+            "confidence_base": 0.94,
+            "edit_distance_tolerance": 1,
+            "synonyms": [
+                "large language model",
+                "language model",
+                "foundation model",
+                "transformer model"
+            ],
+            "common_misspellings": [
+                "L.L.M.",
+                "llm",
+                "large language mdl"
+            ],
+            "partial_patterns": [
+                "language model",
+                "foundation model",
+                "transformer"
+            ],
+            "context_boosters": [
+                "GPT",
+                "BERT",
+                "transformer",
+                "tokens",
+                "prompt",
+                "fine-tuning",
+                "pre-trained"
+            ],
+            "context_detractors": [
+                "small model",
+                "non-language",
+                "traditional NLP"
+            ]
+        },
+        {
+            "term": "BI",
+            "canonical": "Business Intelligence",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 0,
+            "synonyms": [
+                "business intelligence",
+                "decision support system",
+                "BI tools",
+                "BI platform"
+            ],
+            "common_misspellings": [
+                "B.I.",
+                "bi",
+                "buisness intelligence"
+            ],
+            "partial_patterns": [
+                "business intelligence",
+                "BI report",
+                "BI dashboard"
+            ],
+            "context_boosters": [
+                "dashboard",
+                "reporting",
+                "analytics",
+                "KPI",
+                "visualization",
+                "data warehouse",
+                "Tableau",
+                "Power BI",
+                "Qlik"
+            ],
+            "context_detractors": [
+                "personal",
+                "private investigator",
+                "biological"
+            ]
+        },
+        {
+            "term": "CRM",
+            "canonical": "Customer Relationship Management",
+            "confidence_base": 0.92,
+            "edit_distance_tolerance": 0,
+            "synonyms": [
+                "customer relationship management",
+                "customer management",
+                "CRM system",
+                "CRM platform"
+            ],
+            "common_misspellings": [
+                "C.R.M.",
+                "crm",
+                "customer realtionship management"
+            ],
+            "partial_patterns": [
+                "customer management",
+                "CRM tool",
+                "sales pipeline"
+            ],
+            "context_boosters": [
+                "Salesforce",
+                "HubSpot",
+                "Zoho",
+                "customer data",
+                "sales",
+                "marketing",
+                "support",
+                "pipeline",
+                "leads"
+            ],
+            "context_detractors": [
+                "personal relationship",
+                "non-business"
+            ]
+        },
+        {
+            "term": "SLA",
+            "canonical": "Service Level Agreement",
+            "confidence_base": 0.93,
+            "edit_distance_tolerance": 0,
+            "synonyms": [
+                "service level agreement",
+                "service contract",
+                "performance targets"
+            ],
+            "common_misspellings": [
+                "S.L.A.",
+                "sla",
+                "service level agrement"
+            ],
+            "partial_patterns": [
+                "service agreement",
+                "performance metrics",
+                "SLA compliance"
+            ],
+            "context_boosters": [
+                "contract",
+                "uptime",
+                "downtime",
+                "availability",
+                "response time",
+                "resolution time",
+                "metrics",
+                "KPI",
+                "BPO",
+                "outsourcing"
+            ],
+            "context_detractors": [
+                "informal",
+                "handshake",
+                "verbal agreement"
+            ]
+        },
+        {
+            "term": "cybersecurity",
+            "canonical": "Cybersecurity",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "information security",
+                "infosec",
+                "IT security",
+                "network security",
+                "cyber defense"
+            ],
+            "common_misspellings": [
+                "cyber security",
+                "cyber-security",
+                "cubersecurity",
+                "infosecurity"
+            ],
+            "partial_patterns": [
+                "information security",
+                "network defense",
+                "cyber threat"
+            ],
+            "context_boosters": [
+                "firewall",
+                "encryption",
+                "malware",
+                "virus",
+                "phishing",
+                "breach",
+                "vulnerability",
+                "threat",
+                "penetration testing",
+                "SOC"
+            ],
+            "context_detractors": [
+                "physical security",
+                "unsecured",
+                "open network"
+            ]
+        },
+        {
+            "term": "digital twin",
+            "canonical": "Digital Twin",
+            "confidence_base": 0.91,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "virtual replica",
+                "digital model",
+                "virtual counterpart",
+                "simulation model"
+            ],
+            "common_misspellings": [
+                "digital-twin",
+                "digitl twin",
+                "digital twim"
+            ],
+            "partial_patterns": [
+                "virtual replica",
+                "simulation model",
+                "digital counterpart"
+            ],
+            "context_boosters": [
+                "simulation",
+                "IoT",
+                "model",
+                "virtual",
+                "replica",
+                "physical asset",
+                "real-time data",
+                "monitoring",
+                "predictive maintenance"
+            ],
+            "context_detractors": [
+                "physical object",
+                "analog",
+                "manual model",
+                "static"
+            ]
+        },
+        {
+            "term": "Credit Scoring Models",
+            "canonical": "Credit Scoring Models",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "CSM",
+                "Credit Scoring Models",
+                "Credit-Scoring-Models",
+                "credit scoring models"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "credit",
+                "models",
+                "scoring"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Fraud Detection",
+            "canonical": "Fraud Detection",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "FD",
+                "Fraud Detection",
+                "Fraud-Detection",
+                "fraud detection"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "detection",
+                "fraud"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Open Banking",
+            "canonical": "Open Banking",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "OB",
+                "Open Banking",
+                "Open-Banking",
+                "open banking"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "banking",
+                "open"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "ISO 20022",
+            "canonical": "ISO 20022",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "ISO 20022",
+                "ISO-20022",
+                "iso 20022"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "20022"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Real-Time Payments",
+            "canonical": "Real-Time Payments",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "RTP",
+                "Real Time Payments",
+                "Real-Time Payments",
+                "Real-Time-Payments",
+                "real-time payments"
+            ],
+            "common_misspellings": [
+                "Real-Time Payments",
+                "RealTime Payments"
+            ],
+            "partial_patterns": [],
+            "context_boosters": [
+                "payments",
+                "real",
+                "time"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Tokenization (Payments)",
+            "canonical": "Tokenization (Payments)",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "TP",
+                "Tokenization (Payments)",
+                "Tokenization-(Payments)",
+                "tokenization (payments)"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "payments",
+                "tokenization"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Embedded Finance",
+            "canonical": "Embedded Finance",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "EF",
+                "Embedded Finance",
+                "Embedded-Finance",
+                "embedded finance"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "embedded",
+                "finance"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "RegTech",
+            "canonical": "RegTech",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "RegTech",
+                "regtech"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "regtech"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Trade Surveillance",
+            "canonical": "Trade Surveillance",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "TS",
+                "Trade Surveillance",
+                "Trade-Surveillance",
+                "trade surveillance"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "surveillance",
+                "trade"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Order Management System",
+            "canonical": "Order Management System",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "OMS",
+                "Order Management System",
+                "Order-Management-System",
+                "order management system"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "management",
+                "order",
+                "system"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Execution Management System",
+            "canonical": "Execution Management System",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "EMS",
+                "Execution Management System",
+                "Execution-Management-System",
+                "execution management system"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "execution",
+                "management",
+                "system"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Market Risk Modeling",
+            "canonical": "Market Risk Modeling",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "MRM",
+                "Market Risk Modeling",
+                "Market-Risk-Modeling",
+                "market risk modeling"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "market",
+                "modeling",
+                "risk"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Liquidity Risk Modeling",
+            "canonical": "Liquidity Risk Modeling",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "LRM",
+                "Liquidity Risk Modeling",
+                "Liquidity-Risk-Modeling",
+                "liquidity risk modeling"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "liquidity",
+                "modeling",
+                "risk"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Stress Testing Models",
+            "canonical": "Stress Testing Models",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "STM",
+                "Stress Testing Models",
+                "Stress-Testing-Models",
+                "stress testing models"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "models",
+                "stress",
+                "testing"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Basel Compliance Automation",
+            "canonical": "Basel Compliance Automation",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "BCA",
+                "Basel Compliance Automation",
+                "Basel-Compliance-Automation",
+                "basel compliance automation"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "automation",
+                "basel",
+                "compliance"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Wealth Robo-Advisory",
+            "canonical": "Wealth Robo-Advisory",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "WRA",
+                "Wealth Robo Advisory",
+                "Wealth Robo-Advisory",
+                "Wealth-Robo-Advisory",
+                "wealth robo-advisory"
+            ],
+            "common_misspellings": [
+                "Wealth Robo-Advisory",
+                "Wealth RoboAdvisory"
+            ],
+            "partial_patterns": [],
+            "context_boosters": [
+                "advisory",
+                "robo",
+                "wealth"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Portfolio Optimization",
+            "canonical": "Portfolio Optimization",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "PO",
+                "Portfolio Optimization",
+                "Portfolio-Optimization",
+                "portfolio optimization"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "optimization",
+                "portfolio"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Wealth Aggregation",
+            "canonical": "Wealth Aggregation",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "WA",
+                "Wealth Aggregation",
+                "Wealth-Aggregation",
+                "wealth aggregation"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "aggregation",
+                "wealth"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Telematics",
+            "canonical": "Telematics",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "Telematics",
+                "telematics"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "telematics"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Usage-Based Insurance",
+            "canonical": "Usage-Based Insurance",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "UBI",
+                "Usage Based Insurance",
+                "Usage-Based Insurance",
+                "Usage-Based-Insurance",
+                "usage-based insurance"
+            ],
+            "common_misspellings": [
+                "Usage-Based Insurance",
+                "UsageBased Insurance"
+            ],
+            "partial_patterns": [],
+            "context_boosters": [
+                "based",
+                "insurance",
+                "usage"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Catastrophe Modeling",
+            "canonical": "Catastrophe Modeling",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "CM",
+                "Catastrophe Modeling",
+                "Catastrophe-Modeling",
+                "catastrophe modeling"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "catastrophe",
+                "modeling"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Underwriting Automation",
+            "canonical": "Underwriting Automation",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "UA",
+                "Underwriting Automation",
+                "Underwriting-Automation",
+                "underwriting automation"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "automation",
+                "underwriting"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Claims Automation",
+            "canonical": "Claims Automation",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "CA",
+                "Claims Automation",
+                "Claims-Automation",
+                "claims automation"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "automation",
+                "claims"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Catastrophe Risk Analytics",
+            "canonical": "Catastrophe Risk Analytics",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "CRA",
+                "Catastrophe Risk Analytics",
+                "Catastrophe-Risk-Analytics",
+                "catastrophe risk analytics"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "analytics",
+                "catastrophe",
+                "risk"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Reserve Modeling",
+            "canonical": "Reserve Modeling",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "RM",
+                "Reserve Modeling",
+                "Reserve-Modeling",
+                "reserve modeling"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "modeling",
+                "reserve"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Fraud Scoring",
+            "canonical": "Fraud Scoring",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "FS",
+                "Fraud Scoring",
+                "Fraud-Scoring",
+                "fraud scoring"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "fraud",
+                "scoring"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "eMortgage",
+            "canonical": "eMortgage",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "eMortgage",
+                "emortgage"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "emortgage"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "eClosing",
+            "canonical": "eClosing",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "eClosing",
+                "eclosing"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "eclosing"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Remote Online Notarization",
+            "canonical": "Remote Online Notarization",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "RON",
+                "Remote Online Notarization",
+                "Remote-Online-Notarization",
+                "remote online notarization"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "notarization",
+                "online",
+                "remote"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Automated Valuation Model",
+            "canonical": "Automated Valuation Model",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "AVM",
+                "Automated Valuation Model",
+                "Automated-Valuation-Model",
+                "automated valuation model"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "automated",
+                "model",
+                "valuation"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Loan Origination System",
+            "canonical": "Loan Origination System",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "LOS",
+                "Loan Origination System",
+                "Loan-Origination-System",
+                "loan origination system"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "loan",
+                "origination",
+                "system"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Mortgage Servicing Automation",
+            "canonical": "Mortgage Servicing Automation",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "MSA",
+                "Mortgage Servicing Automation",
+                "Mortgage-Servicing-Automation",
+                "mortgage servicing automation"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "automation",
+                "mortgage",
+                "servicing"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Title Data Extraction",
+            "canonical": "Title Data Extraction",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "TDE",
+                "Title Data Extraction",
+                "Title-Data-Extraction",
+                "title data extraction"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "data",
+                "extraction",
+                "title"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Recommendation Systems",
+            "canonical": "Recommendation Systems",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "RS",
+                "Recommendation Systems",
+                "Recommendation-Systems",
+                "recommendation systems"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "recommendation",
+                "systems"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Personalization Engine",
+            "canonical": "Personalization Engine",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "PE",
+                "Personalization Engine",
+                "Personalization-Engine",
+                "personalization engine"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "engine",
+                "personalization"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Omnichannel Order Management",
+            "canonical": "Omnichannel Order Management",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "OOM",
+                "Omnichannel Order Management",
+                "Omnichannel-Order-Management",
+                "omnichannel order management"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "management",
+                "omnichannel",
+                "order"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Headless Commerce",
+            "canonical": "Headless Commerce",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "HC",
+                "Headless Commerce",
+                "Headless-Commerce",
+                "headless commerce"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "commerce",
+                "headless"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Search Relevance",
+            "canonical": "Search Relevance",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "SR",
+                "Search Relevance",
+                "Search-Relevance",
+                "search relevance"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "relevance",
+                "search"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "A/B Testing",
+            "canonical": "A/B Testing",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "A/B Testing",
+                "A/B-Testing",
+                "ABT",
+                "a/b testing"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "testing"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Feature Flagging",
+            "canonical": "Feature Flagging",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "FF",
+                "Feature Flagging",
+                "Feature-Flagging",
+                "feature flagging"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "feature",
+                "flagging"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Inventory Optimization",
+            "canonical": "Inventory Optimization",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "IO",
+                "Inventory Optimization",
+                "Inventory-Optimization",
+                "inventory optimization"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "inventory",
+                "optimization"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "RFID",
+            "canonical": "RFID",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "RFID",
+                "rfid"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "rfid"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Last‑Mile Optimization",
+            "canonical": "Last‑Mile Optimization",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "LMO",
+                "Last Mile Optimization",
+                "Last‑Mile Optimization",
+                "Last‑Mile-Optimization",
+                "last‑mile optimization"
+            ],
+            "common_misspellings": [
+                "LastMile Optimization",
+                "Last‑Mile Optimization"
+            ],
+            "partial_patterns": [],
+            "context_boosters": [
+                "last",
+                "mile",
+                "optimization"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Price Optimization",
+            "canonical": "Price Optimization",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "PO",
+                "Price Optimization",
+                "Price-Optimization",
+                "price optimization"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "optimization",
+                "price"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Demand Forecasting",
+            "canonical": "Demand Forecasting",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "DF",
+                "Demand Forecasting",
+                "Demand-Forecasting",
+                "demand forecasting"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "demand",
+                "forecasting"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Assortment Optimization",
+            "canonical": "Assortment Optimization",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "AO",
+                "Assortment Optimization",
+                "Assortment-Optimization",
+                "assortment optimization"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "assortment",
+                "optimization"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Content Delivery Network",
+            "canonical": "Content Delivery Network",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "CDN",
+                "Content Delivery Network",
+                "Content-Delivery-Network",
+                "content delivery network"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "content",
+                "delivery",
+                "network"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Digital Rights Management",
+            "canonical": "Digital Rights Management",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "DRM",
+                "Digital Rights Management",
+                "Digital-Rights-Management",
+                "digital rights management"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "digital",
+                "management",
+                "rights"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Ad Serving",
+            "canonical": "Ad Serving",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "AS",
+                "Ad Serving",
+                "Ad-Serving",
+                "ad serving"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "serving"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Real‑Time Bidding",
+            "canonical": "Real‑Time Bidding",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "RTB",
+                "Real Time Bidding",
+                "Real‑Time Bidding",
+                "Real‑Time-Bidding",
+                "real‑time bidding"
+            ],
+            "common_misspellings": [
+                "RealTime Bidding",
+                "Real‑Time Bidding"
+            ],
+            "partial_patterns": [],
+            "context_boosters": [
+                "bidding",
+                "real",
+                "time"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Programmatic Advertising",
+            "canonical": "Programmatic Advertising",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "PA",
+                "Programmatic Advertising",
+                "Programmatic-Advertising",
+                "programmatic advertising"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "advertising",
+                "programmatic"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Video Transcoding",
+            "canonical": "Video Transcoding",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "VT",
+                "Video Transcoding",
+                "Video-Transcoding",
+                "video transcoding"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "transcoding",
+                "video"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Ad Fraud Detection",
+            "canonical": "Ad Fraud Detection",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "AFD",
+                "Ad Fraud Detection",
+                "Ad-Fraud-Detection",
+                "ad fraud detection"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "detection",
+                "fraud"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "5G",
+            "canonical": "5G",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "5G",
+                "5g"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [],
+            "context_detractors": []
+        },
+        {
+            "term": "Network Function Virtualization",
+            "canonical": "Network Function Virtualization",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "NFV",
+                "Network Function Virtualization",
+                "Network-Function-Virtualization",
+                "network function virtualization"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "function",
+                "network",
+                "virtualization"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Software‑Defined Networking",
+            "canonical": "Software‑Defined Networking",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "SDN",
+                "Software Defined Networking",
+                "Software‑Defined Networking",
+                "Software‑Defined-Networking",
+                "software‑defined networking"
+            ],
+            "common_misspellings": [
+                "SoftwareDefined Networking",
+                "Software‑Defined Networking"
+            ],
+            "partial_patterns": [],
+            "context_boosters": [
+                "defined",
+                "networking",
+                "software"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "SD‑WAN",
+            "canonical": "SD‑WAN",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "SD WAN",
+                "SD‑WAN",
+                "sd‑wan"
+            ],
+            "common_misspellings": [
+                "SDWAN",
+                "SD‑WAN"
+            ],
+            "partial_patterns": [],
+            "context_boosters": [],
+            "context_detractors": []
+        },
+        {
+            "term": "Open RAN",
+            "canonical": "Open RAN",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "OR",
+                "Open RAN",
+                "Open-RAN",
+                "open ran"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "open"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Network Slicing",
+            "canonical": "Network Slicing",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "NS",
+                "Network Slicing",
+                "Network-Slicing",
+                "network slicing"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "network",
+                "slicing"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Multi‑access Edge Computing",
+            "canonical": "Multi‑access Edge Computing",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "MAEC",
+                "Multi access Edge Computing",
+                "Multi‑access Edge Computing",
+                "Multi‑access-Edge-Computing",
+                "multi‑access edge computing"
+            ],
+            "common_misspellings": [
+                "Multiaccess Edge Computing",
+                "Multi‑access Edge Computing"
+            ],
+            "partial_patterns": [],
+            "context_boosters": [
+                "access",
+                "computing",
+                "edge",
+                "multi"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Container Orchestration",
+            "canonical": "Container Orchestration",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "CO",
+                "Container Orchestration",
+                "Container-Orchestration",
+                "container orchestration"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "container",
+                "orchestration"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Serverless Computing",
+            "canonical": "Serverless Computing",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "SC",
+                "Serverless Computing",
+                "Serverless-Computing",
+                "serverless computing"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "computing",
+                "serverless"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Event‑Driven Architecture",
+            "canonical": "Event‑Driven Architecture",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "EDA",
+                "Event Driven Architecture",
+                "Event‑Driven Architecture",
+                "Event‑Driven-Architecture",
+                "event‑driven architecture"
+            ],
+            "common_misspellings": [
+                "EventDriven Architecture",
+                "Event‑Driven Architecture"
+            ],
+            "partial_patterns": [],
+            "context_boosters": [
+                "architecture",
+                "driven",
+                "event"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "API Gateway",
+            "canonical": "API Gateway",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "AG",
+                "API Gateway",
+                "API-Gateway",
+                "api gateway"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "gateway"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Service Mesh",
+            "canonical": "Service Mesh",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "SM",
+                "Service Mesh",
+                "Service-Mesh",
+                "service mesh"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "mesh",
+                "service"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Data Warehouse",
+            "canonical": "Data Warehouse",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "DW",
+                "Data Warehouse",
+                "Data-Warehouse",
+                "data warehouse"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "data",
+                "warehouse"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Lakehouse",
+            "canonical": "Lakehouse",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "Lakehouse",
+                "lakehouse"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "lakehouse"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Data Catalog",
+            "canonical": "Data Catalog",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "DC",
+                "Data Catalog",
+                "Data-Catalog",
+                "data catalog"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "catalog",
+                "data"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Master Data Management",
+            "canonical": "Master Data Management",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "MDM",
+                "Master Data Management",
+                "Master-Data-Management",
+                "master data management"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "data",
+                "management",
+                "master"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Data Governance",
+            "canonical": "Data Governance",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "DG",
+                "Data Governance",
+                "Data-Governance",
+                "data governance"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "data",
+                "governance"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Data Lineage",
+            "canonical": "Data Lineage",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "DL",
+                "Data Lineage",
+                "Data-Lineage",
+                "data lineage"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "data",
+                "lineage"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Observability",
+            "canonical": "Observability",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "Observability",
+                "observability"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "observability"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "AIOps",
+            "canonical": "AIOps",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "AIOps",
+                "aiops"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "aiops",
+                "inference",
+                "model",
+                "training"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "MLOps",
+            "canonical": "MLOps",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "MLOps",
+                "mlops"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "mlops"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Feature Store",
+            "canonical": "Feature Store",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "FS",
+                "Feature Store",
+                "Feature-Store",
+                "feature store"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "feature",
+                "store"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Vector Database",
+            "canonical": "Vector Database",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "VD",
+                "Vector Database",
+                "Vector-Database",
+                "vector database"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "database",
+                "vector"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Semantic Search",
+            "canonical": "Semantic Search",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "SS",
+                "Semantic Search",
+                "Semantic-Search",
+                "semantic search"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "search",
+                "semantic"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Retrieval‑Augmented Generation",
+            "canonical": "Retrieval‑Augmented Generation",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "RAG",
+                "Retrieval Augmented Generation",
+                "Retrieval‑Augmented Generation",
+                "Retrieval‑Augmented-Generation",
+                "retrieval‑augmented generation"
+            ],
+            "common_misspellings": [
+                "RetrievalAugmented Generation",
+                "Retrieval‑Augmented Generation"
+            ],
+            "partial_patterns": [],
+            "context_boosters": [
+                "augmented",
+                "generation",
+                "retrieval"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Knowledge Graph",
+            "canonical": "Knowledge Graph",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "KG",
+                "Knowledge Graph",
+                "Knowledge-Graph",
+                "knowledge graph"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "graph",
+                "knowledge"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Federated Learning",
+            "canonical": "Federated Learning",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "FL",
+                "Federated Learning",
+                "Federated-Learning",
+                "federated learning"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "federated",
+                "learning"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Reinforcement Learning",
+            "canonical": "Reinforcement Learning",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "RL",
+                "Reinforcement Learning",
+                "Reinforcement-Learning",
+                "reinforcement learning"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "learning",
+                "reinforcement"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Model Distillation",
+            "canonical": "Model Distillation",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "MD",
+                "Model Distillation",
+                "Model-Distillation",
+                "model distillation"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "distillation",
+                "model"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Prompt Engineering",
+            "canonical": "Prompt Engineering",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "PE",
+                "Prompt Engineering",
+                "Prompt-Engineering",
+                "prompt engineering"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "engineering",
+                "prompt"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Fine‑Tuning",
+            "canonical": "Fine‑Tuning",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "Fine Tuning",
+                "Fine‑Tuning",
+                "fine‑tuning"
+            ],
+            "common_misspellings": [
+                "FineTuning",
+                "Fine‑Tuning"
+            ],
+            "partial_patterns": [],
+            "context_boosters": [
+                "fine",
+                "tuning"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Synthetic Data",
+            "canonical": "Synthetic Data",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "SD",
+                "Synthetic Data",
+                "Synthetic-Data",
+                "synthetic data"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "data",
+                "synthetic"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Confidential Computing",
+            "canonical": "Confidential Computing",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "CC",
+                "Confidential Computing",
+                "Confidential-Computing",
+                "confidential computing"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "computing",
+                "confidential"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Homomorphic Encryption",
+            "canonical": "Homomorphic Encryption",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "HE",
+                "Homomorphic Encryption",
+                "Homomorphic-Encryption",
+                "homomorphic encryption"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "encryption",
+                "homomorphic"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Secure Multiparty Computation",
+            "canonical": "Secure Multiparty Computation",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "SMC",
+                "Secure Multiparty Computation",
+                "Secure-Multiparty-Computation",
+                "secure multiparty computation"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "computation",
+                "multiparty",
+                "secure"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Differential Privacy",
+            "canonical": "Differential Privacy",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "DP",
+                "Differential Privacy",
+                "Differential-Privacy",
+                "differential privacy"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "differential",
+                "privacy"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Zero Trust",
+            "canonical": "Zero Trust",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "ZT",
+                "Zero Trust",
+                "Zero-Trust",
+                "zero trust"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "trust",
+                "zero"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Identity and Access Management",
+            "canonical": "Identity and Access Management",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "IAAM",
+                "Identity and Access Management",
+                "Identity-and-Access-Management",
+                "identity and access management"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "access",
+                "identity",
+                "management"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Privileged Access Management",
+            "canonical": "Privileged Access Management",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "PAM",
+                "Privileged Access Management",
+                "Privileged-Access-Management",
+                "privileged access management"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "access",
+                "management",
+                "privileged"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Endpoint Detection and Response",
+            "canonical": "Endpoint Detection and Response",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "EDAR",
+                "Endpoint Detection and Response",
+                "Endpoint-Detection-and-Response",
+                "endpoint detection and response"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "detection",
+                "endpoint",
+                "response"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Extended Detection and Response",
+            "canonical": "Extended Detection and Response",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "EDAR",
+                "Extended Detection and Response",
+                "Extended-Detection-and-Response",
+                "extended detection and response"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "detection",
+                "extended",
+                "response"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Security Orchestration Automation and Response",
+            "canonical": "Security Orchestration Automation and Response",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "SOAAR",
+                "Security Orchestration Automation and Response",
+                "Security-Orchestration-Automation-and-Response",
+                "security orchestration automation and response"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "automation",
+                "orchestration",
+                "response",
+                "security"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Threat Intelligence",
+            "canonical": "Threat Intelligence",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "TI",
+                "Threat Intelligence",
+                "Threat-Intelligence",
+                "threat intelligence"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "inference",
+                "intelligence",
+                "model",
+                "threat",
+                "training"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Security Information and Event Management",
+            "canonical": "Security Information and Event Management",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "SIAEM",
+                "Security Information and Event Management",
+                "Security-Information-and-Event-Management",
+                "security information and event management"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "event",
+                "information",
+                "management",
+                "security"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Public Key Infrastructure",
+            "canonical": "Public Key Infrastructure",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "PKI",
+                "Public Key Infrastructure",
+                "Public-Key-Infrastructure",
+                "public key infrastructure"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "infrastructure",
+                "public"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Data Loss Prevention",
+            "canonical": "Data Loss Prevention",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "DLP",
+                "Data Loss Prevention",
+                "Data-Loss-Prevention",
+                "data loss prevention"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "data",
+                "loss",
+                "prevention"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Application Security Testing",
+            "canonical": "Application Security Testing",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "AST",
+                "Application Security Testing",
+                "Application-Security-Testing",
+                "application security testing"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "application",
+                "security",
+                "testing"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Electronic Health Records",
+            "canonical": "Electronic Health Records",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "EHR",
+                "Electronic Health Records",
+                "Electronic-Health-Records",
+                "electronic health records"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "electronic",
+                "health",
+                "records"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "FHIR Interoperability",
+            "canonical": "FHIR Interoperability",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "FHIR Interoperability",
+                "FHIR-Interoperability",
+                "FI",
+                "fhir interoperability"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "fhir",
+                "interoperability"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Clinical Decision Support",
+            "canonical": "Clinical Decision Support",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "CDS",
+                "Clinical Decision Support",
+                "Clinical-Decision-Support",
+                "clinical decision support"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "clinical",
+                "decision",
+                "support"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Telemedicine",
+            "canonical": "Telemedicine",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "Telemedicine",
+                "telemedicine"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "telemedicine"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "ePrescribing",
+            "canonical": "ePrescribing",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "ePrescribing",
+                "eprescribing"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "eprescribing"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Prior Authorization Automation",
+            "canonical": "Prior Authorization Automation",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "PAA",
+                "Prior Authorization Automation",
+                "Prior-Authorization-Automation",
+                "prior authorization automation"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "authorization",
+                "automation",
+                "prior"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Revenue Cycle Management",
+            "canonical": "Revenue Cycle Management",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "RCM",
+                "Revenue Cycle Management",
+                "Revenue-Cycle-Management",
+                "revenue cycle management"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "cycle",
+                "management",
+                "revenue"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Claims Adjudication",
+            "canonical": "Claims Adjudication",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "CA",
+                "Claims Adjudication",
+                "Claims-Adjudication",
+                "claims adjudication"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "adjudication",
+                "claims"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Pharmacovigilance",
+            "canonical": "Pharmacovigilance",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "Pharmacovigilance",
+                "pharmacovigilance"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "pharmacovigilance"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Clinical Trial Management System",
+            "canonical": "Clinical Trial Management System",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "CTMS",
+                "Clinical Trial Management System",
+                "Clinical-Trial-Management-System",
+                "clinical trial management system"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "clinical",
+                "management",
+                "system",
+                "trial"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Bioinformatics",
+            "canonical": "Bioinformatics",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "Bioinformatics",
+                "bioinformatics"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "bioinformatics"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Single‑Cell Sequencing",
+            "canonical": "Single‑Cell Sequencing",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "SCS",
+                "Single Cell Sequencing",
+                "Single‑Cell Sequencing",
+                "Single‑Cell-Sequencing",
+                "single‑cell sequencing"
+            ],
+            "common_misspellings": [
+                "SingleCell Sequencing",
+                "Single‑Cell Sequencing"
+            ],
+            "partial_patterns": [],
+            "context_boosters": [
+                "cell",
+                "sequencing",
+                "single"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "CRISPR Gene Editing",
+            "canonical": "CRISPR Gene Editing",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "CGE",
+                "CRISPR Gene Editing",
+                "CRISPR-Gene-Editing",
+                "crispr gene editing"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "crispr",
+                "editing",
+                "gene"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "mRNA Therapeutics",
+            "canonical": "mRNA Therapeutics",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "MT",
+                "mRNA Therapeutics",
+                "mRNA-Therapeutics",
+                "mrna therapeutics"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "mrna",
+                "therapeutics"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Remote Patient Monitoring",
+            "canonical": "Remote Patient Monitoring",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "RPM",
+                "Remote Patient Monitoring",
+                "Remote-Patient-Monitoring",
+                "remote patient monitoring"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "monitoring",
+                "patient",
+                "remote"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Digital Therapeutics",
+            "canonical": "Digital Therapeutics",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "DT",
+                "Digital Therapeutics",
+                "Digital-Therapeutics",
+                "digital therapeutics"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "digital",
+                "therapeutics"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Medical Imaging Analytics",
+            "canonical": "Medical Imaging Analytics",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "MIA",
+                "Medical Imaging Analytics",
+                "Medical-Imaging-Analytics",
+                "medical imaging analytics"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "analytics",
+                "imaging",
+                "medical"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Manufacturing Execution System",
+            "canonical": "Manufacturing Execution System",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "MES",
+                "Manufacturing Execution System",
+                "Manufacturing-Execution-System",
+                "manufacturing execution system"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "execution",
+                "manufacturing",
+                "system"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "SCADA",
+            "canonical": "SCADA",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "SCADA",
+                "scada"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "scada"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Programmable Logic Controller",
+            "canonical": "Programmable Logic Controller",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "PLC",
+                "Programmable Logic Controller",
+                "Programmable-Logic-Controller",
+                "programmable logic controller"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "controller",
+                "logic",
+                "programmable"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Industrial IoT",
+            "canonical": "Industrial IoT",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "II",
+                "Industrial IoT",
+                "Industrial-IoT",
+                "industrial iot"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "industrial"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Predictive Maintenance",
+            "canonical": "Predictive Maintenance",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "PM",
+                "Predictive Maintenance",
+                "Predictive-Maintenance",
+                "predictive maintenance"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "maintenance",
+                "predictive"
+            ],
+            "context_detractors": []
+        },
+        {
+            "term": "Additive Manufacturing",
+            "canonical": "Additive Manufacturing",
+            "confidence_base": 0.9,
+            "edit_distance_tolerance": 2,
+            "synonyms": [
+                "AM",
+                "Additive Manufacturing",
+                "Additive-Manufacturing",
+                "additive manufacturing"
+            ],
+            "common_misspellings": [],
+            "partial_patterns": [],
+            "context_boosters": [
+                "additive",
+                "manufacturing"
+            ],
+            "context_detractors": []
+        }
+    ]
+}
