@@ -43,3 +43,14 @@ respect_robots_txt: true
 
 # Monitoring
 enable_metrics: true
+
+# File Download Configuration
+file_download:
+  enabled: true
+  file_types: ['pdf', 'doc', 'docx']
+  max_file_size: 52428800  # 50MB in bytes
+  file_storage_path: /app/data/files
+  enable_deduplication: true
+  download_direct_urls_only: true  # Only download direct file URLs, not pages
+  retry_attempts: 3
+  retry_delays: [5, 15, 45]  # seconds

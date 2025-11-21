@@ -22,11 +22,15 @@ RUN pip install --no-cache-dir \
 # Create service file
 COPY docker/playwright/service.py /app/service.py
 
-# Create non-root user
-RUN useradd -m -u 1000 playwright && \
-    chown -R playwright:playwright /app
+# Create non-root user (check if exists first)
+RUN if ! id -u 1000 > /dev/null 2>&1; then \
+        useradd -m -u 1000 playwright; \
+    else \
+        usermod -a -G $(id -gn 1000) $(id -un 1000) || true; \
+    fi && \
+    chown -R 1000:1000 /app
 
-USER playwright
+USER 1000
 
 # Expose service port
 EXPOSE 3000

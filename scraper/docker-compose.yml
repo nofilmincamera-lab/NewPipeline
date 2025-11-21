@@ -13,7 +13,7 @@ services:
       POSTGRES_USER: bpo_user
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
     volumes:
-      - ../data/postgres:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
       - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
     networks:
       - bpo-network
@@ -142,6 +142,9 @@ services:
       # Data output (read-write)
       - ../data/scraped:/app/data:rw
 
+      # Files storage (read-write)
+      - ../data/scraped/files:/app/data/files:rw
+
       # Logs
       - ../data/logs:/app/logs:rw
     networks:
@@ -222,6 +225,8 @@ networks:
 volumes:
   playwright-browsers:
     name: playwright-browsers
+  postgres-data:
+    name: bpo-postgres-data
 
 # ==============================================================================
 # Secrets
