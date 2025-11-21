@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Organizations - BPO Intelligence Viewer{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Organizations ({{ organizations|length }})</h2>
+    
+    <form method="get" action="/" style="margin-bottom: 1.5rem;">
+        <input 
+            type="text" 
+            name="search" 
+            value="{{ search }}" 
+            placeholder="Search by name, domain, or type..."
+            style="padding: 0.5rem; width: 300px; border: 1px solid #ddd; border-radius: 4px;"
+        />
+        <button 
+            type="submit" 
+            style="padding: 0.5rem 1rem; margin-left: 0.5rem; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer;"
+        >
+            Search
+        </button>
+        {% if search %}
+        <a href="/" style="margin-left: 0.5rem; color: #7f8c8d;">Clear</a>
+        {% endif %}
+    </form>
+    
+    {% if organizations %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Domain</th>
+                <th>Type</th>
+                <th>Segment</th>
+                <th>Products</th>
+                <th>Services</th>
+                <th>Platforms</th>
+                <th>Certs</th>
+                <th>Awards</th>
+                <th>Markets</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for org in organizations %}
+            <tr>
+                <td>
+                    <a href="/organization/{{ org.id }}" class="link">
+                        {{ org.canonical_name or org.domain }}
+                    </a>
+                </td>
+                <td>{{ org.domain }}</td>
+                <td>
+                    {% if org.organizational_type %}
+                    <span class="badge badge-info">{{ org.organizational_type }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if org.customer_segment %}
+                    <span class="badge badge-primary">{{ org.customer_segment }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ org.product_count or 0 }}</td>
+                <td>{{ org.service_count or 0 }}</td>
+                <td>{{ org.platform_count or 0 }}</td>
+                <td>{{ org.cert_count or 0 }}</td>
+                <td>{{ org.award_count or 0 }}</td>
+                <td>{{ org.market_count or 0 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <p>No organizations found.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+

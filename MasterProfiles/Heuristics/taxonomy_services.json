@@ -1,0 +1,546 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2025-10-25T04:08:31.010868Z",
+  "count": 50,
+  "services": [
+    {
+      "id": "account_support",
+      "name": "Account Support",
+      "description": "Balance, billing, and updates.",
+      "level": 2,
+      "parent_id": "cx_ops",
+      "path": [
+        "cx_ops",
+        "account_support"
+      ]
+    },
+    {
+      "id": "agent_assist",
+      "name": "Agent Assist & Copilot",
+      "description": "Real-time guidance and QA.",
+      "level": 2,
+      "parent_id": "ai_cx",
+      "path": [
+        "ai_cx",
+        "agent_assist"
+      ]
+    },
+    {
+      "id": "agentic_ai",
+      "name": "Autonomous Service Agents",
+      "description": "Multi-step resolution with tools.",
+      "level": 2,
+      "parent_id": "ai_cx",
+      "path": [
+        "ai_cx",
+        "agentic_ai"
+      ]
+    },
+    {
+      "id": "ai_cx",
+      "name": "AI-Enabled CX & Automation",
+      "description": "Automation products and agent augmentation.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "ai_cx"
+      ]
+    },
+    {
+      "id": "analytics",
+      "name": "Data, Analytics & Insights",
+      "description": "Decisioning, reporting, and data ops.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "analytics"
+      ]
+    },
+    {
+      "id": "app_maintenance",
+      "name": "Application Maintenance",
+      "description": "Upgrades and break/fix.",
+      "level": 2,
+      "parent_id": "tech_svcs",
+      "path": [
+        "tech_svcs",
+        "app_maintenance"
+      ]
+    },
+    {
+      "id": "auto_collections",
+      "name": "Auto & Asset-Backed",
+      "description": "Repossession and recovery support.",
+      "level": 2,
+      "parent_id": "collections",
+      "path": [
+        "collections",
+        "auto_collections"
+      ]
+    },
+    {
+      "id": "back_office",
+      "name": "Back-Office & Process Management",
+      "description": "Content, workflow, and policy operations.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "back_office"
+      ]
+    },
+    {
+      "id": "benchmarking",
+      "name": "Benchmarking & VOC Strategy",
+      "description": "Targets and feedback loops.",
+      "level": 2,
+      "parent_id": "cx_transform",
+      "path": [
+        "cx_transform",
+        "benchmarking"
+      ]
+    },
+    {
+      "id": "bi_viz",
+      "name": "BI & Visualization",
+      "description": "Dashboards and KPI views.",
+      "level": 2,
+      "parent_id": "analytics",
+      "path": [
+        "analytics",
+        "bi_viz"
+      ]
+    },
+    {
+      "id": "claims_processing",
+      "name": "Claims Processing",
+      "description": "Intake to adjudication.",
+      "level": 2,
+      "parent_id": "back_office",
+      "path": [
+        "back_office",
+        "claims_processing"
+      ]
+    },
+    {
+      "id": "cloud_support",
+      "name": "Cloud Support",
+      "description": "Infra monitoring and runbooks.",
+      "level": 2,
+      "parent_id": "tech_svcs",
+      "path": [
+        "tech_svcs",
+        "cloud_support"
+      ]
+    },
+    {
+      "id": "collections",
+      "name": "Collections, Credit & Revenue Recovery",
+      "description": "Delinquency outreach and debt resolution.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "collections"
+      ]
+    },
+    {
+      "id": "commercial_ar",
+      "name": "Commercial & B2B",
+      "description": "AR follow-up and dispute resolution.",
+      "level": 2,
+      "parent_id": "collections",
+      "path": [
+        "collections",
+        "commercial_ar"
+      ]
+    },
+    {
+      "id": "consumer_collections",
+      "name": "Consumer Collections",
+      "description": "Early and mid-stage treatments.",
+      "level": 2,
+      "parent_id": "collections",
+      "path": [
+        "collections",
+        "consumer_collections"
+      ]
+    },
+    {
+      "id": "content_moderation",
+      "name": "Content Moderation / T&S",
+      "description": "Safety and policy enforcement.",
+      "level": 2,
+      "parent_id": "risk_trust",
+      "path": [
+        "risk_trust",
+        "content_moderation"
+      ]
+    },
+    {
+      "id": "conversational_ai",
+      "name": "Conversational AI",
+      "description": "Chat/voice bots for routine tasks.",
+      "level": 2,
+      "parent_id": "ai_cx",
+      "path": [
+        "ai_cx",
+        "conversational_ai"
+      ]
+    },
+    {
+      "id": "cx_ops",
+      "name": "Customer Experience (CX) Operations",
+      "description": "Multichannel customer support and retention.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "cx_ops"
+      ]
+    },
+    {
+      "id": "cx_transform",
+      "name": "CX Transformation & Consulting",
+      "description": "Strategy, design, and operating model change.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "cx_transform"
+      ]
+    },
+    {
+      "id": "digital_journeys",
+      "name": "Digital Self-Cure Journeys",
+      "description": "Omnichannel self-resolution flows.",
+      "level": 2,
+      "parent_id": "collections",
+      "path": [
+        "collections",
+        "digital_journeys"
+      ]
+    },
+    {
+      "id": "digital_transform",
+      "name": "Digital Transformation Strategy",
+      "description": "Modernization of digital core, channel strategy, and platform implementation.",
+      "level": 2,
+      "parent_id": "cx_transform",
+      "path": [
+        "cx_transform",
+        "digital_transform"
+      ]
+    },
+    {
+      "id": "doc_mgmt",
+      "name": "Document Processing",
+      "description": "OCR, indexing, and QC.",
+      "level": 2,
+      "parent_id": "back_office",
+      "path": [
+        "back_office",
+        "doc_mgmt"
+      ]
+    },
+    {
+      "id": "escalations",
+      "name": "Escalations & Retention",
+      "description": "Save-a-sale and complaint resolution.",
+      "level": 2,
+      "parent_id": "cx_ops",
+      "path": [
+        "cx_ops",
+        "escalations"
+      ]
+    },
+    {
+      "id": "fa",
+      "name": "Finance & Accounting (F&A)",
+      "description": "Transactional finance processes and close.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "fa"
+      ]
+    },
+    {
+      "id": "fraud_disputes",
+      "name": "Fraud & Disputes",
+      "description": "Detection and chargeback handling.",
+      "level": 2,
+      "parent_id": "risk_trust",
+      "path": [
+        "risk_trust",
+        "fraud_disputes"
+      ]
+    },
+    {
+      "id": "hr_helpdesk",
+      "name": "HR Helpdesk",
+      "description": "Policy and case management.",
+      "level": 2,
+      "parent_id": "hro",
+      "path": [
+        "hro",
+        "hr_helpdesk"
+      ]
+    },
+    {
+      "id": "hro",
+      "name": "Human Resources (HRO)",
+      "description": "Employee lifecycle and HR operations.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "hro"
+      ]
+    },
+    {
+      "id": "inventory_planning",
+      "name": "Inventory Planning",
+      "description": "Demand and replenishment.",
+      "level": 2,
+      "parent_id": "supply_chain",
+      "path": [
+        "supply_chain",
+        "inventory_planning"
+      ]
+    },
+    {
+      "id": "it_consulting",
+      "name": "IT Consulting & Advisory",
+      "description": "Strategic IT consulting, integration, and professional services including blockchain advisory.",
+      "level": 2,
+      "parent_id": "tech_svcs",
+      "path": [
+        "tech_svcs",
+        "it_consulting"
+      ]
+    },
+    {
+      "id": "it_helpdesk",
+      "name": "IT Helpdesk",
+      "description": "L1/L2 ticket resolution.",
+      "level": 2,
+      "parent_id": "tech_svcs",
+      "path": [
+        "tech_svcs",
+        "it_helpdesk"
+      ]
+    },
+    {
+      "id": "journey_mapping",
+      "name": "Journey Mapping",
+      "description": "End-to-end flow design.",
+      "level": 2,
+      "parent_id": "cx_transform",
+      "path": [
+        "cx_transform",
+        "journey_mapping"
+      ]
+    },
+    {
+      "id": "knowledge_auto",
+      "name": "Knowledge Automation",
+      "description": "Retrieval and deflection models.",
+      "level": 2,
+      "parent_id": "ai_cx",
+      "path": [
+        "ai_cx",
+        "knowledge_auto"
+      ]
+    },
+    {
+      "id": "kyc_aml",
+      "name": "KYC / AML",
+      "description": "Identity and anti-money laundering.",
+      "level": 2,
+      "parent_id": "risk_trust",
+      "path": [
+        "risk_trust",
+        "kyc_aml"
+      ]
+    },
+    {
+      "id": "mortgage_default",
+      "name": "Mortgage Default",
+      "description": "Workout and loss mitigation.",
+      "level": 2,
+      "parent_id": "collections",
+      "path": [
+        "collections",
+        "mortgage_default"
+      ]
+    },
+    {
+      "id": "o2c",
+      "name": "Order-to-Cash (O2C)",
+      "description": "Billing, cash application, and collections.",
+      "level": 2,
+      "parent_id": "fa",
+      "path": [
+        "fa",
+        "o2c"
+      ]
+    },
+    {
+      "id": "order_mgmt",
+      "name": "Order Management",
+      "description": "Order promising and tracking.",
+      "level": 2,
+      "parent_id": "supply_chain",
+      "path": [
+        "supply_chain",
+        "order_mgmt"
+      ]
+    },
+    {
+      "id": "p2p",
+      "name": "Procure-to-Pay (P2P)",
+      "description": "Purchasing through payment.",
+      "level": 2,
+      "parent_id": "fa",
+      "path": [
+        "fa",
+        "p2p"
+      ]
+    },
+    {
+      "id": "payroll",
+      "name": "Payroll",
+      "description": "Gross-to-net and statutory filings.",
+      "level": 2,
+      "parent_id": "hro",
+      "path": [
+        "hro",
+        "payroll"
+      ]
+    },
+    {
+      "id": "policy_admin",
+      "name": "Policy Administration",
+      "description": "Policy lifecycle operations.",
+      "level": 2,
+      "parent_id": "back_office",
+      "path": [
+        "back_office",
+        "policy_admin"
+      ]
+    },
+    {
+      "id": "process_opt",
+      "name": "Process Optimization",
+      "description": "Lean and automation playbooks.",
+      "level": 2,
+      "parent_id": "cx_transform",
+      "path": [
+        "cx_transform",
+        "process_opt"
+      ]
+    },
+    {
+      "id": "propensity",
+      "name": "Predictive / Propensity",
+      "description": "Likelihood and segmentation models.",
+      "level": 2,
+      "parent_id": "analytics",
+      "path": [
+        "analytics",
+        "propensity"
+      ]
+    },
+    {
+      "id": "r2r",
+      "name": "Record-to-Report (R2R)",
+      "description": "Period close and reporting.",
+      "level": 2,
+      "parent_id": "fa",
+      "path": [
+        "fa",
+        "r2r"
+      ]
+    },
+    {
+      "id": "recruiting",
+      "name": "Talent Acquisition",
+      "description": "Sourcing and hiring operations.",
+      "level": 2,
+      "parent_id": "hro",
+      "path": [
+        "hro",
+        "recruiting"
+      ]
+    },
+    {
+      "id": "risk_trust",
+      "name": "Risk, Compliance & Trust",
+      "description": "Fraud, KYC/AML, and regulatory controls.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "risk_trust"
+      ]
+    },
+    {
+      "id": "social_care",
+      "name": "Social Media Care",
+      "description": "Public and DM case handling.",
+      "level": 2,
+      "parent_id": "cx_ops",
+      "path": [
+        "cx_ops",
+        "social_care"
+      ]
+    },
+    {
+      "id": "supply_chain",
+      "name": "Supply Chain & Logistics Management",
+      "description": "Inventory, fulfillment, and transport ops.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "supply_chain"
+      ]
+    },
+    {
+      "id": "tech_svcs",
+      "name": "Technology Services",
+      "description": "IT support, cloud, and applications.",
+      "level": 1,
+      "parent_id": null,
+      "path": [
+        "tech_svcs"
+      ]
+    },
+    {
+      "id": "transport_ops",
+      "name": "Transportation Ops",
+      "description": "Freight, routing, and 3PL.",
+      "level": 2,
+      "parent_id": "supply_chain",
+      "path": [
+        "supply_chain",
+        "transport_ops"
+      ]
+    },
+    {
+      "id": "voc_sentiment",
+      "name": "VOC & Sentiment",
+      "description": "Listening and CX measurement.",
+      "level": 2,
+      "parent_id": "analytics",
+      "path": [
+        "analytics",
+        "voc_sentiment"
+      ]
+    },
+    {
+      "id": "wfm_staffing",
+      "name": "Workforce Management & Staffing",
+      "description": "Forecasting, scheduling, and managing contact-center staffing.",
+      "level": 2,
+      "parent_id": "cx_ops",
+      "path": [
+        "cx_ops",
+        "wfm_staffing"
+      ]
+    }
+  ]
+}

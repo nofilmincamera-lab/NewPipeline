@@ -1,0 +1,1678 @@
+{
+  "classification_version": "0.1.0",
+  "description": "Heuristic rules for web content classification across BPO vendor properties. Matches URL/title/body patterns and structural cues.",
+  "rules": [
+    {
+      "label": "Case Study",
+      "url_patterns": [
+        "/case-stud(y|ies)",
+        "/success-stor(y|ies)",
+        "/customer-stor(y|ies)",
+        "/clients?-stories",
+        "/resources?/case[-\\s]?stud(y|ies)",
+        "/stories?/customers?",
+        "/client(s)?/success",
+        "/outcomes?/",
+        "/impact/",
+        "/caso(s)?-?de-?(éxito|exito|estudio)",
+        "/estudo(s)?-?de-?caso",
+        "/etude(s)?-?de-?cas"
+      ],
+      "url_weight": 15,
+      "title_patterns": [
+        "\\bcase study\\b",
+        "\\bsuccess story\\b",
+        "\\bcustomer story\\b",
+        "\\bhow\\s+\\w+\\s+(achieved|improved|reduced|increased)",
+        "\\b(case|client|customer|partner) (study|story|success)\\b",
+        "\\b(before|after)\\b",
+        "\\b(the|our) impact\\b",
+        "\\bresults?\\b",
+        "(bank|fintech|telecom|retail|travel|healthcare|utilities|auto|gaming) (case|story)"
+      ],
+      "title_weight": 10,
+      "content_patterns": [
+        "\\b(the\\s+)?(challenge|problem|issue)\\b",
+        "\\b(the\\s+)?(solution|approach)\\b",
+        "\\b(the\\s+)?(results?|outcome|impact)\\b",
+        "\\d+%\\s+(increase|decrease|reduction|improvement|growth)",
+        "(improved|reduced|increased)\\s+by\\s+\\d+%",
+        "(said|stated|explained)\\s+\\w+,?\\s+(ceo|director|manager)",
+        "\\b(challenge|objective|goal|baseline)\\b",
+        "\\b(approach|solution|program|pilot)\\b",
+        "\\b(result(s)?|outcome(s)?|impact)\\b",
+        "\\b[A-Za-z ]+ by \\d+%\\b",
+        "\\b(dropped|cut|reduced) (AHT|backlog|FCR|attrition)\\b",
+        "\\b(increased|improved) (CSAT|NPS|FCR|sales)\\b",
+        "\\\"(.*?)\\\"\\s*—\\s*\\w+(,)?\\s*(CEO|COO|VP|Director)",
+        "\\b(challenge|solution|results?)\\b"
+      ],
+      "pattern_weight": 2,
+      "min_patterns": 3,
+      "structure_signals": {
+        "has_metrics": true,
+        "has_sections": [
+          "challenge",
+          "solution",
+          "result"
+        ],
+        "has_quotes": true,
+        "min_length": 400,
+        "triad_headings:challenge_solution_results": true,
+        "metrics_block": true,
+        "single_client_logo": true
+      },
+      "min_score": 20,
+      "synonyms": [
+        "case study",
+        "customer story",
+        "success story",
+        "transformation",
+        "before and after",
+        "impact",
+        "results",
+        "kpi",
+        "nps",
+        "csat",
+        "aht",
+        "fcr",
+        "sla",
+        "attrition"
+      ],
+      "disambiguators": {
+        "prefer_if_kpis_and_triad": [
+          "blog"
+        ]
+      },
+      "global_hints": {
+        "multilingual_soft_terms": [
+          "estudio de caso",
+          "caso de éxito",
+          "comunicado de prensa",
+          "servicios",
+          "soluciones",
+          "precios",
+          "carreras",
+          "empleos",
+          "webinar",
+          "estudo de caso",
+          "comunicado à imprensa",
+          "serviços",
+          "soluções",
+          "tarifs",
+          "carrières",
+          "étude de cas"
+        ],
+        "normalization": [
+          "lowercase",
+          "unicode_nfkc",
+          "collapse_whitespace",
+          "unhyphenate: omni[-\\s]?channel, near[-\\s]?shore, on[-\\s]?shore, work[-\\s]?at[-\\s]?home"
+        ]
+      },
+      "detection_hints": {
+        "has_lead_form_selector": "form input[type=email], form input[name*=email i], form button[type=submit]",
+        "cta_text_regex": "\\b(get (a )?quote|request (a )?demo|speak to sales|book a demo|download now)\\b",
+        "byline_regex": "\\bby\\s+[A-Z][a-z]+\\s+[A-Z][a-z]+\\b",
+        "date_regex": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+\\d{4}",
+        "kpi_pattern": "\\b(\\d{1,3}%|\\$\\d{1,3}(,\\d{3})*)(\\s+(increase|decrease|reduction|improvement))?\\b"
+      },
+      "path_signals": [
+        "/news",
+        "/press",
+        "/media",
+        "/blog",
+        "/insights",
+        "/resources",
+        "/careers",
+        "/jobs",
+        "/pricing",
+        "/plans",
+        "/customers",
+        "/clients",
+        "/events",
+        "/webinar",
+        "/legal",
+        "/privacy",
+        "/terms",
+        "/solutions",
+        "/services"
+      ],
+      "schema_org_types": [
+        "Article"
+      ],
+      "required_signals": [
+        "kpi_block_or_triad"
+      ]
+    },
+    {
+      "label": "Blog / Article",
+      "url_patterns": [
+        "/blog/",
+        "/article/",
+        "/insights?/",
+        "/news/",
+        "/\\d{4}/\\d{2}/",
+        "/insight(s)?/",
+        "/thought[-\\s]?leadership/",
+        "/perspectives?/",
+        "/resources?/(blog|articles?)"
+      ],
+      "url_weight": 12,
+      "title_patterns": [
+        "\\bhow to\\b",
+        "\\b\\d+\\s+(ways|tips|reasons|steps|trends|things)\\b",
+        "\\bguide to\\b",
+        "\\bultimate guide\\b",
+        "\\bwhat is\\b",
+        "\\bwhy\\s+\\w+",
+        "\\b(top|\\d+)(\\+)? (trends|lessons|insights)\\b",
+        "\\bstate of\\b",
+        "\\bwhat (is|are)\\b",
+        "\\bvs\\.\\b"
+      ],
+      "title_weight": 8,
+      "content_patterns": [
+        "\\bpublished\\s+(on|by)\\b",
+        "\\bauthor:",
+        "\\bby\\s+\\w+\\s+\\w+\\s*$",
+        "\\bminute read\\b",
+        "\\bshare this\\b",
+        "\\bin this (article|post)\\b",
+        "\\bread more:",
+        "\\b(minute read|reading time)\\b",
+        "\\bsubscribe\\b",
+        "author"
+      ],
+      "pattern_weight": 1.5,
+      "min_patterns": 2,
+      "structure_signals": {
+        "has_date": true,
+        "min_length": 300,
+        "max_length": 5000,
+        "dated_byline": true,
+        "tags": true
+      },
+      "min_score": 14,
+      "synonyms": [
+        "minute read",
+        "subscribe",
+        "insights",
+        "thought leadership",
+        "trends"
+      ],
+      "disambiguators": {
+        "penalize_if_media_contact": [
+          "news",
+          "press"
+        ],
+        "prefer_news_if_media_contact": [
+          "News / Press Release",
+          "News / Press"
+        ]
+      },
+      "global_hints": {
+        "multilingual_soft_terms": [
+          "estudio de caso",
+          "caso de éxito",
+          "comunicado de prensa",
+          "servicios",
+          "soluciones",
+          "precios",
+          "carreras",
+          "empleos",
+          "webinar",
+          "estudo de caso",
+          "comunicado à imprensa",
+          "serviços",
+          "soluções",
+          "tarifs",
+          "carrières",
+          "étude de cas"
+        ],
+        "normalization": [
+          "lowercase",
+          "unicode_nfkc",
+          "collapse_whitespace",
+          "unhyphenate: omni[-\\s]?channel, near[-\\s]?shore, on[-\\s]?shore, work[-\\s]?at[-\\s]?home"
+        ]
+      },
+      "detection_hints": {
+        "has_lead_form_selector": "form input[type=email], form input[name*=email i], form button[type=submit]",
+        "cta_text_regex": "\\b(get (a )?quote|request (a )?demo|speak to sales|book a demo|download now)\\b",
+        "byline_regex": "\\bby\\s+[A-Z][a-z]+\\s+[A-Z][a-z]+\\b",
+        "date_regex": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+\\d{4}"
+      },
+      "path_signals": [
+        "/news",
+        "/press",
+        "/media",
+        "/blog",
+        "/insights",
+        "/resources",
+        "/careers",
+        "/jobs",
+        "/pricing",
+        "/plans",
+        "/customers",
+        "/clients",
+        "/events",
+        "/webinar",
+        "/legal",
+        "/privacy",
+        "/terms",
+        "/solutions",
+        "/services"
+      ],
+      "negative_patterns": [
+        "\\bfor immediate release\\b",
+        "\\bmedia contact\\b"
+      ],
+      "schema_org_types": [
+        "Article",
+        "BlogPosting"
+      ]
+    },
+    {
+      "label": "Company Information",
+      "url_patterns": [
+        "/about",
+        "/company",
+        "/who-we-are",
+        "/our-story",
+        "/about-us",
+        "/leadership/",
+        "/mission[-\\s]?values/",
+        "/esg/",
+        "/diversity(-and-inclusion)?/",
+        "/locations?/"
+      ],
+      "url_weight": 15,
+      "title_patterns": [
+        "\\babout\\s+(us|our\\s+company)",
+        "\\bwho we are\\b",
+        "\\bour (story|mission|vision|values)",
+        "\\bcompany overview\\b",
+        "\\bmeet\\s+(the\\s+)?team\\b",
+        "\\b(esg|sustainability)\\b",
+        "\\bglobal footprint\\b",
+        "\\bour locations\\b",
+        "\\bour leadership\\b"
+      ],
+      "title_weight": 10,
+      "content_patterns": [
+        "\\b(founded|established)\\s+(in\\s+)?\\d{4}",
+        "\\bheadquarters?\\b",
+        "\\b\\d+[+\\s]+(employees|team members|staff)",
+        "\\bour (mission|vision|values?)\\b",
+        "\\bwe (believe|are committed|strive)\\b",
+        "\\bleadership team\\b",
+        "\\b\\d{3,}\\+? (employees|associates|agents)\\b",
+        "\\b(nearshore|offshore|onshore|work[-\\s]?at[-\\s]?home|hybrid)\\b",
+        "\\b(pci dss|soc 2|hipaa|iso 27001)\\b"
+      ],
+      "pattern_weight": 2,
+      "min_patterns": 2,
+      "structure_signals": {
+        "has_founding_year": true,
+        "min_length": 200,
+        "leadership_grid": true,
+        "locations_map": true
+      },
+      "min_score": 16,
+      "synonyms": [
+        "about us",
+        "leadership",
+        "values",
+        "esg",
+        "locations",
+        "compliance badges"
+      ],
+      "global_hints": {
+        "multilingual_soft_terms": [
+          "estudio de caso",
+          "caso de éxito",
+          "comunicado de prensa",
+          "servicios",
+          "soluciones",
+          "precios",
+          "carreras",
+          "empleos",
+          "webinar",
+          "estudo de caso",
+          "comunicado à imprensa",
+          "serviços",
+          "soluções",
+          "tarifs",
+          "carrières",
+          "étude de cas"
+        ],
+        "normalization": [
+          "lowercase",
+          "unicode_nfkc",
+          "collapse_whitespace",
+          "unhyphenate: omni[-\\s]?channel, near[-\\s]?shore, on[-\\s]?shore, work[-\\s]?at[-\\s]?home"
+        ]
+      },
+      "detection_hints": {
+        "has_lead_form_selector": "form input[type=email], form input[name*=email i], form button[type=submit]",
+        "cta_text_regex": "\\b(get (a )?quote|request (a )?demo|speak to sales|book a demo|download now)\\b",
+        "byline_regex": "\\bby\\s+[A-Z][a-z]+\\s+[A-Z][a-z]+\\b",
+        "date_regex": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+\\d{4}"
+      },
+      "path_signals": [
+        "/news",
+        "/press",
+        "/media",
+        "/blog",
+        "/insights",
+        "/resources",
+        "/careers",
+        "/jobs",
+        "/pricing",
+        "/plans",
+        "/customers",
+        "/clients",
+        "/events",
+        "/webinar",
+        "/legal",
+        "/privacy",
+        "/terms",
+        "/solutions",
+        "/services"
+      ]
+    },
+    {
+      "label": "Services / Offerings",
+      "url_patterns": [
+        "/services?/",
+        "/solutions?/",
+        "/offerings?/",
+        "/what-we-do",
+        "/capabilities",
+        "/industr(ies|y)[-/]?(we[-\\s]?serve)?/",
+        "/by[-\\s]?industry/",
+        "/practice(s)?/",
+        "/capabilit(y|ies)/",
+        "/outsourcing/"
+      ],
+      "url_weight": 12,
+      "title_patterns": [
+        "\\bservices?\\b",
+        "\\bsolutions?\\b",
+        "\\bofferings?\\b",
+        "\\bwhat we (do|offer)\\b",
+        "\\bcapabilities\\b",
+        "\\b(contact|call) center\\b",
+        "\\b(customer|client) experience\\b",
+        "\\bbpo|bps\\b",
+        "\\btrust (&|and) safety\\b",
+        "(collections|claims|kpo|back office|f&a|wfm|rpa|ai ops)"
+      ],
+      "title_weight": 8,
+      "content_patterns": [
+        "\\bwe (offer|provide|deliver)\\b",
+        "\\bour services include\\b",
+        "\\bcomprehensive\\b",
+        "\\bend-to-end\\b",
+        "\\btailored\\b",
+        "\\bcustomized\\b",
+        "\\bservice portfolio\\b",
+        "\\bwe (offer|provide|deliver|manage)\\b",
+        "\\b24/7\\b",
+        "voice|chat|email|social|messaging|bots|self service|ivr",
+        "nearshore|offshore|onshore|work-at-home"
+      ],
+      "pattern_weight": 1.5,
+      "min_patterns": 2,
+      "structure_signals": {
+        "has_list": true,
+        "min_length": 300,
+        "service_tiles": true,
+        "industry_grid": true
+      },
+      "min_score": 15,
+      "synonyms": [
+        "bpo",
+        "bps",
+        "outsourcing",
+        "contact center",
+        "cx",
+        "omnichannel",
+        "nearshore",
+        "offshore",
+        "onshore",
+        "work at home",
+        "trust & safety",
+        "content moderation",
+        "collections",
+        "f&a",
+        "kpo",
+        "back office",
+        "wfm",
+        "qa",
+        "quality assurance",
+        "cx analytics",
+        "ivr",
+        "bots",
+        "self service"
+      ],
+      "disambiguators": {
+        "penalize_if_short_lead_form": [
+          "landing page"
+        ]
+      },
+      "global_hints": {
+        "multilingual_soft_terms": [
+          "estudio de caso",
+          "caso de éxito",
+          "comunicado de prensa",
+          "servicios",
+          "soluciones",
+          "precios",
+          "carreras",
+          "empleos",
+          "webinar",
+          "estudo de caso",
+          "comunicado à imprensa",
+          "serviços",
+          "soluções",
+          "tarifs",
+          "carrières",
+          "étude de cas"
+        ],
+        "normalization": [
+          "lowercase",
+          "unicode_nfkc",
+          "collapse_whitespace",
+          "unhyphenate: omni[-\\s]?channel, near[-\\s]?shore, on[-\\s]?shore, work[-\\s]?at[-\\s]?home"
+        ]
+      },
+      "detection_hints": {
+        "has_lead_form_selector": "form input[type=email], form input[name*=email i], form button[type=submit]",
+        "cta_text_regex": "\\b(get (a )?quote|request (a )?demo|speak to sales|book a demo|download now)\\b",
+        "byline_regex": "\\bby\\s+[A-Z][a-z]+\\s+[A-Z][a-z]+\\b",
+        "date_regex": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+\\d{4}"
+      },
+      "path_signals": [
+        "/news",
+        "/press",
+        "/media",
+        "/blog",
+        "/insights",
+        "/resources",
+        "/careers",
+        "/jobs",
+        "/pricing",
+        "/plans",
+        "/customers",
+        "/clients",
+        "/events",
+        "/webinar",
+        "/legal",
+        "/privacy",
+        "/terms",
+        "/solutions",
+        "/services"
+      ],
+      "schema_org_types": [
+        "Service"
+      ],
+      "negative_patterns": [
+        "\\btry (now|free)\\b",
+        "\\bbook a demo\\b"
+      ]
+    },
+    {
+      "label": "Product / Technology",
+      "url_patterns": [
+        "/product/",
+        "/platform/",
+        "/technology/",
+        "/features/",
+        "/software/",
+        "/platform(s)?/",
+        "/studio/",
+        "/ai/",
+        "/automation/",
+        "/wfm/",
+        "/qa/",
+        "/analytics/",
+        "/bot(s)?/"
+      ],
+      "url_weight": 12,
+      "title_patterns": [
+        "\\bproducts?\\b",
+        "\\bplatforms?\\b",
+        "\\btechnology\\b",
+        "\\bsoftware\\b",
+        "\\btools?\\b",
+        "\\bplatform\\b",
+        "\\bmodule\\b",
+        "\\bsuite\\b",
+        "\\bedge (ai|ml)\\b",
+        "\\b(workforce|quality) (management|assurance)\\b"
+      ],
+      "title_weight": 8,
+      "content_patterns": [
+        "\\bfeatures?\\b",
+        "\\bintegrations?\\b",
+        "\\bapi\\b",
+        "\\bdeployment\\b",
+        "\\bget started\\b",
+        "\\brequest (a )?demo\\b",
+        "\\bfree trial\\b",
+        "\\bsign up\\b",
+        "\\broadmap\\b",
+        "\\b(sdk|api|integration)s?\\b",
+        "\\bdeploy(ment)?\\b",
+        "\\bSaaS\\b",
+        "\\bSLA\\b",
+        "request demo|book a demo|start (now|today)",
+        "\\b(api|sdk|integration)s?\\b"
+      ],
+      "pattern_weight": 1.5,
+      "min_patterns": 2,
+      "structure_signals": {
+        "has_cta": true,
+        "min_length": 200,
+        "feature_tabs": true,
+        "integration_logos": true,
+        "comparison_table": true
+      },
+      "min_score": 15,
+      "synonyms": [
+        "platform",
+        "suite",
+        "module",
+        "tooling",
+        "api",
+        "sdk",
+        "integration",
+        "workflow",
+        "rpa",
+        "gen ai",
+        "llm",
+        "ai ops",
+        "wfm",
+        "qa platform",
+        "agent assist",
+        "knowledge base"
+      ],
+      "disambiguators": {
+        "prefer_if_price_tables": [
+          "pricing"
+        ]
+      },
+      "global_hints": {
+        "multilingual_soft_terms": [
+          "estudio de caso",
+          "caso de éxito",
+          "comunicado de prensa",
+          "servicios",
+          "soluciones",
+          "precios",
+          "carreras",
+          "empleos",
+          "webinar",
+          "estudo de caso",
+          "comunicado à imprensa",
+          "serviços",
+          "soluções",
+          "tarifs",
+          "carrières",
+          "étude de cas"
+        ],
+        "normalization": [
+          "lowercase",
+          "unicode_nfkc",
+          "collapse_whitespace",
+          "unhyphenate: omni[-\\s]?channel, near[-\\s]?shore, on[-\\s]?shore, work[-\\s]?at[-\\s]?home"
+        ]
+      },
+      "detection_hints": {
+        "has_lead_form_selector": "form input[type=email], form input[name*=email i], form button[type=submit]",
+        "cta_text_regex": "\\b(get (a )?quote|request (a )?demo|speak to sales|book a demo|download now)\\b",
+        "byline_regex": "\\bby\\s+[A-Z][a-z]+\\s+[A-Z][a-z]+\\b",
+        "date_regex": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+\\d{4}"
+      },
+      "path_signals": [
+        "/news",
+        "/press",
+        "/media",
+        "/blog",
+        "/insights",
+        "/resources",
+        "/careers",
+        "/jobs",
+        "/pricing",
+        "/plans",
+        "/customers",
+        "/clients",
+        "/events",
+        "/webinar",
+        "/legal",
+        "/privacy",
+        "/terms",
+        "/solutions",
+        "/services"
+      ],
+      "schema_org_types": [
+        "Product"
+      ],
+      "negative_patterns": [
+        "\\bprivacy policy\\b",
+        "\\bterms of use\\b"
+      ]
+    },
+    {
+      "label": "Pricing",
+      "url_patterns": [
+        "/pricing",
+        "/plans?/",
+        "/packages",
+        "/cost",
+        "/pricing/",
+        "/rate(s)?/",
+        "/quote/",
+        "/rfp/",
+        "/estimate/"
+      ],
+      "url_weight": 15,
+      "title_patterns": [
+        "\\bpricing\\b",
+        "\\bplans?\\b",
+        "\\bpackages\\b",
+        "\\bcost\\b",
+        "\\brates\\b",
+        "\\bestimate\\b",
+        "\\b(calculate|calculator)\\b",
+        "\\b(get|request) a quote\\b"
+      ],
+      "title_weight": 10,
+      "content_patterns": [
+        "\\$\\d+",
+        "\\bper month\\b",
+        "\\bper year\\b",
+        "\\bannual(ly)?\\b",
+        "\\bmonthly\\b",
+        "\\bfree plan\\b",
+        "\\bstarting at\\b",
+        "\\bpricing tier\\b",
+        "\\bper (hour|FTE|agent|seat|month|year)\\b",
+        "\\$|\\€|\\£",
+        "custom pricing|tailored plan",
+        "\\bper (hour|fte|agent|seat|month|year)\\b"
+      ],
+      "pattern_weight": 2,
+      "min_patterns": 3,
+      "structure_signals": {
+        "has_pricing_table": true,
+        "has_currency": true,
+        "pricing_table": true,
+        "quote_calculator": true
+      },
+      "min_score": 17,
+      "synonyms": [
+        "TCO",
+        "rate card",
+        "pricing model",
+        "per FTE",
+        "per seat"
+      ],
+      "disambiguators": {
+        "else_if_cta_no_price": [
+          "landing page"
+        ]
+      },
+      "global_hints": {
+        "multilingual_soft_terms": [
+          "estudio de caso",
+          "caso de éxito",
+          "comunicado de prensa",
+          "servicios",
+          "soluciones",
+          "precios",
+          "carreras",
+          "empleos",
+          "webinar",
+          "estudo de caso",
+          "comunicado à imprensa",
+          "serviços",
+          "soluções",
+          "tarifs",
+          "carrières",
+          "étude de cas"
+        ],
+        "normalization": [
+          "lowercase",
+          "unicode_nfkc",
+          "collapse_whitespace",
+          "unhyphenate: omni[-\\s]?channel, near[-\\s]?shore, on[-\\s]?shore, work[-\\s]?at[-\\s]?home"
+        ]
+      },
+      "detection_hints": {
+        "has_lead_form_selector": "form input[type=email], form input[name*=email i], form button[type=submit]",
+        "cta_text_regex": "\\b(get (a )?quote|request (a )?demo|speak to sales|book a demo|download now)\\b",
+        "byline_regex": "\\bby\\s+[A-Z][a-z]+\\s+[A-Z][a-z]+\\b",
+        "date_regex": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+\\d{4}"
+      },
+      "path_signals": [
+        "/news",
+        "/press",
+        "/media",
+        "/blog",
+        "/insights",
+        "/resources",
+        "/careers",
+        "/jobs",
+        "/pricing",
+        "/plans",
+        "/customers",
+        "/clients",
+        "/events",
+        "/webinar",
+        "/legal",
+        "/privacy",
+        "/terms",
+        "/solutions",
+        "/services"
+      ],
+      "schema_org_types": [
+        "Offer",
+        "AggregateOffer",
+        "PriceSpecification"
+      ]
+    },
+    {
+      "label": "Documentation / Knowledge Base",
+      "url_patterns": [
+        "/docs?/",
+        "/documentation/",
+        "/kb/",
+        "/knowledge-?base/",
+        "/help/",
+        "/guide/",
+        "/api/",
+        "/playbook(s)?/",
+        "/runbook(s)?/",
+        "/implementation/",
+        "/admin/",
+        "/user-?guide/"
+      ],
+      "url_weight": 15,
+      "title_patterns": [
+        "\\bdocumentation\\b",
+        "\\bknowledge base\\b",
+        "\\bhelp center\\b",
+        "\\buser guide\\b",
+        "\\bapi reference\\b",
+        "\\bimplementation guide\\b",
+        "\\badmin guide\\b",
+        "\\bconfiguration\\b",
+        "\\bSOP\\b",
+        "\\bbest practices\\b"
+      ],
+      "title_weight": 10,
+      "content_patterns": [
+        "\\bstep \\d+",
+        "\\bprerequisites?\\b",
+        "\\brequirements?\\b",
+        "\\bconfiguration\\b",
+        "\\binstallation\\b",
+        "\\bsetup\\b",
+        "\\btable of contents\\b",
+        "\\bsee also\\b",
+        "\\bnote:",
+        "\\bwarning:",
+        "\\b(step|prereq|note)s?\\b",
+        "\\bprocedure\\b",
+        "\\bnumbered steps?\\b"
+      ],
+      "pattern_weight": 2,
+      "min_patterns": 3,
+      "structure_signals": {
+        "has_code_blocks": true,
+        "has_steps": true,
+        "min_length": 400,
+        "toc_sidebar": true,
+        "docs_breadcrumbs": true
+      },
+      "min_score": 18,
+      "synonyms": [
+        "implementation guide",
+        "runbook",
+        "playbook",
+        "how-to",
+        "configuration",
+        "prerequisites",
+        "sop"
+      ],
+      "disambiguators": {
+        "penalize_if_gated_pdf": [
+          "blog",
+          "landing page"
+        ]
+      },
+      "global_hints": {
+        "multilingual_soft_terms": [
+          "estudio de caso",
+          "caso de éxito",
+          "comunicado de prensa",
+          "servicios",
+          "soluciones",
+          "precios",
+          "carreras",
+          "empleos",
+          "webinar",
+          "estudo de caso",
+          "comunicado à imprensa",
+          "serviços",
+          "soluções",
+          "tarifs",
+          "carrières",
+          "étude de cas"
+        ],
+        "normalization": [
+          "lowercase",
+          "unicode_nfkc",
+          "collapse_whitespace",
+          "unhyphenate: omni[-\\s]?channel, near[-\\s]?shore, on[-\\s]?shore, work[-\\s]?at[-\\s]?home"
+        ]
+      },
+      "detection_hints": {
+        "has_lead_form_selector": "form input[type=email], form input[name*=email i], form button[type=submit]",
+        "cta_text_regex": "\\b(get (a )?quote|request (a )?demo|speak to sales|book a demo|download now)\\b",
+        "byline_regex": "\\bby\\s+[A-Z][a-z]+\\s+[A-Z][a-z]+\\b",
+        "date_regex": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+\\d{4}"
+      },
+      "path_signals": [
+        "/news",
+        "/press",
+        "/media",
+        "/blog",
+        "/insights",
+        "/resources",
+        "/careers",
+        "/jobs",
+        "/pricing",
+        "/plans",
+        "/customers",
+        "/clients",
+        "/events",
+        "/webinar",
+        "/legal",
+        "/privacy",
+        "/terms",
+        "/solutions",
+        "/services"
+      ],
+      "schema_org_types": [
+        "TechArticle",
+        "HowTo"
+      ],
+      "negative_patterns": [
+        "\\bfor immediate release\\b"
+      ]
+    },
+    {
+      "label": "News / Press Release",
+      "url_patterns": [
+        "/news/",
+        "/press/",
+        "/press-release/",
+        "/newsroom/",
+        "/media/",
+        "/announcements?/",
+        "/news(room)?/",
+        "/company[-\\s]?news/"
+      ],
+      "url_weight": 12,
+      "title_patterns": [
+        "\\bannounces?\\b",
+        "\\blaunches\\b",
+        "\\bpress release\\b",
+        "\\bacquires\\b",
+        "\\bpartnerships?\\b",
+        "\\bnews\\b",
+        "\\b(announces?|launch(es)?)\\b",
+        "\\bpartnership\\b",
+        "\\bappoints\\b",
+        "\\bexpands\\b"
+      ],
+      "title_weight": 8,
+      "content_patterns": [
+        "\\btoday announced\\b",
+        "\\bpress release\\b",
+        "\\bfor immediate release\\b",
+        "\\bmedia contact:\\b",
+        "\\bspokesperson\\b",
+        "\\bquoted as saying\\b",
+        "\\baccording to\\b",
+        "media contact",
+        "CITY, [A-Z]{2},? (\\w+ \\d{1,2}, \\d{4})"
+      ],
+      "pattern_weight": 2,
+      "min_patterns": 2,
+      "structure_signals": {
+        "has_date": true,
+        "has_quote": true,
+        "min_length": 200,
+        "date_near_header": true,
+        "exec_quote": true,
+        "media_contact_block": true
+      },
+      "min_score": 15,
+      "synonyms": [
+        "press release",
+        "announces",
+        "launches",
+        "partners with",
+        "appoints",
+        "acquires",
+        "newsroom"
+      ],
+      "disambiguators": {
+        "prefer_over_blog_if_media_contact": [
+          "blog"
+        ]
+      },
+      "global_hints": {
+        "multilingual_soft_terms": [
+          "estudio de caso",
+          "caso de éxito",
+          "comunicado de prensa",
+          "servicios",
+          "soluciones",
+          "precios",
+          "carreras",
+          "empleos",
+          "webinar",
+          "estudo de caso",
+          "comunicado à imprensa",
+          "serviços",
+          "soluções",
+          "tarifs",
+          "carrières",
+          "étude de cas"
+        ],
+        "normalization": [
+          "lowercase",
+          "unicode_nfkc",
+          "collapse_whitespace",
+          "unhyphenate: omni[-\\s]?channel, near[-\\s]?shore, on[-\\s]?shore, work[-\\s]?at[-\\s]?home"
+        ]
+      },
+      "detection_hints": {
+        "has_lead_form_selector": "form input[type=email], form input[name*=email i], form button[type=submit]",
+        "cta_text_regex": "\\b(get (a )?quote|request (a )?demo|speak to sales|book a demo|download now)\\b",
+        "byline_regex": "\\bby\\s+[A-Z][a-z]+\\s+[A-Z][a-z]+\\b",
+        "date_regex": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+\\d{4}"
+      },
+      "path_signals": [
+        "/news",
+        "/press",
+        "/media",
+        "/blog",
+        "/insights",
+        "/resources",
+        "/careers",
+        "/jobs",
+        "/pricing",
+        "/plans",
+        "/customers",
+        "/clients",
+        "/events",
+        "/webinar",
+        "/legal",
+        "/privacy",
+        "/terms",
+        "/solutions",
+        "/services"
+      ],
+      "schema_org_types": [
+        "NewsArticle",
+        "PressRelease"
+      ],
+      "negative_patterns": [
+        "\\bminute read\\b",
+        "\\bsubscribe\\b",
+        "\\bauthor\\b"
+      ]
+    },
+    {
+      "label": "Careers / Job Posting",
+      "url_patterns": [
+        "/careers?/",
+        "/jobs?/",
+        "/join-us",
+        "/hiring",
+        "/opportunities",
+        "/openings?/",
+        "/join(-our-team)?/",
+        "/talent/",
+        "/opportunit(y|ies)/",
+        "boards\\.greenhouse\\.io|myworkdayjobs\\.com|icims\\.com|jobs\\.lever\\.co|smartrecruiters\\.com"
+      ],
+      "url_weight": 15,
+      "title_patterns": [
+        "\\bcareers?\\b",
+        "\\bjobs?\\b",
+        "\\bhiring\\b",
+        "\\bjoin (us|our team)\\b",
+        "\\bopenings?\\b",
+        "\\bwe'?re hiring\\b",
+        "\\bapply (now|today)\\b"
+      ],
+      "title_weight": 10,
+      "content_patterns": [
+        "\\bapply now\\b",
+        "\\bapplication\\b",
+        "\\brequirements?:\\b",
+        "\\bqualifications?:\\b",
+        "\\bresponsibilities:\\b",
+        "\\b(full|part)[-\\s]?time\\b",
+        "\\bremote\\b",
+        "\\bsalary\\b",
+        "\\bbenefits\\b",
+        "\\b(location|remote|hybrid):\\b",
+        "\\bsalary|pay range\\b",
+        "\\bshift\\b",
+        "\\brequirements?\\b",
+        "\\bqualifications?\\b",
+        "\\bresponsibilities\\b",
+        "\\bapply (now|today)\\b"
+      ],
+      "pattern_weight": 2,
+      "min_patterns": 3,
+      "structure_signals": {
+        "has_requirements_list": true,
+        "min_length": 200,
+        "job_list": true,
+        "jobposting_schema": true,
+        "apply_button": true
+      },
+      "min_score": 18,
+      "synonyms": [
+        "careers",
+        "jobs",
+        "openings",
+        "apply",
+        "job posting",
+        "workday",
+        "greenhouse",
+        "icims",
+        "lever"
+      ],
+      "global_hints": {
+        "multilingual_soft_terms": [
+          "estudio de caso",
+          "caso de éxito",
+          "comunicado de prensa",
+          "servicios",
+          "soluciones",
+          "precios",
+          "carreras",
+          "empleos",
+          "webinar",
+          "estudo de caso",
+          "comunicado à imprensa",
+          "serviços",
+          "soluções",
+          "tarifs",
+          "carrières",
+          "étude de cas"
+        ],
+        "normalization": [
+          "lowercase",
+          "unicode_nfkc",
+          "collapse_whitespace",
+          "unhyphenate: omni[-\\s]?channel, near[-\\s]?shore, on[-\\s]?shore, work[-\\s]?at[-\\s]?home"
+        ]
+      },
+      "detection_hints": {
+        "has_lead_form_selector": "form input[type=email], form input[name*=email i], form button[type=submit]",
+        "cta_text_regex": "\\b(get (a )?quote|request (a )?demo|speak to sales|book a demo|download now)\\b",
+        "byline_regex": "\\bby\\s+[A-Z][a-z]+\\s+[A-Z][a-z]+\\b",
+        "date_regex": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+\\d{4}"
+      },
+      "path_signals": [
+        "/news",
+        "/press",
+        "/media",
+        "/blog",
+        "/insights",
+        "/resources",
+        "/careers",
+        "/jobs",
+        "/pricing",
+        "/plans",
+        "/customers",
+        "/clients",
+        "/events",
+        "/webinar",
+        "/legal",
+        "/privacy",
+        "/terms",
+        "/solutions",
+        "/services"
+      ],
+      "schema_org_types": [
+        "JobPosting"
+      ],
+      "ats_domains": [
+        "boards.greenhouse.io",
+        "myworkdayjobs.com",
+        "icims.com",
+        "jobs.lever.co",
+        "smartrecruiters.com"
+      ]
+    },
+    {
+      "label": "Landing Page / Marketing",
+      "url_patterns": [
+        "/lp/",
+        "/landing",
+        "/get-started",
+        "/signup",
+        "/trial",
+        "/demo",
+        "/landing/",
+        "/get[-\\s]?started/",
+        "/demo/",
+        "/talk-to-sales/",
+        "/contact[-\\s]?sales/"
+      ],
+      "url_weight": 10,
+      "title_patterns": [
+        "\\bget started\\b",
+        "\\btry (it )?free\\b",
+        "\\bfree trial\\b",
+        "\\brequest demo\\b",
+        "\\btransform your\\b",
+        "\\b(try|start) (now|free)\\b",
+        "\\bbook a demo\\b",
+        "\\bsee it in action\\b"
+      ],
+      "title_weight": 7,
+      "content_patterns": [
+        "\\bsign up\\b",
+        "\\bget started\\b",
+        "\\bfree trial\\b",
+        "\\bno credit card\\b",
+        "\\brequest demo\\b",
+        "\\blimited time\\b",
+        "\\bspecial offer\\b",
+        "\\btrusted by\\b",
+        "\\bjoin thousands\\b",
+        "trusted by",
+        "\\blead form\\b",
+        "\\bcta\\b",
+        "\\boffer\\b"
+      ],
+      "pattern_weight": 1.5,
+      "min_patterns": 2,
+      "structure_signals": {
+        "has_cta": true,
+        "has_form": true,
+        "max_length": 2000,
+        "lead_form": true,
+        "short_copy": true,
+        "logo_garden": true
+      },
+      "min_score": 13,
+      "synonyms": [
+        "get started",
+        "book a demo",
+        "try free",
+        "speak to sales",
+        "limited time",
+        "offer"
+      ],
+      "global_hints": {
+        "multilingual_soft_terms": [
+          "estudio de caso",
+          "caso de éxito",
+          "comunicado de prensa",
+          "servicios",
+          "soluciones",
+          "precios",
+          "carreras",
+          "empleos",
+          "webinar",
+          "estudo de caso",
+          "comunicado à imprensa",
+          "serviços",
+          "soluções",
+          "tarifs",
+          "carrières",
+          "étude de cas"
+        ],
+        "normalization": [
+          "lowercase",
+          "unicode_nfkc",
+          "collapse_whitespace",
+          "unhyphenate: omni[-\\s]?channel, near[-\\s]?shore, on[-\\s]?shore, work[-\\s]?at[-\\s]?home"
+        ]
+      },
+      "detection_hints": {
+        "has_lead_form_selector": "form input[type=email], form input[name*=email i], form button[type=submit]",
+        "cta_text_regex": "\\b(get (a )?quote|request (a )?demo|speak to sales|book a demo|download now)\\b",
+        "byline_regex": "\\bby\\s+[A-Z][a-z]+\\s+[A-Z][a-z]+\\b",
+        "date_regex": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+\\d{4}"
+      },
+      "path_signals": [
+        "/news",
+        "/press",
+        "/media",
+        "/blog",
+        "/insights",
+        "/resources",
+        "/careers",
+        "/jobs",
+        "/pricing",
+        "/plans",
+        "/customers",
+        "/clients",
+        "/events",
+        "/webinar",
+        "/legal",
+        "/privacy",
+        "/terms",
+        "/solutions",
+        "/services"
+      ],
+      "schema_org_types": [
+        "WebPage"
+      ],
+      "positive_signals": [
+        "cta_density_high",
+        "short_copy"
+      ],
+      "negative_patterns": [
+        "\\bprivacy policy\\b",
+        "\\bterms of use\\b"
+      ]
+    },
+    {
+      "label": "Event / Webinar / Workshop",
+      "url_patterns": [
+        "/events?/",
+        "/webinars?/",
+        "/workshops?/",
+        "/conference",
+        "/summit",
+        "/events?",
+        "/webinars?",
+        "/summit|conference|expo/",
+        "/virtual[-\\s]?event/",
+        "/register/"
+      ],
+      "url_weight": 12,
+      "title_patterns": [
+        "\\bevents?\\b",
+        "\\bwebinars?\\b",
+        "\\bworkshops?\\b",
+        "\\bconference\\b",
+        "\\bregister\\b",
+        "\\bwebinar\\b",
+        "\\b(register|save your seat)\\b",
+        "\\bagenda\\b",
+        "\\bspeakers?\\b"
+      ],
+      "title_weight": 8,
+      "content_patterns": [
+        "\\bregister (now|today)\\b",
+        "\\bdate:",
+        "\\btime:",
+        "\\blocation:",
+        "\\bspeakers?:",
+        "\\bagenda:",
+        "\\bvirtual event\\b",
+        "\\bjoin us\\b",
+        "\\b(date|time|location):\\b",
+        "\\b(add to calendar)\\b",
+        "\\blive|on-demand\\b",
+        "\\bregister\\b",
+        "\\bagenda\\b",
+        "\\bspeakers?\\b"
+      ],
+      "pattern_weight": 2,
+      "min_patterns": 2,
+      "structure_signals": {
+        "has_date": true,
+        "has_registration": true,
+        "registration_form": true,
+        "past_event_on_demand": true
+      },
+      "min_score": 14,
+      "synonyms": [
+        "webinar",
+        "register",
+        "agenda",
+        "speakers",
+        "on-demand",
+        "add to calendar"
+      ],
+      "global_hints": {
+        "multilingual_soft_terms": [
+          "estudio de caso",
+          "caso de éxito",
+          "comunicado de prensa",
+          "servicios",
+          "soluciones",
+          "precios",
+          "carreras",
+          "empleos",
+          "webinar",
+          "estudo de caso",
+          "comunicado à imprensa",
+          "serviços",
+          "soluções",
+          "tarifs",
+          "carrières",
+          "étude de cas"
+        ],
+        "normalization": [
+          "lowercase",
+          "unicode_nfkc",
+          "collapse_whitespace",
+          "unhyphenate: omni[-\\s]?channel, near[-\\s]?shore, on[-\\s]?shore, work[-\\s]?at[-\\s]?home"
+        ]
+      },
+      "detection_hints": {
+        "has_lead_form_selector": "form input[type=email], form input[name*=email i], form button[type=submit]",
+        "cta_text_regex": "\\b(get (a )?quote|request (a )?demo|speak to sales|book a demo|download now)\\b",
+        "byline_regex": "\\bby\\s+[A-Z][a-z]+\\s+[A-Z][a-z]+\\b",
+        "date_regex": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+\\d{4}"
+      },
+      "path_signals": [
+        "/news",
+        "/press",
+        "/media",
+        "/blog",
+        "/insights",
+        "/resources",
+        "/careers",
+        "/jobs",
+        "/pricing",
+        "/plans",
+        "/customers",
+        "/clients",
+        "/events",
+        "/webinar",
+        "/legal",
+        "/privacy",
+        "/terms",
+        "/solutions",
+        "/services"
+      ],
+      "schema_org_types": [
+        "Event"
+      ]
+    },
+    {
+      "label": "Legal / Compliance",
+      "url_patterns": [
+        "/legal/",
+        "/privacy",
+        "/terms",
+        "/compliance",
+        "/gdpr",
+        "/cookie",
+        "/privacy(-policy)?/",
+        "/terms(-of-(use|service))?/",
+        "/gdpr/",
+        "/cookie(s)?/",
+        "/compliance/"
+      ],
+      "url_weight": 15,
+      "title_patterns": [
+        "\\bprivacy policy\\b",
+        "\\bterms (of|and) (service|use)\\b",
+        "\\blegal\\b",
+        "\\bcompliance\\b",
+        "\\bcookie policy\\b",
+        "\\b(privacy policy|terms (of|and) (use|service)|legal|cookies?|gdpr|ccpa)\\b"
+      ],
+      "title_weight": 10,
+      "content_patterns": [
+        "\\bthis (policy|agreement)\\b",
+        "\\blast updated:",
+        "\\beffective date:",
+        "\\byou agree to\\b",
+        "\\bpersonal (data|information)\\b",
+        "\\bgdpr\\b",
+        "\\bterms and conditions\\b",
+        "\\blast updated|effective date\\b",
+        "\\bdata (processing|controller|retention)\\b",
+        "\\byou agree\\b",
+        "\\bjurisdiction\\b",
+        "\\beffective date\\b",
+        "\\blast updated\\b"
+      ],
+      "pattern_weight": 2,
+      "min_patterns": 2,
+      "structure_signals": {
+        "has_sections": true,
+        "min_length": 300,
+        "anchored_headings": true,
+        "no_images": true
+      },
+      "min_score": 16,
+      "synonyms": [
+        "privacy policy",
+        "terms of use",
+        "gdpr",
+        "ccpa",
+        "cookies",
+        "data processing"
+      ],
+      "global_hints": {
+        "multilingual_soft_terms": [
+          "estudio de caso",
+          "caso de éxito",
+          "comunicado de prensa",
+          "servicios",
+          "soluciones",
+          "precios",
+          "carreras",
+          "empleos",
+          "webinar",
+          "estudo de caso",
+          "comunicado à imprensa",
+          "serviços",
+          "soluções",
+          "tarifs",
+          "carrières",
+          "étude de cas"
+        ],
+        "normalization": [
+          "lowercase",
+          "unicode_nfkc",
+          "collapse_whitespace",
+          "unhyphenate: omni[-\\s]?channel, near[-\\s]?shore, on[-\\s]?shore, work[-\\s]?at[-\\s]?home"
+        ]
+      },
+      "detection_hints": {
+        "has_lead_form_selector": "form input[type=email], form input[name*=email i], form button[type=submit]",
+        "cta_text_regex": "\\b(get (a )?quote|request (a )?demo|speak to sales|book a demo|download now)\\b",
+        "byline_regex": "\\bby\\s+[A-Z][a-z]+\\s+[A-Z][a-z]+\\b",
+        "date_regex": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+\\d{4}"
+      },
+      "path_signals": [
+        "/news",
+        "/press",
+        "/media",
+        "/blog",
+        "/insights",
+        "/resources",
+        "/careers",
+        "/jobs",
+        "/pricing",
+        "/plans",
+        "/customers",
+        "/clients",
+        "/events",
+        "/webinar",
+        "/legal",
+        "/privacy",
+        "/terms",
+        "/solutions",
+        "/services"
+      ],
+      "schema_org_types": [
+        "PrivacyPolicy",
+        "TermsOfService"
+      ]
+    },
+    {
+      "label": "Testimonials / Customers",
+      "url_patterns": [
+        "/testimonials?/",
+        "/customers?/",
+        "/reviews?/",
+        "/clients?/",
+        "/customers?",
+        "/clients?/(we[-\\s]?serve|success|stories?)",
+        "/reviews?",
+        "/why[-\\s]?choose[-\\s]?us/"
+      ],
+      "url_weight": 12,
+      "title_patterns": [
+        "\\btestimonials?\\b",
+        "\\bcustomers?\\b",
+        "\\breviews?\\b",
+        "\\bwhat (our )?customers say\\b",
+        "\\bclient feedback\\b",
+        "\\bwhat (our )?(clients|customers) say\\b",
+        "\\b(testimonial|review)s?\\b"
+      ],
+      "title_weight": 10,
+      "content_patterns": [
+        "\".*?\"",
+        "\\b(ceo|cto|director|manager) at\\b",
+        "\\brated \\d+",
+        "\\b\\d+/\\d+ stars?\\b",
+        "\\btestimonial\\b",
+        "★★★★★|★★★★☆|★★★☆☆",
+        "case quotes",
+        "\\\".+?\\\" — [A-Za-z ]+, [A-Za-z ]+"
+      ],
+      "pattern_weight": 2,
+      "min_patterns": 2,
+      "structure_signals": {
+        "has_quotes": true,
+        "has_names": true,
+        "quote_carousel": true,
+        "logo_garden": true
+      },
+      "min_score": 14,
+      "synonyms": [
+        "testimonial",
+        "what our customers say",
+        "rated",
+        "stars",
+        "review"
+      ],
+      "global_hints": {
+        "multilingual_soft_terms": [
+          "estudio de caso",
+          "caso de éxito",
+          "comunicado de prensa",
+          "servicios",
+          "soluciones",
+          "precios",
+          "carreras",
+          "empleos",
+          "webinar",
+          "estudo de caso",
+          "comunicado à imprensa",
+          "serviços",
+          "soluções",
+          "tarifs",
+          "carrières",
+          "étude de cas"
+        ],
+        "normalization": [
+          "lowercase",
+          "unicode_nfkc",
+          "collapse_whitespace",
+          "unhyphenate: omni[-\\s]?channel, near[-\\s]?shore, on[-\\s]?shore, work[-\\s]?at[-\\s]?home"
+        ]
+      },
+      "detection_hints": {
+        "has_lead_form_selector": "form input[type=email], form input[name*=email i], form button[type=submit]",
+        "cta_text_regex": "\\b(get (a )?quote|request (a )?demo|speak to sales|book a demo|download now)\\b",
+        "byline_regex": "\\bby\\s+[A-Z][a-z]+\\s+[A-Z][a-z]+\\b",
+        "date_regex": "(January|February|March|April|May|June|July|August|September|October|November|December)\\s+\\d{1,2},\\s+\\d{4}"
+      },
+      "path_signals": [
+        "/news",
+        "/press",
+        "/media",
+        "/blog",
+        "/insights",
+        "/resources",
+        "/careers",
+        "/jobs",
+        "/pricing",
+        "/plans",
+        "/customers",
+        "/clients",
+        "/events",
+        "/webinar",
+        "/legal",
+        "/privacy",
+        "/terms",
+        "/solutions",
+        "/services"
+      ],
+      "schema_org_types": [
+        "Review",
+        "AggregateRating"
+      ]
+    }
+  ],
+  "scoring_config": {
+    "fuzzy": {
+      "title_min": 85,
+      "heading_min": 80,
+      "url_slug_min": 80,
+      "bonus_title": 6,
+      "bonus_heading": 4,
+      "bonus_url": 3
+    },
+    "similarity": {
+      "jaccard_token_overlap_min": 0.3,
+      "bonus": 3
+    },
+    "schema_org": {
+      "bonus": {
+        "Careers": 6,
+        "News / Press": 5,
+        "Documentation / Knowledge Base": 4
+      }
+    },
+    "negatives": {
+      "Blog / Article": {
+        "media_contact_regex": 7
+      },
+      "Services / Offerings": {
+        "short_lead_form": 6
+      },
+      "Case Study": {
+        "missing_kpi_triad": 6
+      },
+      "Global": {
+        "legal_boilerplate_early": 8
+      }
+    },
+    "tie_breaker_priority": [
+      "Legal / Compliance",
+      "Careers / Job Posting",
+      "News / Press Release",
+      "Case Study"
+    ]
+  }
+}

@@ -14,11 +14,13 @@ apify-client==1.7.2
 pandas==2.2.3
 pydantic==2.9.2
 python-dateutil==2.9.0
+html2text==2024.2.26
 
 # Orchestration
 prefect==3.1.9
 redis==5.2.0
 psycopg[binary]==3.2.3
+asyncpg==0.29.0
 
 # Reliability
 tenacity==9.0.0

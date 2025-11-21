@@ -1,0 +1,465 @@
+"""
+Domain Crawler - Crawl a website following links within the same domain
+"""
+
+import asyncio
+import json
+from typing import Dict, Set, List, Optional, Any
+from urllib.parse import urlparse, urljoin
+from datetime import datetime
+from collections import deque
+
+import asyncpg
+from curl_cffi import requests
+from loguru import logger
+from bs4 import BeautifulSoup
+import html2text
+
+from .base import BaseScraper
+from .file_scraper import FileScraper
+from ..parsers.link_extractor import LinkExtractor
+from ..parsers.boilerplate_detector import BoilerplateDetector
+from ..notifications.domain_notifier import DomainNotifier
+from ..utils.auto_create_organization import auto_create_organization_from_domain
+
+
+class DomainCrawler(BaseScraper):
+    """Crawl a domain following links within the same domain."""
+    
+    def __init__(
+        self,
+        config: Dict[str, Any],
+        db_connection: asyncpg.Connection,
+        max_depth: int = 3,
+        max_pages: int = 100,
+        max_duration_seconds: Optional[int] = None
+    ):
+        """
+        Initialize domain crawler.
+        
+        Args:
+            config: Configuration dictionary
+            db_connection: Database connection
+            max_depth: Maximum crawl depth
+            max_pages: Maximum number of pages to crawl
+            max_duration_seconds: Maximum duration in seconds (None = no time limit)
+        """
+        super().__init__(config)
+        self.db = db_connection
+        self.max_depth = max_depth
+        self.max_pages = max_pages
+        
+        # Set database connection for browser requirement caching
+        self.set_db_connection(db_connection)
+        self.max_duration_seconds = max_duration_seconds
+        
+        # Crawl state
+        self.visited_urls: Set[str] = set()
+        self.failed_urls: Set[str] = set()
+        self.to_visit: deque = deque()
+        self.crawled_count = 0
+        
+        # Components
+        self.boilerplate_detector = BoilerplateDetector()
+        
+        # File scraper if enabled
+        file_config = config.get('file_download', {})
+        if file_config.get('enabled', False):
+            storage_path = file_config.get('file_storage_path', '/app/data/files')
+            self.file_scraper = FileScraper(db_connection, storage_path, config)
+        else:
+            self.file_scraper = None
+        
+        # Notification system if enabled
+        notification_config = config.get('notifications', {})
+        if notification_config.get('enabled', False):
+            webhook_url = notification_config.get('webhook_url', '')
+            self.notifier = DomainNotifier(
+                db_connection=db_connection,
+                webhook_url=webhook_url if webhook_url else None,
+                webhook_enabled=bool(webhook_url)
+            )
+        else:
+            self.notifier = None
+    
+    def _extract_links(self, html_content: str, base_url: str) -> Set[str]:
+        """
+        Extract all links from HTML content.
+        
+        Args:
+            html_content: HTML content
+            base_url: Base URL for resolving relative links
+            
+        Returns:
+            Set of absolute URLs
+        """
+        links = set()
+        
+        try:
+            soup = BeautifulSoup(html_content, 'lxml')
+        except Exception:
+            soup = BeautifulSoup(html_content, 'html.parser')
+        
+        for link in soup.find_all('a', href=True):
+            href = link.get('href', '').strip()
+            if not href:
+                continue
+            
+            normalized = self._normalize_url(href, base_url)
+            if normalized:
+                links.add(normalized)
+        
+        return links
+    
+    def _should_crawl(self, url: str, base_domain: str) -> bool:
+        """
+        Determine if a URL should be crawled.
+        
+        Args:
+            url: URL to check
+            base_domain: Base domain to stay within
+            
+        Returns:
+            True if URL should be crawled
+        """
+        # Already visited
+        if url in self.visited_urls:
+            return False
+        
+        # Already failed
+        if url in self.failed_urls:
+            return False
+        
+        # Check domain
+        url_domain = self._get_domain(url)
+        if url_domain != base_domain:
+            return False
+        
+        # Check if it's a file (skip direct file downloads for crawling)
+        parsed = urlparse(url.lower())
+        path = parsed.path
+        if any(path.endswith(ext) for ext in ['.pdf', '.doc', '.docx', '.jpg', '.png', '.gif', '.zip', '.exe']):
+            return False
+        
+        # Check if it's likely a page (has .html, .htm, or no extension, or ends with /)
+        if path.endswith(('.html', '.htm', '/')) or '.' not in path.split('/')[-1]:
+            return True
+        
+        return False
+    
+    async def crawl(self, start_url: str) -> Dict[str, Any]:
+        """
+        Crawl a domain starting from a URL.
+        
+        Args:
+            start_url: Starting URL
+            
+        Returns:
+            Crawl results summary
+        """
+        base_domain = self._get_domain(start_url)
+        logger.info(f"Starting crawl of {base_domain} from {start_url}")
+        
+        # Initialize queue
+        self.to_visit.append((start_url, 0))  # (url, depth)
+        self.visited_urls.add(start_url)
+        
+        session = requests.Session()
+        results = {
+            'start_url': start_url,
+            'domain': base_domain,
+            'pages_crawled': 0,
+            'pages_failed': 0,
+            'files_found': 0,
+            'start_time': datetime.now(),
+            'end_time': None
+        }
+        
+        while self.to_visit and self.crawled_count < self.max_pages:
+            # Check time limit
+            if self.max_duration_seconds:
+                elapsed = (datetime.now() - results['start_time']).total_seconds()
+                if elapsed >= self.max_duration_seconds:
+                    logger.info(f"Time limit reached ({self.max_duration_seconds}s), stopping crawl")
+                    break
+            
+            url, depth = self.to_visit.popleft()
+            
+            if depth > self.max_depth:
+                logger.debug(f"Skipping {url} (depth {depth} > max {self.max_depth})")
+                continue
+            
+            logger.info(f"Crawling [{depth}] {url} ({self.crawled_count + 1}/{self.max_pages})")
+            
+            # Fetch page
+            fetch_result = self.fetch_page(url, session=session)
+            
+            if not fetch_result['success']:
+                self.failed_urls.add(url)
+                results['pages_failed'] += 1
+                
+                # Skip 404s
+                if fetch_result.get('status_code') == 404:
+                    logger.info(f"Skipping 404: {url}")
+                    continue
+                
+                logger.warning(f"Failed to fetch {url}: {fetch_result.get('error')} (Status: {fetch_result.get('status_code', 'N/A')})")
+                continue
+            
+            # Check if URL redirected to different domain (normalize http/https)
+            final_url = fetch_result.get('url', url)
+            final_domain = self._get_domain(final_url)
+            if final_domain != base_domain:
+                logger.info(f"URL redirected to different domain: {url} -> {final_url} ({final_domain} != {base_domain})")
+                continue
+            
+            # Update URL to final URL if redirected
+            if final_url != url:
+                url = final_url
+                logger.debug(f"Following redirect: {url}")
+            
+            # Check if it's actually HTML
+            content_type = fetch_result.get('headers', {}).get('Content-Type', '').lower()
+            html_content = fetch_result['content']
+            
+            # If no content-type header, check if content looks like HTML
+            is_html = False
+            if content_type:
+                is_html = 'text/html' in content_type or 'application/xhtml' in content_type
+            else:
+                # No content-type header - check if content looks like HTML
+                html_lower = html_content[:500].lower() if html_content else ''
+                is_html = '<html' in html_lower or '<!doctype' in html_lower or '<body' in html_lower
+            
+            if not is_html:
+                logger.info(f"Skipping non-HTML content: {url} (Content-Type: {content_type or 'N/A'})")
+                continue
+            
+            html_content = fetch_result['content']
+            
+            # Log content info
+            logger.debug(f"Fetched {url}: {len(html_content)} bytes, status {fetch_result.get('status_code')}")
+            
+            # Extract main content (both HTML and text versions)
+            main_content_html = None
+            main_content = None
+            
+            # If browser was used, we may have text_content already extracted
+            if fetch_result.get('browser_used') and fetch_result.get('text_content'):
+                # Use the text content from browser (already includes shadow DOM and iframes)
+                main_content = fetch_result['text_content']
+                # For markdown, we can use the full HTML and clean it
+                main_content_html = self.boilerplate_detector.remove_boilerplate(html_content)
+                logger.debug(f"Using browser-extracted text content ({len(main_content)} chars)")
+            else:
+                # Use standard extraction - get cleaned HTML first
+                main_content_html = self.boilerplate_detector.remove_boilerplate(html_content)
+                # Then extract text
+                main_content = self.boilerplate_detector.extract_main_content(html_content)
+            
+            # Check for boilerplate (log but don't skip)
+            if html_content:
+                content_ratio = self.boilerplate_detector.get_content_ratio(html_content)
+                logger.debug(f"Content ratio for {url}: {content_ratio:.2%}")
+                if content_ratio < 0.1:  # Less than 10% main content
+                    logger.info(f"Low content ratio ({content_ratio:.2%}): {url} - may need browser rendering")
+            
+            # Save to database
+            await self._save_page(url, fetch_result, main_content, html_content, main_content_html)
+            
+            # Extract and process file links
+            if self.file_scraper:
+                file_results = await self.file_scraper.process_page_for_files(
+                    page_url=url,
+                    html_content=html_content,
+                    session=session
+                )
+                results['files_found'] += len([r for r in file_results if r.get('status') == 'downloaded'])
+            
+            # Extract links for further crawling
+            if depth < self.max_depth:
+                links = self._extract_links(html_content, url)
+                for link in links:
+                    if self._should_crawl(link, base_domain):
+                        self.to_visit.append((link, depth + 1))
+                        self.visited_urls.add(link)
+            
+            self.crawled_count += 1
+            results['pages_crawled'] += 1
+        
+        results['end_time'] = datetime.now()
+        duration = (results['end_time'] - results['start_time']).total_seconds()
+        results['duration_seconds'] = duration
+        
+        logger.info(f"Crawl completed: {results['pages_crawled']} pages, {results['pages_failed']} failed, {results['files_found']} files found in {duration:.1f}s")
+        
+        # Send notification if enabled
+        if self.notifier:
+            try:
+                notification_result = await self.notifier.notify_domain_completion(
+                    domain=base_domain,
+                    crawl_results=results
+                )
+                results['notification'] = notification_result
+                logger.info(f"Notification sent for {base_domain}: Quality={notification_result.get('quality_metrics', {}).get('quality_score', 'N/A')}")
+            except Exception as e:
+                logger.error(f"Error sending notification for {base_domain}: {e}")
+                results['notification'] = {'success': False, 'error': str(e)}
+        
+        return results
+    
+    async def _save_page(
+        self,
+        url: str,
+        fetch_result: Dict[str, Any],
+        main_content: str,
+        html_content: str,
+        main_content_html: Optional[str] = None
+    ):
+        """Save page to database with markdown content and organization link."""
+        try:
+            domain = self._get_domain(url)
+            content_hash = self.calculate_content_hash(html_content)
+            
+            # Extract title
+            try:
+                soup = BeautifulSoup(html_content, 'html.parser')
+                title_tag = soup.find('title')
+                title = title_tag.get_text(strip=True) if title_tag else None
+            except Exception:
+                title = None
+            
+            # Convert cleaned HTML content to markdown
+            markdown_content = None
+            if fetch_result['success']:
+                try:
+                    # Use html2text to convert cleaned HTML to markdown
+                    h = html2text.HTML2Text()
+                    h.ignore_links = False
+                    h.ignore_images = False
+                    h.ignore_emphasis = False
+                    h.body_width = 0  # Don't wrap lines
+                    h.unicode_snob = True  # Use unicode
+                    h.escape_snob = False  # Don't escape special chars
+                    
+                    # Use cleaned HTML if available, otherwise use full HTML
+                    html_to_convert = main_content_html if main_content_html else html_content
+                    
+                    if html_to_convert:
+                        markdown_content = h.handle(html_to_convert)
+                        markdown_content = markdown_content.strip()
+                    elif main_content:
+                        # Fallback to plain text if no HTML
+                        markdown_content = main_content.strip()
+                except Exception as md_error:
+                    logger.warning(f"Error converting to markdown for {url}: {md_error}")
+                    # Fallback to plain text
+                    markdown_content = main_content.strip() if main_content else None
+            
+            # Get or create organization and get its UUID
+            organization_uuid = None
+            try:
+                # Get organization UUID by domain
+                org_query = "SELECT uuid FROM organizations WHERE domain = $1"
+                organization_uuid = await self.db.fetchval(org_query, domain)
+                
+                # If no organization exists, create one
+                if not organization_uuid:
+                    logger.info(f"No organization found for domain {domain}, auto-creating...")
+                    org_id = await auto_create_organization_from_domain(self.db, domain)
+                    # Get the UUID of the newly created organization
+                    organization_uuid = await self.db.fetchval(org_query, domain)
+            except Exception as org_error:
+                logger.warning(f"Error getting organization UUID for {domain}: {org_error}")
+            
+            # Prepare metadata as JSON string for JSONB column
+            metadata_dict = {
+                'main_content_length': len(main_content) if main_content else 0,
+                'html_length': len(html_content) if html_content else 0,
+                'markdown_length': len(markdown_content) if markdown_content else 0
+            }
+            
+            # Insert or update in database
+            query = """
+                INSERT INTO scraped_sites (
+                    url, domain, title, content_hash, scraped_at,
+                    strategy, status_code, response_time, success,
+                    error_message, proxy_used, cost, metadata,
+                    markdown_content, organization_uuid
+                ) VALUES (
+                    $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15
+                )
+                ON CONFLICT (url) DO UPDATE SET
+                    title = EXCLUDED.title,
+                    content_hash = EXCLUDED.content_hash,
+                    scraped_at = EXCLUDED.scraped_at,
+                    status_code = EXCLUDED.status_code,
+                    response_time = EXCLUDED.response_time,
+                    success = EXCLUDED.success,
+                    error_message = EXCLUDED.error_message,
+                    markdown_content = EXCLUDED.markdown_content,
+                    organization_uuid = EXCLUDED.organization_uuid,
+                    metadata = EXCLUDED.metadata,
+                    updated_at = CURRENT_TIMESTAMP
+            """
+            
+            result = await self.db.execute(
+                query,
+                url,
+                domain,
+                title,
+                content_hash,
+                datetime.now(),
+                'domain_crawl',
+                fetch_result.get('status_code'),
+                fetch_result.get('response_time'),
+                fetch_result['success'],
+                fetch_result.get('error'),
+                fetch_result.get('proxy_used', False),  # proxy_used
+                0.0,  # cost
+                json.dumps(metadata_dict),  # Convert dict to JSON string for JSONB
+                markdown_content,  # markdown_content
+                organization_uuid  # organization_uuid
+            )
+            
+            # Get scraped_site_id for evidence tracking
+            scraped_site_id = None
+            if fetch_result['success']:
+                site_query = "SELECT id FROM scraped_sites WHERE url = $1"
+                scraped_site_id = await self.db.fetchval(site_query, url)
+            
+            # Extract and store organization facts if page was successfully scraped
+            if fetch_result['success'] and html_content:
+                try:
+                    from ..extractors.entity_extractor import extract_and_store_organization_facts
+                    # Use asyncio to run the async function
+                    await extract_and_store_organization_facts(
+                        self.db,
+                        domain,
+                        url,
+                        html_content,
+                        scraped_site_id
+                    )
+                except Exception as extract_error:
+                    logger.warning(f"Error extracting organization facts from {url}: {extract_error}")
+            
+        except Exception as e:
+            logger.error(f"Error saving page {url} to database: {e}")
+    
+    def scrape(self, url: str) -> Dict[str, Any]:
+        """
+        Scrape a single URL (synchronous wrapper for async crawl).
+        
+        Args:
+            url: URL to scrape
+            
+        Returns:
+            Scraping results
+        """
+        # This is a synchronous wrapper - actual crawling is async
+        # For now, return a placeholder
+        return {
+            'success': False,
+            'error': 'Use crawl() method for domain crawling'
+        }
+

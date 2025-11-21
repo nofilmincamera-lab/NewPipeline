@@ -256,11 +256,26 @@ docker system prune -a --volumes
 - All containers run as non-root users
 - Database is not exposed to the internet (localhost only)
 
+## Documentation
+
+### Complete Pipeline Documentation
+
+For detailed information about the scraping pipeline, security detection, and anti-bot protection handling, see:
+
+- **[PIPELINE_DOCUMENTATION.md](scraper/PIPELINE_DOCUMENTATION.md)** - Complete step-by-step pipeline description, security detection details, and anti-bot protection handling
+
+### Additional Documentation
+
+- **[SETUP_GUIDE.md](SETUP_GUIDE.md)** - Detailed setup instructions
+- **[DOCKER_INFRASTRUCTURE.md](DOCKER_INFRASTRUCTURE.md)** - Docker infrastructure details
+- **[scraper/README_OVERNIGHT_SCRAPER.md](scraper/README_OVERNIGHT_SCRAPER.md)** - Overnight scraper documentation
+- **[scraper/RUNNING_WITH_DOCKER.md](scraper/RUNNING_WITH_DOCKER.md)** - Docker usage guide
+
 ## Next Steps
 
 After the infrastructure is running:
 
-1. **Implement Python scraping code** in `scraper/src/`
+1. **Review pipeline documentation** in `scraper/PIPELINE_DOCUMENTATION.md`
 2. **Test the scraper** with a small subset of sites
 3. **Monitor logs** and metrics in Prefect UI
 4. **Scale up** Playwright pool as needed
@@ -271,6 +286,7 @@ For issues or questions:
 - Check container logs: `docker-compose logs [service-name]`
 - Verify all services are healthy: `docker-compose ps`
 - Review this README and configuration files
+- See [PIPELINE_DOCUMENTATION.md](scraper/PIPELINE_DOCUMENTATION.md) for detailed pipeline information
 
 ## License
 

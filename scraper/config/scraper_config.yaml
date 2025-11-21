@@ -39,7 +39,33 @@ redis:
   max_connections: 100
 
 # Respect robots.txt
-respect_robots_txt: true
+respect_robots_txt: false
+
+# Browser Configuration
+browser:
+  enabled: true
+  timeout: 30  # seconds
+  wait_strategy: networkidle  # networkidle, load, domcontentloaded
+  wait_timeout: 10  # seconds
+  enable_shadow_dom_extraction: true
+  enable_iframe_extraction: true
+  browser_headless: true
 
 # Monitoring
 enable_metrics: true
+
+# File Download Configuration
+file_download:
+  enabled: true
+  file_types: ['pdf', 'doc', 'docx']
+  max_file_size: 52428800  # 50MB in bytes
+  file_storage_path: /app/data/files
+  enable_deduplication: true
+  download_direct_urls_only: true  # Only download direct file URLs, not pages
+  retry_attempts: 3
+  retry_delays: [5, 15, 45]  # seconds
+
+# Notification Configuration
+notifications:
+  enabled: true
+  webhook_url: "https://webhookreceiver-ps6nryst2a-ey.a.run.app/ntlgwuz5nvgs9lxyokgyf44veib3x6gi"

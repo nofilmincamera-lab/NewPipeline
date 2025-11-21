@@ -1,0 +1,15 @@
+{
+  "run_id": "test_run",
+  "last_updated": "2025-11-21T01:00:05.496397",
+  "current_pass": 1,
+  "completed_domains": [],
+  "marked_for_review": [],
+  "manual_review": [],
+  "in_progress": null,
+  "stats": {
+    "total_domains": 0,
+    "processed": 0,
+    "successful": 0,
+    "total_records": 0
+  }
+}
