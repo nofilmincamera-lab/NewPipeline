@@ -108,11 +108,7 @@ CREATE INDEX IF NOT EXISTS idx_downloaded_files_downloaded_at ON downloaded_file
 CREATE INDEX IF NOT EXISTS idx_downloaded_files_source_url ON downloaded_files(source_url);
 CREATE INDEX IF NOT EXISTS idx_downloaded_files_parent_page_url ON downloaded_files(parent_page_url);
 
--- Apply trigger to downloaded_files
-CREATE TRIGGER update_downloaded_files_updated_at BEFORE UPDATE ON downloaded_files
-    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
-
--- Create updated_at trigger function
+-- Create updated_at trigger function (must be defined before triggers)
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -120,6 +116,10 @@ BEGIN
     RETURN NEW;
 END;
 $$ language 'plpgsql';
+
+-- Apply trigger to downloaded_files
+CREATE TRIGGER update_downloaded_files_updated_at BEFORE UPDATE ON downloaded_files
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- Apply trigger to scraped_sites
 CREATE TRIGGER update_scraped_sites_updated_at BEFORE UPDATE ON scraped_sites
