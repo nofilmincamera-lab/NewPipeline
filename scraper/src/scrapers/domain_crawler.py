@@ -3,6 +3,7 @@ Domain Crawler - Crawl a website following links within the same domain
 """
 
 import asyncio
+import json
 from typing import Dict, Set, List, Optional, Any
 from urllib.parse import urlparse, urljoin
 from datetime import datetime
@@ -293,6 +294,12 @@ class DomainCrawler(BaseScraper):
                     updated_at = CURRENT_TIMESTAMP
             """
             
+            # Prepare metadata as JSON string for JSONB column
+            metadata_dict = {
+                'main_content_length': len(main_content),
+                'html_length': len(html_content)
+            }
+            
             await self.db.execute(
                 query,
                 url,
@@ -307,7 +314,7 @@ class DomainCrawler(BaseScraper):
                 fetch_result.get('error'),
                 False,  # proxy_used
                 0.0,  # cost
-                {'main_content_length': len(main_content), 'html_length': len(html_content)}
+                json.dumps(metadata_dict)  # Convert dict to JSON string for JSONB
             )
             
         except Exception as e:

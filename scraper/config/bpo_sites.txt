@@ -1,20 +1,78 @@
-# BPO Industry Websites - Sample List
-# Add your 60 sites here (one per line)
+# BPO Industry Websites - Complete List
+# 73 unique BPO provider websites extracted from DataSample/url.docx
 # Lines starting with # are ignored
 
-# Major BPO Providers (examples - replace with your actual list)
+# Major BPO Providers
 https://www.accenture.com
+https://www.ada.cx
+https://www.adp.com
+https://www.alorica.com
+https://www.amdocs.com
+https://www.arvato-systems.com
+https://www.arvato.com
+https://www.arvatoconnect.com
+https://www.arvatocx.com
+https://www.atento.com
+https://www.bertelsmann.com
+https://www.capgemini.com
+https://www.cgi.com
+https://www.cgsinc.com
+https://www.clevertap.com
+https://www.cognigy.com
+https://www.cognizant.com
 https://www.concentrix.com
-https://www.teleperformance.com
-https://www.ttec.com
-https://www.sykes.com
-https://www.convergys.com
+https://www.conduent.com
+https://www.cresta.com
+https://crm.arvato.com
+https://digitally.cognizant.com
+https://www.ebi.ai
+https://www.exlservice.com
+https://finance.arvato.com
+https://www.firstsource.com
+https://www.five9.com
+https://www.foundever.com
+https://www.freshworks.com
 https://www.genpact.com
-https://www.wipro.com
+https://www.gupshup.io
+https://www.haptik.ai
+https://www.hcltech.com
+https://www.hexaware.com
+https://www.hgs.cx
+https://www.ibex.co
+https://www.ibm.com
+https://www.indracompany.com
+https://www.infosysbpm.com
+https://www.intercom.com
+https://www.iqor.com
+https://it.arvato-systems.com
+https://it.arvato.com
+https://www.itelinternational.com
+https://www.konecta.com
+https://www.kore.ai
+https://mediacenter.adp.com
+https://www.nice.com
+https://www.parloa.com
+https://www.poly.ai
+https://www.rasa.com
+https://www.replicant.ai
+https://www.results-cx.com
+https://www.resultscx.com
+https://scm.arvato.com
+https://www.startek.com
+https://www.sutherlandglobal.com
+https://www.taskus.com
 https://www.tcs.com
-https://www.infosys.com
-
-# Add your remaining 50+ sites below:
-# https://example-bpo-site1.com
-# https://example-bpo-site2.com
-# ... etc
+https://www.teamhgs.com
+https://www.techmahindra.com
+https://www.teleperformance.com
+https://www.telusinternational.com
+https://www.transcom.com
+https://www.ttec.com
+https://www.uniphore.com
+https://www.ushur.com
+https://www.verint.com
+https://www.vxi.com
+https://www.vxiusa.com
+https://www.wipro.com
+https://www.wns.com
+https://www.yellow.ai

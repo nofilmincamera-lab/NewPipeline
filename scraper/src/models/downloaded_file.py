@@ -2,6 +2,7 @@
 Database model for downloaded files.
 """
 
+import json
 from datetime import datetime
 from typing import Optional, Dict, Any
 from uuid import UUID
@@ -76,6 +77,9 @@ class DownloadedFileDB:
             RETURNING id
         """
         
+        # Convert metadata dict to JSON string for JSONB column
+        metadata_json = json.dumps(file_data.metadata) if file_data.metadata else None
+        
         result = await self.conn.fetchval(
             query,
             file_data.uuid,
@@ -93,7 +97,7 @@ class DownloadedFileDB:
             file_data.download_status,
             file_data.download_error,
             file_data.ocr_status,
-            file_data.metadata
+            metadata_json
         )
         
         return result

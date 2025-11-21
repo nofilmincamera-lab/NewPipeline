@@ -16,7 +16,7 @@ import asyncpg
 from loguru import logger
 from dotenv import load_dotenv
 
-from src.scrapers.domain_crawler import DomainCrawler
+from scrapers.domain_crawler import DomainCrawler
 
 
 async def main():
