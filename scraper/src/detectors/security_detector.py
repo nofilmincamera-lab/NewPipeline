@@ -5,7 +5,6 @@ Security Detection - Identify site security measures to determine scraping appro
 import re
 from typing import Dict, Optional, Any, Set
 from enum import Enum
-from bs4 import BeautifulSoup
 
 
 class SecurityType(Enum):
@@ -197,6 +196,14 @@ class SecurityDetector:
                 results['security_level'] = SecurityLevel.MEDIUM
                 results['confidence'] = 0.4
         
+        # Detect JavaScript rendering needs
+        js_rendering = self.detect_js_rendering_need(content, status_code)
+        if js_rendering['detected']:
+            results['requires_browser'] = True
+            results['indicators'].extend(js_rendering['indicators'])
+            if results['confidence'] < js_rendering['confidence']:
+                results['confidence'] = js_rendering['confidence']
+        
         return results
     
     def _detect_cloudflare(
@@ -336,4 +343,121 @@ class SecurityDetector:
     def should_use_browser(self, detection_result: Dict[str, Any]) -> bool:
         """Determine if browser automation should be used"""
         return detection_result.get('requires_browser', False)
+    
+    def detect_js_rendering_need(
+        self,
+        content: Optional[str],
+        status_code: int
+    ) -> Dict[str, Any]:
+        """
+        Detect if JavaScript rendering is needed based on content analysis.
+        
+        Args:
+            content: HTML content
+            status_code: HTTP status code
+            
+        Returns:
+            Dictionary with detection results:
+            {
+                'detected': bool,
+                'indicators': List[str],
+                'confidence': float
+            }
+        """
+        if not content or status_code != 200:
+            return {'detected': False, 'indicators': [], 'confidence': 0.0}
+        
+        detected = False
+        indicators = []
+        confidence = 0.0
+        
+        content_lower = content.lower()
+        html_length = len(content)
+        
+        # Check for JS framework indicators
+        js_frameworks = [
+            r'react', r'vue', r'angular', r'svelte', r'next\.js', r'nuxt',
+            r'__next', r'__nuxt', r'ng-', r'v-', r'data-react', r'data-vue'
+        ]
+        framework_found = False
+        for framework in js_frameworks:
+            if re.search(framework, content_lower):
+                framework_found = True
+                indicators.append(f"JS framework detected: {framework}")
+                confidence = max(confidence, 0.7)
+                break
+        
+        # Check for noscript tags with content (indicates JS-rendered content)
+        noscript_pattern = r'<noscript[^>]*>.*?</noscript>'
+        noscript_matches = re.findall(noscript_pattern, content, re.IGNORECASE | re.DOTALL)
+        if noscript_matches:
+            total_noscript_length = sum(len(match) for match in noscript_matches)
+            if total_noscript_length > 500:  # Substantial noscript content
+                detected = True
+                indicators.append(f"Substantial noscript content ({total_noscript_length} chars)")
+                confidence = max(confidence, 0.8)
+        
+        # Check for multiple script tags (indicates dynamic loading)
+        script_tags = len(re.findall(r'<script[^>]*>', content_lower))
+        if script_tags > 5:
+            detected = True
+            indicators.append(f"Multiple script tags ({script_tags})")
+            confidence = max(confidence, 0.6)
+        
+        # Check for shadow DOM indicators
+        shadow_dom_indicators = [
+            r'shadowroot', r'shadow-root', r'#shadow-root',
+            r'<template[^>]*shadow', r'custom-element', r'web-component'
+        ]
+        for indicator in shadow_dom_indicators:
+            if re.search(indicator, content_lower):
+                detected = True
+                indicators.append(f"Shadow DOM indicator: {indicator}")
+                confidence = max(confidence, 0.75)
+                break
+        
+        # Check for iframes
+        iframe_count = len(re.findall(r'<iframe[^>]*>', content_lower))
+        if iframe_count > 0:
+            indicators.append(f"Iframes detected ({iframe_count})")
+            # Iframes alone don't require browser, but combined with other indicators they do
+            if detected:
+                confidence = max(confidence, 0.65)
+        
+        # Check for empty/minimal main content despite large HTML
+        # This is a strong indicator of JS-rendered content
+        # We'll check this by looking for common content patterns
+        body_match = re.search(r'<body[^>]*>(.*?)</body>', content, re.IGNORECASE | re.DOTALL)
+        if body_match:
+            body_content = body_match.group(1)
+            # Remove script and style tags
+            body_clean = re.sub(r'<script[^>]*>.*?</script>', '', body_content, flags=re.IGNORECASE | re.DOTALL)
+            body_clean = re.sub(r'<style[^>]*>.*?</style>', '', body_clean, flags=re.IGNORECASE | re.DOTALL)
+            # Count text content
+            text_content = re.sub(r'<[^>]+>', '', body_clean)
+            text_length = len(text_content.strip())
+            
+            # If HTML is large (>50KB) but text content is minimal (<1000 chars), likely JS-rendered
+            if html_length > 50000 and text_length < 1000:
+                detected = True
+                indicators.append(f"Large HTML ({html_length:,} chars) but minimal text ({text_length} chars)")
+                confidence = max(confidence, 0.85)
+        
+        # Check for common JS-rendered site patterns
+        js_rendering_patterns = [
+            r'data-reactroot', r'id="root"', r'id="app"', r'id="__next"',
+            r'ng-app', r'v-app', r'x-data', r'data-component'
+        ]
+        for pattern in js_rendering_patterns:
+            if re.search(pattern, content_lower):
+                detected = True
+                indicators.append(f"JS rendering pattern: {pattern}")
+                confidence = max(confidence, 0.7)
+                break
+        
+        return {
+            'detected': detected,
+            'indicators': indicators,
+            'confidence': confidence
+        }
 

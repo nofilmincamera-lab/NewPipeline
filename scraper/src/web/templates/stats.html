@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics - BPO Intelligence Viewer{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Database Statistics</h2>
+    
+    <div class="stats">
+        <div class="stat-item">
+            <div class="stat-value">{{ stats.total_orgs or 0 }}</div>
+            <div class="stat-label">Organizations</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">{{ stats.total_products or 0 }}</div>
+            <div class="stat-label">Products</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">{{ stats.total_services or 0 }}</div>
+            <div class="stat-label">Services</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">{{ stats.total_platforms or 0 }}</div>
+            <div class="stat-label">Platforms</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">{{ stats.total_certs or 0 }}</div>
+            <div class="stat-label">Certifications</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">{{ stats.total_awards or 0 }}</div>
+            <div class="stat-label">Awards</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">{{ stats.total_markets or 0 }}</div>
+            <div class="stat-label">Markets</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">{{ stats.total_relationships or 0 }}</div>
+            <div class="stat-label">Relationships</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">{{ stats.total_entities or 0 }}</div>
+            <div class="stat-label">Corporate Entities</div>
+        </div>
+    </div>
+</div>
+
+{% if org_types %}
+<div class="card">
+    <h3>Organizations by Type</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for org_type in org_types %}
+            <tr>
+                <td>{{ org_type.organizational_type }}</td>
+                <td>{{ org_type.count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if segments %}
+<div class="card">
+    <h3>Organizations by Customer Segment</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Segment</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for segment in segments %}
+            <tr>
+                <td>
+                    <span class="badge badge-primary">{{ segment.customer_segment }}</span>
+                </td>
+                <td>{{ segment.count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}
+

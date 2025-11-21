@@ -26,11 +26,28 @@ FROM python:3.11-slim
 LABEL maintainer="Joshua - BPO Intelligence"
 LABEL description="Web Scraper Core - Tier 1 curl_cffi scraper"
 
-# Install runtime dependencies only
+# Install runtime dependencies including Playwright browser dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 \
     curl \
     ca-certificates \
+    # Playwright browser dependencies
+    libnss3 \
+    libnspr4 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libcups2 \
+    libdrm2 \
+    libdbus-1-3 \
+    libxkbcommon0 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxfixes3 \
+    libxrandr2 \
+    libgbm1 \
+    libasound2 \
+    libpango-1.0-0 \
+    libcairo2 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy virtual environment from builder
@@ -45,8 +62,10 @@ RUN useradd -m -u 1000 -s /bin/bash scraper && \
     mkdir -p /app/src /app/config /app/data /app/logs && \
     chown -R scraper:scraper /app
 
-# Switch to non-root user
+# Install Playwright browsers (as scraper user)
 USER scraper
+RUN /opt/venv/bin/playwright install chromium && \
+    /opt/venv/bin/playwright install-deps chromium || true
 
 # Environment variables
 ENV PYTHONUNBUFFERED=1 \

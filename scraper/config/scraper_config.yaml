@@ -5,7 +5,7 @@ log_level: INFO
 output_dir: /app/data
 
 # Scraping Strategy
-proxy_strategy: intelligent  # never, always, intelligent
+proxy_strategy: always  # never, always, intelligent
 rate_limit: 5  # requests per second per domain
 max_retries: 3
 retry_delays: [5, 15, 45]  # seconds
@@ -39,7 +39,17 @@ redis:
   max_connections: 100
 
 # Respect robots.txt
-respect_robots_txt: true
+respect_robots_txt: false
+
+# Browser Configuration
+browser:
+  enabled: true
+  timeout: 30  # seconds
+  wait_strategy: networkidle  # networkidle, load, domcontentloaded
+  wait_timeout: 10  # seconds
+  enable_shadow_dom_extraction: true
+  enable_iframe_extraction: true
+  browser_headless: true
 
 # Monitoring
 enable_metrics: true
@@ -54,3 +64,13 @@ file_download:
   download_direct_urls_only: true  # Only download direct file URLs, not pages
   retry_attempts: 3
   retry_delays: [5, 15, 45]  # seconds
+
+# Notification Configuration
+notifications:
+  enabled: true
+  webhook_url: "https://webhookreceiver-ps6nryst2a-ey.a.run.app/ntlgwuz5nvgs9lxyokgyf44veib3x6gi"  # Webhooky endpoint for mobile push notifications
+  # Examples:
+  # IFTTT: https://maker.ifttt.com/trigger/domain_scraped/with/key/YOUR_KEY
+  # Discord: https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN
+  # Zapier: https://hooks.zapier.com/hooks/catch/YOUR_WEBHOOK_ID/
+  # Webhooky: https://webhookreceiver-ps6nryst2a-ey.a.run.app/YOUR_KEY

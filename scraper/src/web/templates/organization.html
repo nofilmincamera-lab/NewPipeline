@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+
+{% block title %}{{ org.canonical_name or org.domain }} - BPO Intelligence Viewer{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>{{ org.canonical_name or org.domain }}</h2>
+    
+    <div class="info-grid">
+        <div class="info-item">
+            <div class="info-label">Domain</div>
+            <div class="info-value">{{ org.domain }}</div>
+        </div>
+        {% if org.organizational_type %}
+        <div class="info-item">
+            <div class="info-label">Type</div>
+            <div class="info-value">
+                <span class="badge badge-info">{{ org.organizational_type }}</span>
+            </div>
+        </div>
+        {% endif %}
+        {% if org.customer_segment %}
+        <div class="info-item">
+            <div class="info-label">Customer Segment</div>
+            <div class="info-value">
+                <span class="badge badge-primary">{{ org.customer_segment }}</span>
+            </div>
+        </div>
+        {% endif %}
+        {% if org.founded_year %}
+        <div class="info-item">
+            <div class="info-label">Founded</div>
+            <div class="info-value">{{ org.founded_year }}</div>
+        </div>
+        {% endif %}
+        {% if org.headquarters_country %}
+        <div class="info-item">
+            <div class="info-label">Headquarters</div>
+            <div class="info-value">{{ org.headquarters_country }}</div>
+        </div>
+        {% endif %}
+    </div>
+    
+    {% if org.aliases and org.aliases|length > 0 %}
+    <div class="info-item" style="margin-top: 1rem;">
+        <div class="info-label">Aliases</div>
+        <div class="info-value">{{ org.aliases|join(', ') }}</div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="stats">
+    <div class="stat-item">
+        <div class="stat-value">{{ products|length }}</div>
+        <div class="stat-label">Products</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-value">{{ services|length }}</div>
+        <div class="stat-label">Services</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-value">{{ platforms|length }}</div>
+        <div class="stat-label">Platforms</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-value">{{ certifications|length }}</div>
+        <div class="stat-label">Certifications</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-value">{{ awards|length }}</div>
+        <div class="stat-label">Awards</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-value">{{ markets|length }}</div>
+        <div class="stat-label">Markets</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-value">{{ relationships|length }}</div>
+        <div class="stat-label">Relationships</div>
+    </div>
+</div>
+
+{% if products %}
+<div class="card">
+    <h3>Products ({{ products|length }})</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Evidence Count</th>
+                <th>Last Seen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.product_name }}</td>
+                <td>{{ product.category or '-' }}</td>
+                <td>{{ product.evidence_count }}</td>
+                <td>{{ product.last_seen_at.strftime('%Y-%m-%d') if product.last_seen_at else '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if services %}
+<div class="card">
+    <h3>Services ({{ services|length }})</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Service</th>
+                <th>Path</th>
+                <th>Evidence Count</th>
+                <th>Last Seen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for service in services %}
+            <tr>
+                <td>{{ service.service_name }}</td>
+                <td>
+                    {% if service.service_path %}
+                    {{ service.service_path|join(' > ') }}
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+                <td>{{ service.evidence_count }}</td>
+                <td>{{ service.last_seen_at.strftime('%Y-%m-%d') if service.last_seen_at else '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if platforms %}
+<div class="card">
+    <h3>Platforms ({{ platforms|length }})</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Platform</th>
+                <th>Type</th>
+                <th>Evidence Count</th>
+                <th>Last Seen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for platform in platforms %}
+            <tr>
+                <td>{{ platform.platform_name }}</td>
+                <td>{{ platform.platform_type or '-' }}</td>
+                <td>{{ platform.evidence_count }}</td>
+                <td>{{ platform.last_seen_at.strftime('%Y-%m-%d') if platform.last_seen_at else '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if certifications %}
+<div class="card">
+    <h3>Certifications ({{ certifications|length }})</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Certification</th>
+                <th>Type</th>
+                <th>Evidence Count</th>
+                <th>Last Seen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cert in certifications %}
+            <tr>
+                <td>{{ cert.certification_name }}</td>
+                <td>{{ cert.certification_type or '-' }}</td>
+                <td>{{ cert.evidence_count }}</td>
+                <td>{{ cert.last_seen_at.strftime('%Y-%m-%d') if cert.last_seen_at else '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if awards %}
+<div class="card">
+    <h3>Awards ({{ awards|length }})</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Award</th>
+                <th>Issuer</th>
+                <th>Year</th>
+                <th>Category</th>
+                <th>Last Seen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for award in awards %}
+            <tr>
+                <td>{{ award.award_name }}</td>
+                <td>{{ award.award_issuer or '-' }}</td>
+                <td>{{ award.award_year or '-' }}</td>
+                <td>{{ award.category or '-' }}</td>
+                <td>{{ award.last_seen_at.strftime('%Y-%m-%d') if award.last_seen_at else '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if markets %}
+<div class="card">
+    <h3>Operating Markets ({{ markets|length }})</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>Code</th>
+                <th>Region</th>
+                <th>Operation Type</th>
+                <th>Last Seen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for market in markets %}
+            <tr>
+                <td>{{ market.country_name }}</td>
+                <td>{{ market.country_code }}</td>
+                <td>{{ market.region or '-' }}</td>
+                <td>{{ market.operation_type or '-' }}</td>
+                <td>{{ market.last_seen_at.strftime('%Y-%m-%d') if market.last_seen_at else '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if relationships %}
+<div class="card">
+    <h3>Relationships ({{ relationships|length }})</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Related Organization</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Evidence Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rel in relationships %}
+            <tr>
+                <td>
+                    <a href="/organization/{{ rel.related_organization_id }}" class="link">
+                        {{ rel.related_org_name or rel.related_org_domain }}
+                    </a>
+                </td>
+                <td><span class="badge badge-warning">{{ rel.relationship_type }}</span></td>
+                <td>{{ rel.relationship_description or '-' }}</td>
+                <td>{{ rel.evidence_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if entities %}
+<div class="card">
+    <h3>Corporate Entities ({{ entities|length }})</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Entity Name</th>
+                <th>Type</th>
+                <th>Legal Name</th>
+                <th>Jurisdiction</th>
+                <th>Relationship</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in entities %}
+            <tr>
+                <td>
+                    <a href="/entity/{{ entity.entity_id }}" class="link">
+                        {{ entity.entity_name }}
+                    </a>
+                    {% if entity.is_primary %}
+                    <span class="badge badge-success">Primary</span>
+                    {% endif %}
+                </td>
+                <td>{{ entity.entity_type or '-' }}</td>
+                <td>{{ entity.legal_name or '-' }}</td>
+                <td>{{ entity.jurisdiction or '-' }}</td>
+                <td>{{ entity.relationship_type or '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}
+
+

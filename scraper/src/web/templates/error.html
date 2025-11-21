@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Error {{ error_code }} - BPO Intelligence Viewer{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Error {{ error_code }}</h2>
+    <div class="empty-state">
+        <p style="font-size: 1.2rem; margin-bottom: 1rem;">{{ error_message }}</p>
+        <a href="/" class="link" style="font-size: 1rem;">← Back to Organizations</a>
+    </div>
+</div>
+{% endblock %}
+

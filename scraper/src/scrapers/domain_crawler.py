@@ -18,6 +18,7 @@ from .base import BaseScraper
 from .file_scraper import FileScraper
 from ..parsers.link_extractor import LinkExtractor
 from ..parsers.boilerplate_detector import BoilerplateDetector
+from ..notifications.domain_notifier import DomainNotifier
 
 
 class DomainCrawler(BaseScraper):
@@ -28,7 +29,8 @@ class DomainCrawler(BaseScraper):
         config: Dict[str, Any],
         db_connection: asyncpg.Connection,
         max_depth: int = 3,
-        max_pages: int = 100
+        max_pages: int = 100,
+        max_duration_seconds: Optional[int] = None
     ):
         """
         Initialize domain crawler.
@@ -38,11 +40,16 @@ class DomainCrawler(BaseScraper):
             db_connection: Database connection
             max_depth: Maximum crawl depth
             max_pages: Maximum number of pages to crawl
+            max_duration_seconds: Maximum duration in seconds (None = no time limit)
         """
         super().__init__(config)
         self.db = db_connection
         self.max_depth = max_depth
         self.max_pages = max_pages
+        
+        # Set database connection for browser requirement caching
+        self.set_db_connection(db_connection)
+        self.max_duration_seconds = max_duration_seconds
         
         # Crawl state
         self.visited_urls: Set[str] = set()
@@ -60,6 +67,18 @@ class DomainCrawler(BaseScraper):
             self.file_scraper = FileScraper(db_connection, storage_path, config)
         else:
             self.file_scraper = None
+        
+        # Notification system if enabled
+        notification_config = config.get('notifications', {})
+        if notification_config.get('enabled', False):
+            webhook_url = notification_config.get('webhook_url', '')
+            self.notifier = DomainNotifier(
+                db_connection=db_connection,
+                webhook_url=webhook_url if webhook_url else None,
+                webhook_enabled=bool(webhook_url)
+            )
+        else:
+            self.notifier = None
     
     def _extract_links(self, html_content: str, base_url: str) -> Set[str]:
         """
@@ -155,6 +174,13 @@ class DomainCrawler(BaseScraper):
         }
         
         while self.to_visit and self.crawled_count < self.max_pages:
+            # Check time limit
+            if self.max_duration_seconds:
+                elapsed = (datetime.now() - results['start_time']).total_seconds()
+                if elapsed >= self.max_duration_seconds:
+                    logger.info(f"Time limit reached ({self.max_duration_seconds}s), stopping crawl")
+                    break
+            
             url, depth = self.to_visit.popleft()
             
             if depth > self.max_depth:
@@ -212,16 +238,22 @@ class DomainCrawler(BaseScraper):
             # Log content info
             logger.debug(f"Fetched {url}: {len(html_content)} bytes, status {fetch_result.get('status_code')}")
             
-            # Check for boilerplate (skip if too much boilerplate)
-            content_ratio = self.boilerplate_detector.get_content_ratio(html_content)
-            logger.debug(f"Content ratio for {url}: {content_ratio:.2%}")
-            if content_ratio < 0.1:  # Less than 10% main content
-                logger.info(f"Skipping page with too much boilerplate ({content_ratio:.2%}): {url}")
-                # Don't skip - might be a small page, just log it
-                # continue
-            
             # Extract main content
-            main_content = self.boilerplate_detector.extract_main_content(html_content)
+            # If browser was used, we may have text_content already extracted
+            if fetch_result.get('browser_used') and fetch_result.get('text_content'):
+                # Use the text content from browser (already includes shadow DOM and iframes)
+                main_content = fetch_result['text_content']
+                logger.debug(f"Using browser-extracted text content ({len(main_content)} chars)")
+            else:
+                # Use standard extraction
+                main_content = self.boilerplate_detector.extract_main_content(html_content)
+            
+            # Check for boilerplate (log but don't skip)
+            if html_content:
+                content_ratio = self.boilerplate_detector.get_content_ratio(html_content)
+                logger.debug(f"Content ratio for {url}: {content_ratio:.2%}")
+                if content_ratio < 0.1:  # Less than 10% main content
+                    logger.info(f"Low content ratio ({content_ratio:.2%}): {url} - may need browser rendering")
             
             # Save to database
             await self._save_page(url, fetch_result, main_content, html_content)
@@ -251,6 +283,19 @@ class DomainCrawler(BaseScraper):
         results['duration_seconds'] = duration
         
         logger.info(f"Crawl completed: {results['pages_crawled']} pages, {results['pages_failed']} failed, {results['files_found']} files found in {duration:.1f}s")
+        
+        # Send notification if enabled
+        if self.notifier:
+            try:
+                notification_result = await self.notifier.notify_domain_completion(
+                    domain=base_domain,
+                    crawl_results=results
+                )
+                results['notification'] = notification_result
+                logger.info(f"Notification sent for {base_domain}: Quality={notification_result.get('quality_metrics', {}).get('quality_score', 'N/A')}")
+            except Exception as e:
+                logger.error(f"Error sending notification for {base_domain}: {e}")
+                results['notification'] = {'success': False, 'error': str(e)}
         
         return results
     
@@ -300,7 +345,7 @@ class DomainCrawler(BaseScraper):
                 'html_length': len(html_content)
             }
             
-            await self.db.execute(
+            result = await self.db.execute(
                 query,
                 url,
                 domain,
@@ -312,10 +357,31 @@ class DomainCrawler(BaseScraper):
                 fetch_result.get('response_time'),
                 fetch_result['success'],
                 fetch_result.get('error'),
-                False,  # proxy_used
+                fetch_result.get('proxy_used', False),  # proxy_used
                 0.0,  # cost
                 json.dumps(metadata_dict)  # Convert dict to JSON string for JSONB
             )
+            
+            # Get scraped_site_id for evidence tracking
+            scraped_site_id = None
+            if fetch_result['success']:
+                site_query = "SELECT id FROM scraped_sites WHERE url = $1"
+                scraped_site_id = await self.db.fetchval(site_query, url)
+            
+            # Extract and store organization facts if page was successfully scraped
+            if fetch_result['success'] and html_content:
+                try:
+                    from ..extractors.entity_extractor import extract_and_store_organization_facts
+                    # Use asyncio to run the async function
+                    await extract_and_store_organization_facts(
+                        self.db,
+                        domain,
+                        url,
+                        html_content,
+                        scraped_site_id
+                    )
+                except Exception as extract_error:
+                    logger.warning(f"Error extracting organization facts from {url}: {extract_error}")
             
         except Exception as e:
             logger.error(f"Error saving page {url} to database: {e}")

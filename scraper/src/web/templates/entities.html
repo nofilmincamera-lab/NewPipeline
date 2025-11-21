@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Corporate Entities - BPO Intelligence Viewer{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Corporate Entities ({{ entities|length }})</h2>
+    
+    {% if entities %}
+    <table>
+        <thead>
+            <tr>
+                <th>Entity Name</th>
+                <th>Type</th>
+                <th>Legal Name</th>
+                <th>Jurisdiction</th>
+                <th>Status</th>
+                <th>Organizations</th>
+                <th>Parents</th>
+                <th>Children</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in entities %}
+            <tr>
+                <td>
+                    <a href="/entity/{{ entity.id }}" class="link">
+                        {{ entity.entity_name }}
+                    </a>
+                </td>
+                <td>{{ entity.entity_type or '-' }}</td>
+                <td>{{ entity.legal_name or '-' }}</td>
+                <td>{{ entity.jurisdiction or '-' }}</td>
+                <td>
+                    <span class="badge badge-{{ 'success' if entity.status == 'Active' else 'warning' }}">
+                        {{ entity.status }}
+                    </span>
+                </td>
+                <td>{{ entity.org_count or 0 }}</td>
+                <td>{{ entity.parent_count or 0 }}</td>
+                <td>{{ entity.child_count or 0 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <p>No corporate entities found.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+

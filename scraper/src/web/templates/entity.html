@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}{{ entity.entity_name }} - BPO Intelligence Viewer{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>{{ entity.entity_name }}</h2>
+    
+    <div class="info-grid">
+        {% if entity.legal_name %}
+        <div class="info-item">
+            <div class="info-label">Legal Name</div>
+            <div class="info-value">{{ entity.legal_name }}</div>
+        </div>
+        {% endif %}
+        {% if entity.entity_type %}
+        <div class="info-item">
+            <div class="info-label">Type</div>
+            <div class="info-value">
+                <span class="badge badge-info">{{ entity.entity_type }}</span>
+            </div>
+        </div>
+        {% endif %}
+        {% if entity.jurisdiction %}
+        <div class="info-item">
+            <div class="info-label">Jurisdiction</div>
+            <div class="info-value">{{ entity.jurisdiction }}</div>
+        </div>
+        {% endif %}
+        {% if entity.status %}
+        <div class="info-item">
+            <div class="info-label">Status</div>
+            <div class="info-value">
+                <span class="badge badge-{{ 'success' if entity.status == 'Active' else 'warning' }}">
+                    {{ entity.status }}
+                </span>
+            </div>
+        </div>
+        {% endif %}
+        {% if entity.founded_year %}
+        <div class="info-item">
+            <div class="info-label">Founded</div>
+            <div class="info-value">{{ entity.founded_year }}</div>
+        </div>
+        {% endif %}
+        {% if entity.website %}
+        <div class="info-item">
+            <div class="info-label">Website</div>
+            <div class="info-value">
+                <a href="{{ entity.website }}" target="_blank" class="link">{{ entity.website }}</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    {% if entity.headquarters_country %}
+    <div class="info-item" style="margin-top: 1rem;">
+        <div class="info-label">Headquarters</div>
+        <div class="info-value">
+            {% if entity.headquarters_city %}{{ entity.headquarters_city }}, {% endif %}
+            {{ entity.headquarters_country }}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% if parents %}
+<div class="card">
+    <h3>Parent Entities ({{ parents|length }})</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Parent Entity</th>
+                <th>Relationship Type</th>
+                <th>Ownership %</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for parent in parents %}
+            <tr>
+                <td>
+                    <a href="/entity/{{ parent.parent_entity_id }}" class="link">
+                        {{ parent.parent_name }}
+                    </a>
+                </td>
+                <td><span class="badge badge-warning">{{ parent.relationship_type }}</span></td>
+                <td>{{ parent.ownership_percentage or '-' }}</td>
+                <td>{{ parent.relationship_start_date or '-' }}</td>
+                <td>{{ parent.relationship_end_date or '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if children %}
+<div class="card">
+    <h3>Child Entities ({{ children|length }})</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Child Entity</th>
+                <th>Relationship Type</th>
+                <th>Ownership %</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for child in children %}
+            <tr>
+                <td>
+                    <a href="/entity/{{ child.child_entity_id }}" class="link">
+                        {{ child.child_name }}
+                    </a>
+                </td>
+                <td><span class="badge badge-warning">{{ child.relationship_type }}</span></td>
+                <td>{{ child.ownership_percentage or '-' }}</td>
+                <td>{{ child.relationship_start_date or '-' }}</td>
+                <td>{{ child.relationship_end_date or '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if organizations %}
+<div class="card">
+    <h3>Linked Organizations ({{ organizations|length }})</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Organization</th>
+                <th>Domain</th>
+                <th>Type</th>
+                <th>Relationship</th>
+                <th>Primary</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for org in organizations %}
+            <tr>
+                <td>
+                    <a href="/organization/{{ org.organization_id }}" class="link">
+                        {{ org.canonical_name or org.domain }}
+                    </a>
+                </td>
+                <td>{{ org.domain }}</td>
+                <td>{{ org.organizational_type or '-' }}</td>
+                <td>{{ org.relationship_type or '-' }}</td>
+                <td>
+                    {% if org.is_primary %}
+                    <span class="badge badge-success">Yes</span>
+                    {% else %}
+                    <span class="badge">No</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}
+
+
