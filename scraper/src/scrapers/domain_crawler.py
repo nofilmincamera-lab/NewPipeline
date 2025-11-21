@@ -171,25 +171,53 @@ class DomainCrawler(BaseScraper):
                 
                 # Skip 404s
                 if fetch_result.get('status_code') == 404:
-                    logger.debug(f"Skipping 404: {url}")
+                    logger.info(f"Skipping 404: {url}")
                     continue
                 
-                logger.warning(f"Failed to fetch {url}: {fetch_result.get('error')}")
+                logger.warning(f"Failed to fetch {url}: {fetch_result.get('error')} (Status: {fetch_result.get('status_code', 'N/A')})")
                 continue
+            
+            # Check if URL redirected to different domain (normalize http/https)
+            final_url = fetch_result.get('url', url)
+            final_domain = self._get_domain(final_url)
+            if final_domain != base_domain:
+                logger.info(f"URL redirected to different domain: {url} -> {final_url} ({final_domain} != {base_domain})")
+                continue
+            
+            # Update URL to final URL if redirected
+            if final_url != url:
+                url = final_url
+                logger.debug(f"Following redirect: {url}")
             
             # Check if it's actually HTML
             content_type = fetch_result.get('headers', {}).get('Content-Type', '').lower()
-            if 'text/html' not in content_type and 'application/xhtml' not in content_type:
-                logger.debug(f"Skipping non-HTML content: {url} ({content_type})")
+            html_content = fetch_result['content']
+            
+            # If no content-type header, check if content looks like HTML
+            is_html = False
+            if content_type:
+                is_html = 'text/html' in content_type or 'application/xhtml' in content_type
+            else:
+                # No content-type header - check if content looks like HTML
+                html_lower = html_content[:500].lower() if html_content else ''
+                is_html = '<html' in html_lower or '<!doctype' in html_lower or '<body' in html_lower
+            
+            if not is_html:
+                logger.info(f"Skipping non-HTML content: {url} (Content-Type: {content_type or 'N/A'})")
                 continue
             
             html_content = fetch_result['content']
             
+            # Log content info
+            logger.debug(f"Fetched {url}: {len(html_content)} bytes, status {fetch_result.get('status_code')}")
+            
             # Check for boilerplate (skip if too much boilerplate)
             content_ratio = self.boilerplate_detector.get_content_ratio(html_content)
+            logger.debug(f"Content ratio for {url}: {content_ratio:.2%}")
             if content_ratio < 0.1:  # Less than 10% main content
-                logger.debug(f"Skipping page with too much boilerplate ({content_ratio:.2%}): {url}")
-                continue
+                logger.info(f"Skipping page with too much boilerplate ({content_ratio:.2%}): {url}")
+                # Don't skip - might be a small page, just log it
+                # continue
             
             # Extract main content
             main_content = self.boilerplate_detector.extract_main_content(html_content)

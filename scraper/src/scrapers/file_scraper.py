@@ -136,85 +136,76 @@ class FileScraper:
         
         # Create file record
         original_filename = self._extract_filename(file_url)
-        file_uuid = uuid4()
-        stored_filename = f"{file_uuid}{self._get_extension(file_type)}"
         
-        # Generate expected file path
-        date_str = datetime.now().strftime('%Y-%m-%d')
-        expected_path = f"{file_type}/{domain}/{date_str}/{stored_filename}"
+        # Download file first (downloader will generate UUID filename)
+        download_result = await asyncio.to_thread(
+            self.downloader.download_file,
+            file_url, file_type, domain, session
+        )
         
+        if not download_result['success']:
+            # Create record for failed download
+            file_data = DownloadedFile(
+                source_url=source_url,
+                file_url=file_url,
+                domain=domain,
+                file_type=file_type,
+                original_filename=original_filename,
+                stored_filename="",
+                file_path="",
+                download_status='failed',
+                download_error=download_result.get('error'),
+                parent_page_url=source_url
+            )
+            file_id = await self.db.create_file_record(file_data)
+            logger.error(f"Failed to download {file_url}: {download_result.get('error')}")
+            return {
+                'file_url': file_url,
+                'status': 'failed',
+                'file_id': file_id,
+                'error': download_result.get('error')
+            }
+        
+        # Check for duplicate hash if deduplication enabled
+        if self.enable_deduplication and download_result['file_hash']:
+            duplicate_id = await self.db.check_hash_exists(download_result['file_hash'])
+            if duplicate_id:
+                logger.info(f"Duplicate file detected (hash: {download_result['file_hash'][:16]}...), existing ID: {duplicate_id}")
+                return {
+                    'file_url': file_url,
+                    'status': 'duplicate',
+                    'file_id': duplicate_id
+                }
+        
+        # Create record for successful download
         file_data = DownloadedFile(
             source_url=source_url,
             file_url=file_url,
             domain=domain,
             file_type=file_type,
             original_filename=original_filename,
-            stored_filename=stored_filename,
-            file_path=expected_path,
-            download_status='pending',
+            stored_filename=download_result['stored_filename'],
+            file_path=download_result['file_path'],
+            file_size=download_result['file_size'],
+            file_hash=download_result['file_hash'],
+            content_type=download_result['content_type'],
+            download_status='downloaded',
+            downloaded_at=datetime.now(),
             parent_page_url=source_url
         )
         
         # Insert record
         file_id = await self.db.create_file_record(file_data)
-        logger.info(f"Created file record (ID: {file_id}) for {file_url}")
+        logger.info(f"Successfully downloaded {file_url} (ID: {file_id})")
         
-        # Download file (modify downloader to use our filename)
-        # We need to pass the stored_filename to the downloader
-        download_result = await asyncio.to_thread(
-            self._download_with_filename,
-            file_url, file_type, domain, stored_filename, session
-        )
-        
-        # Update record with download results
-        if download_result['success']:
-            # Check for duplicate hash if deduplication enabled
-            if self.enable_deduplication and download_result['file_hash']:
-                duplicate_id = await self.db.check_hash_exists(download_result['file_hash'])
-                if duplicate_id and duplicate_id != file_id:
-                    logger.info(f"Duplicate file detected (hash: {download_result['file_hash'][:16]}...), existing ID: {duplicate_id}")
-                    # Mark as duplicate in metadata
-                    metadata = {'duplicate_of': duplicate_id}
-                    await self.db.conn.execute(
-                        "UPDATE downloaded_files SET metadata = $1 WHERE id = $2",
-                        metadata, file_id
-                    )
-            
-            await self.db.update_file_record(
-                file_id=file_id,
-                download_status='downloaded',
-                file_size=download_result['file_size'],
-                file_hash=download_result['file_hash'],
-                content_type=download_result['content_type'],
-                downloaded_at=datetime.now()
-            )
-            
-            logger.info(f"Successfully downloaded {file_url} (ID: {file_id})")
-            
-            return {
-                'file_url': file_url,
-                'status': 'downloaded',
-                'file_id': file_id,
-                'file_path': updated_path,
-                'file_size': download_result['file_size'],
-                'file_hash': download_result['file_hash']
-            }
-        else:
-            # Update with error
-            await self.db.update_file_record(
-                file_id=file_id,
-                download_status='failed',
-                download_error=download_result['error']
-            )
-            
-            logger.error(f"Failed to download {file_url}: {download_result['error']}")
-            
-            return {
-                'file_url': file_url,
-                'status': 'failed',
-                'file_id': file_id,
-                'error': download_result['error']
-            }
+        return {
+            'file_url': file_url,
+            'status': 'downloaded',
+            'file_id': file_id,
+            'file_path': download_result['file_path'],
+            'file_size': download_result['file_size'],
+            'file_hash': download_result['file_hash']
+        }
     
     def _get_file_type(self, url: str) -> Optional[str]:
         """Get file type from URL."""
@@ -242,35 +233,4 @@ class FileScraper:
             filename = filename.split('?')[0]
         return filename or "file"
     
-    def _download_with_filename(
-        self,
-        file_url: str,
-        file_type: str,
-        domain: str,
-        stored_filename: str,
-        session: Optional[requests.Session] = None
-    ) -> Dict[str, Any]:
-        """Download file with specific filename."""
-        # Temporarily modify downloader to use our filename
-        # We'll need to update the downloader or handle this differently
-        result = self.downloader.download_file(
-            file_url=file_url,
-            file_type=file_type,
-            domain=domain,
-            session=session
-        )
-        
-        # Rename file to use UUID if download was successful
-        if result['success'] and result['file_path']:
-            from pathlib import Path
-            old_path = self.storage_path / result['file_path']
-            if old_path.exists():
-                # Extract directory from old path
-                new_path = old_path.parent / stored_filename
-                old_path.rename(new_path)
-                # Update result with new path
-                result['file_path'] = str(new_path.relative_to(self.storage_path))
-                result['stored_filename'] = stored_filename
-        
-        return result
 

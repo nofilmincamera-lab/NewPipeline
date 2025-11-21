@@ -8,13 +8,12 @@ import os
 import sys
 from pathlib import Path
 
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent / 'src'))
+# Add parent to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import yaml
 import asyncpg
 from loguru import logger
-from dotenv import load_dotenv
 
 from src.scrapers.domain_crawler import DomainCrawler
 
@@ -22,7 +21,7 @@ from src.scrapers.domain_crawler import DomainCrawler
 async def main():
     """Run a test crawl."""
     # Load configuration
-    config_path = Path(__file__).parent / 'config' / 'scraper_config.yaml'
+    config_path = Path(__file__).parent.parent / 'config' / 'scraper_config.yaml'
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
     
@@ -54,7 +53,7 @@ async def main():
             test_url = sys.argv[1]
         else:
             # Read first URL from sites file
-            sites_file = Path(__file__).parent / 'config' / 'bpo_sites.txt'
+            sites_file = Path(__file__).parent.parent / 'config' / 'bpo_sites.txt'
             with open(sites_file, 'r') as f:
                 for line in f:
                     line = line.strip()
@@ -65,7 +64,7 @@ async def main():
                     logger.error("No URLs found in bpo_sites.txt")
                     return
         
-        logger.info(f"Starting test crawl of: {test_url}")
+        logger.info(f"Starting full-scale test crawl of: {test_url}")
         
         # Create crawler (full-scale test)
         crawler = DomainCrawler(

@@ -55,13 +55,26 @@ class BoilerplateDetector:
         Returns:
             True if element appears to be boilerplate
         """
+        if element is None:
+            return False
+        
+        # Check if it's a Tag (not NavigableString or other types)
+        if not hasattr(element, 'name') or element.name is None:
+            return False
+        
         # Check tag name
         if element.name in self.BOILERPLATE_TAGS:
             return True
         
         # Check class and id attributes
-        class_attr = ' '.join(element.get('class', []))
-        id_attr = element.get('id', '')
+        try:
+            class_list = element.get('class', [])
+            class_attr = ' '.join(class_list) if isinstance(class_list, list) else str(class_list)
+            id_attr = element.get('id', '') or ''
+        except (AttributeError, TypeError):
+            class_attr = ''
+            id_attr = ''
+        
         combined_attr = f"{class_attr} {id_attr}".lower()
         
         # Check against patterns
@@ -90,7 +103,7 @@ class BoilerplateDetector:
         # Remove boilerplate elements
         removed_count = 0
         for element in soup.find_all():
-            if self.is_boilerplate(element):
+            if element and hasattr(element, 'name') and self.is_boilerplate(element):
                 element.decompose()
                 removed_count += 1
         
@@ -139,7 +152,7 @@ class BoilerplateDetector:
         if main_content:
             # Remove remaining boilerplate
             for element in main_content.find_all():
-                if self.is_boilerplate(element):
+                if element and hasattr(element, 'name') and self.is_boilerplate(element):
                     element.decompose()
             
             return main_content.get_text(separator=' ', strip=True)

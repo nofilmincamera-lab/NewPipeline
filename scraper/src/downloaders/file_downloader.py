@@ -93,9 +93,12 @@ class FileDownloader:
         domain_dir = self.storage_path / file_type / domain / date_str
         domain_dir.mkdir(parents=True, exist_ok=True)
         
-        # Generate unique filename (UUID will be added by caller)
+        # Generate unique filename using UUID
+        from uuid import uuid4
         original_filename = self._extract_filename(file_url)
-        stored_filename = f"{original_filename}"
+        file_uuid = uuid4()
+        file_ext = self._get_extension(file_type)
+        stored_filename = f"{file_uuid}{file_ext}"
         
         file_path = domain_dir / stored_filename
         
@@ -222,6 +225,10 @@ class FileDownloader:
             filename = "file"
         
         return filename
+    
+    def _get_extension(self, file_type: str) -> str:
+        """Get file extension for file type."""
+        return f".{file_type}"
     
     def _is_valid_file_type(self, content_type: str, expected_type: str) -> bool:
         """Check if content type matches expected file type."""

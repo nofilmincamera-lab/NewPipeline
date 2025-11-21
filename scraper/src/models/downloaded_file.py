@@ -16,7 +16,7 @@ class DownloadedFile(BaseModel):
     source_url: str
     file_url: str
     domain: str
-    file_type: str = Field(..., regex='^(pdf|doc|docx)$')
+    file_type: str = Field(..., pattern='^(pdf|doc|docx)$')
     original_filename: Optional[str] = None
     stored_filename: str
     file_path: str
@@ -24,9 +24,9 @@ class DownloadedFile(BaseModel):
     file_hash: Optional[str] = None
     content_type: Optional[str] = None
     parent_page_url: Optional[str] = None
-    download_status: str = Field(default='pending', regex='^(pending|downloaded|failed)$')
+    download_status: str = Field(default='pending', pattern='^(pending|downloaded|failed)$')
     download_error: Optional[str] = None
-    ocr_status: str = Field(default='pending', regex='^(pending|processing|completed|failed)$')
+    ocr_status: str = Field(default='pending', pattern='^(pending|processing|completed|failed)$')
     ocr_error: Optional[str] = None
     metadata: Optional[Dict[str, Any]] = None
     downloaded_at: Optional[datetime] = None

@@ -152,7 +152,7 @@ class BaseScraper(ABC):
                 
                 response_time = time.time() - start_time
                 
-                # Check status code
+                # Check status code - allow 403 but log it
                 if response.status_code == 404:
                     logger.warning(f"404 Not Found: {url}")
                     return {
@@ -164,6 +164,11 @@ class BaseScraper(ABC):
                         'response_time': response_time,
                         'error': '404 Not Found'
                     }
+                
+                # 403 is often just bot protection, try to continue
+                if response.status_code == 403:
+                    logger.warning(f"403 Forbidden (may be bot protection): {url}")
+                    # Continue processing - might still have content
                 
                 # Check content size
                 content_length = response.headers.get('Content-Length')
@@ -204,7 +209,9 @@ class BaseScraper(ABC):
                 if 'text/html' not in content_type and 'application/xhtml' not in content_type:
                     logger.debug(f"Non-HTML content type {content_type} for {url}")
                 
-                response.raise_for_status()
+                # Don't raise for 403 - might still have content (bot protection)
+                if response.status_code != 403:
+                    response.raise_for_status()
                 
                 return {
                     'success': True,
