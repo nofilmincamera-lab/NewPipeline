@@ -1,0 +1,20 @@
+# BPO Industry Websites - Sample List
+# Add your 60 sites here (one per line)
+# Lines starting with # are ignored
+
+# Major BPO Providers (examples - replace with your actual list)
+https://www.accenture.com
+https://www.concentrix.com
+https://www.teleperformance.com
+https://www.ttec.com
+https://www.sykes.com
+https://www.convergys.com
+https://www.genpact.com
+https://www.wipro.com
+https://www.tcs.com
+https://www.infosys.com
+
+# Add your remaining 50+ sites below:
+# https://example-bpo-site1.com
+# https://example-bpo-site2.com
+# ... etc
